@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Head from 'next/head';
+import PropTypes from 'prop-types';
 
 import Button from '../components/atoms/Button/Button';
 import Flex from '../components/atoms/Flex/Flex';
@@ -15,7 +16,13 @@ class Sheet extends Component {
     dispatch(sheetFetch(query.slug));
   }
 
+  static propTypes = {
+    sheet: PropTypes.shape().isRequired,
+  }
+
   render() {
+    const { sheet } = this.props;
+
     return (
       <React.Fragment>
         <Head>
@@ -31,6 +38,17 @@ class Sheet extends Component {
                 Back
               </Button>
             </Flex>
+          </Margin>
+          <Margin>
+            <Text bold>Name: </Text>
+            <Text>{sheet.title}</Text>
+            <br />
+            <Text bold>Date: </Text>
+            <Text>{sheet.date}</Text>
+            <br />
+            <Text bold>Published: </Text>
+            <Text>{sheet.isPublished ? 'Yes' : 'No'}</Text>
+            <hr />
           </Margin>
         </React.Fragment>
       </React.Fragment>

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-
 import PropTypes from 'prop-types';
+
 import { getSheets, getSheetsLoading, getSheetsError } from '../../selectors/sheets';
 import { getSheetDeleteError, getSheetDeleteSuccess } from '../../selectors/sheet';
 
@@ -41,7 +41,7 @@ class SheetContainer extends Component {
         {sheets.map(sheet => (
           <ListItem key={sheet.id}>
             <Flex justifyContent="space-between">
-              <Text>
+              <Text as="a" href={`/sheet/${sheet.id}`}>
                 {sheet.title}
               </Text>
               <Button onClick={deleteSheet(sheet.id)}>
@@ -63,8 +63,12 @@ class SheetContainer extends Component {
       <React.Fragment>
         <Margin>
           <Flex justifyContent="space-between">
-            <Text as="h2" bold>Sheets</Text>
-            <Button as="a" href="/create" secondary>Create sheet</Button>
+            <Text as="h2" bold>
+              Sheets
+            </Text>
+            <Button as="a" href="/create" secondary>
+              Create sheet
+            </Button>
           </Flex>
         </Margin>
         {fetchError && (
