@@ -28,19 +28,21 @@ export const initialSheetState = {
       success: {},
     },
   },
-  sheets: [],
-  sheetsError: false,
-  sheetsLoading: false,
+  sheets: {
+    error: false,
+    loading: false,
+    success: [],
+  },
 };
 
 export default (state = initialSheetState, action) => {
   switch (action.type) {
     case SHEETS_FETCH_REQUESTED:
-      return { ...state, sheets: action.payload, sheetsLoading: true };
+      return { ...state, sheets: { error: false, loading: true, success: [] } };
     case SHEETS_FETCH_SUCCESS:
-      return { ...state, sheets: action.payload, sheetsLoading: false };
+      return { ...state, sheets: { error: false, loading: false, success: action.payload } };
     case SHEETS_FETCH_ERROR:
-      return { ...state, sheetsError: true, sheetsLoading: false };
+      return { ...state, sheets: { error: true, loading: false, success: [] } };
     case SHEET_DELETE_ERROR:
       return { ...state, sheet: { delete: { error: true, success: false } }, sheetsLoading: false };
     case SHEET_DELETE_SUCCESS:
