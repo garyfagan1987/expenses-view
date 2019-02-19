@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects';
 
-import { sheetCreateError, sheetCreateSuccess } from '../../actions/sheets/create';
+import { sheetCreateError, sheetCreateSuccess } from '../../actions/sheet/create';
 import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 

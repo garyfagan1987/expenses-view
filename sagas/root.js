@@ -1,8 +1,8 @@
 import 'isomorphic-unfetch';
 import { all, takeLatest } from 'redux-saga/effects';
 
-import { SHEET_CREATE, SHEET_DELETE, SHEETS_FETCH_REQUESTED } from '../actions/sheets/actions';
-import { SHEET_FETCH_REQUESTED } from '../actions/sheet/actions';
+import { SHEETS_FETCH_REQUESTED } from '../actions/sheets/actions';
+import { SHEET_CREATE, SHEET_DELETE, SHEET_FETCH_REQUESTED } from '../actions/sheet/actions';
 import createSheet from './sheets/create';
 import deleteSheet from './sheets/delete';
 import loadSheet from './sheet/sheet';

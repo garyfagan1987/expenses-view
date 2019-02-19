@@ -6,7 +6,7 @@ import {
   getSheetDeleteError, getSheetDeleteSuccess, getSheets, getSheetsLoading, getSheetsError,
 } from '../../selectors/sheets';
 
-import { sheetDelete } from '../../actions/sheets/delete';
+import { sheetDelete } from '../../actions/sheet/delete';
 import Alert from '../../components/atoms/Alert/Alert';
 import Button from '../../components/atoms/Button/Button';
 import colors from '../../styles/colors';

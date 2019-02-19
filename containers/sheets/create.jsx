@@ -4,7 +4,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
 
-import { sheetCreate } from '../../actions/sheets/create';
+import { sheetCreate } from '../../actions/sheet/create';
 import { getSheetCreateError, getSheetCreateSuccess } from '../../selectors/sheets';
 import Alert from '../../components/atoms/Alert/Alert';
 import Button from '../../components/atoms/Button/Button';

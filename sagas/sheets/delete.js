@@ -1,7 +1,7 @@
 import { put } from 'redux-saga/effects';
 
 import { sheetsFetch } from '../../actions/sheets/sheets';
-import { sheetDeleteError, sheetDeleteSuccess } from '../../actions/sheets/delete';
+import { sheetDeleteError, sheetDeleteSuccess } from '../../actions/sheet/delete';
 import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 
