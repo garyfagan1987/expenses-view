@@ -24,6 +24,10 @@ export const initialSheetState = {
       error: false,
       success: false,
     },
+    fetch: {
+      error: true,
+      success: {},
+    },
   },
   sheets: [],
   sheetsError: false,
@@ -46,12 +50,10 @@ export default (state = initialSheetState, action) => {
       return { ...state, sheet: { create: { error: true, success: false } }, sheetsLoading: false };
     case SHEET_CREATE_SUCCESS:
       return { ...state, sheet: { create: { error: false, success: true } }, sheetsLoading: false };
-    case SHEET_FETCH_REQUESTED:
-      return { ...state, sheet: action.payload };
     case SHEET_FETCH_SUCCESS:
-      return { ...state, sheet: action.payload };
+      return { ...state, sheet: { fetch: { error: false, success: action.payload } } };
     case SHEET_FETCH_ERROR:
-      return { ...state, sheetError: true };
+      return { ...state, sheet: { fetch: { error: true, success: {} } } };
     default:
       return state;
   }
