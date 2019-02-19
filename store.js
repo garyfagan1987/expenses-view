@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer, { initialSheetState } from './reducers/sheets';
+import rootReducer, { initialSheetState } from './reducers';
 import rootSaga from './sagas/root';
 
 const { composeWithDevTools } = require('redux-devtools-extension');
