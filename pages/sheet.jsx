@@ -7,7 +7,7 @@ import Flex from '../components/atoms/Flex/Flex';
 import Margin from '../components/atoms/Margin/Margin';
 import Text from '../components/atoms/Text/Text';
 
-import { getSheetError, getSheetSuccess } from '../selectors/sheet';
+import { getSheetFetchError, getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetFetch } from '../actions/sheet/sheet';
 
 class Sheet extends Component {
@@ -39,8 +39,8 @@ class Sheet extends Component {
 }
 
 const mapStateToProps = state => ({
-  error: getSheetError(state),
-  sheet: getSheetSuccess(state),
+  error: getSheetFetchError(state),
+  sheet: getSheetFetchSuccess(state),
 });
 
 export default connect(
