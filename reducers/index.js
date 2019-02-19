@@ -16,13 +16,15 @@ import {
 
 export const initialSheetState = {
   sheet: {
+    create: {
+      error: false,
+      success: false,
+    },
     delete: {
       error: false,
       success: false,
     },
   },
-  sheetCreateError: false,
-  sheetCreateSuccess: false,
   sheets: [],
   sheetsError: false,
   sheetsLoading: false,
@@ -41,9 +43,9 @@ export default (state = initialSheetState, action) => {
     case SHEET_DELETE_SUCCESS:
       return { ...state, sheet: { delete: { error: false, success: true } }, sheetsLoading: false };
     case SHEET_CREATE_ERROR:
-      return { ...state, sheetCreateError: true, sheetsLoading: false };
+      return { ...state, sheet: { create: { error: true, success: false } }, sheetsLoading: false };
     case SHEET_CREATE_SUCCESS:
-      return { ...state, sheetCreateSuccess: true, sheetsLoading: false };
+      return { ...state, sheet: { create: { error: false, success: true } }, sheetsLoading: false };
     case SHEET_FETCH_REQUESTED:
       return { ...state, sheet: action.payload };
     case SHEET_FETCH_SUCCESS:
