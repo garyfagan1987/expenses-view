@@ -2,9 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
-import {
-  getSheetDeleteError, getSheetDeleteSuccess, getSheets, getSheetsLoading, getSheetsError,
-} from '../../selectors/sheets';
+import { getSheets, getSheetsLoading, getSheetsError } from '../../selectors/sheets';
+import { getSheetDeleteError, getSheetDeleteSuccess } from '../../selectors/sheet';
 
 import { sheetDelete } from '../../actions/sheet/delete';
 import Alert from '../../components/atoms/Alert/Alert';

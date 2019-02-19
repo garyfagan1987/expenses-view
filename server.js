@@ -12,7 +12,7 @@ app.prepare().then(() => {
   server.use(compression());
 
   server.get('/sheet/:slug', (req, res) => app.render(req, res, '/sheet', { slug: req.params.slug }));
-  
+
   server.get('*', (req, res) => handle(req, res));
 
   server.listen(port, (err) => {
