@@ -16,7 +16,9 @@ import {
 
 export const initialSheetState = {
   sheetCreateError: false,
+  sheetCreateSuccess: false,
   sheetDeleteError: false,
+  sheetDeleteSuccess: false,
   sheets: [],
   sheetsError: false,
   sheetsLoading: false,
