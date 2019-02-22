@@ -1,67 +1,22 @@
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Head from 'next/head';
-import PropTypes from 'prop-types';
 
-import Button from '../components/atoms/Button/Button';
-import Flex from '../components/atoms/Flex/Flex';
-import Margin from '../components/atoms/Margin/Margin';
-import Text from '../components/atoms/Text/Text';
-
-import { getSheetFetchError, getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetFetch } from '../actions/sheet/sheet';
+import UpdateSheetContainer from '../containers/sheets/update';
 
-class Sheet extends Component {
+export default class Home extends Component {
   static async getInitialProps({ query, store: { dispatch } }) {
     dispatch(sheetFetch(query.slug));
   }
 
-  static propTypes = {
-    sheet: PropTypes.shape().isRequired,
-  }
-
   render() {
-    const { sheet } = this.props;
-
     return (
       <React.Fragment>
         <Head>
-          <title>Sheet</title>
+          <title>Sheets</title>
         </Head>
-        <React.Fragment>
-          <Margin>
-            <Flex justifyContent="space-between">
-              <Text as="h2" bold>
-                Sheet
-              </Text>
-              <Button as="a" href="/" secondary>
-                Back
-              </Button>
-            </Flex>
-          </Margin>
-          <Margin>
-            <Text bold>Name: </Text>
-            <Text>{sheet.title}</Text>
-            <br />
-            <Text bold>Date: </Text>
-            <Text>{sheet.date}</Text>
-            <br />
-            <Text bold>Published: </Text>
-            <Text>{sheet.isPublished ? 'Yes' : 'No'}</Text>
-            <hr />
-          </Margin>
-        </React.Fragment>
+        <UpdateSheetContainer />
       </React.Fragment>
     );
   }
 }
-
-const mapStateToProps = state => ({
-  error: getSheetFetchError(state),
-  sheet: getSheetFetchSuccess(state),
-});
-
-export default connect(
-  mapStateToProps,
-  null,
-)(Sheet);

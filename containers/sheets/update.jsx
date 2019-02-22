@@ -3,9 +3,12 @@ import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Yup from 'yup';
+import dayjs from 'dayjs';
 
-import { sheetCreate } from '../../actions/sheet/create';
-import { getSheetCreateError, getSheetCreateSuccess } from '../../selectors/sheet';
+import { sheetUpdate } from '../../actions/sheet/update';
+import {
+  getSheetFetchError, getSheetFetchSuccess, getSheetUpdateError, getSheetUpdateSuccess,
+} from '../../selectors/sheet';
 import Alert from '../../components/atoms/Alert/Alert';
 import Button from '../../components/atoms/Button/Button';
 import colors from '../../styles/colors';
@@ -15,41 +18,46 @@ import Label from '../../components/atoms/Label/Label';
 import Margin from '../../components/atoms/Margin/Margin';
 import Text from '../../components/atoms/Text/Text';
 
+// @TODO: move to a shared place
 const validation = Yup.object().shape({
   date: Yup.date().required(),
+  isPublished: Yup.boolean(),
   title: Yup.string().required(),
 });
 
-const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSuccess }) => (
+const UpdateSheetContainer = ({
+  sheet, updateSheet, updateSheetError, updateSheetSuccess,
+}) => (
   <div>
     <Margin>
       <Flex justifyContent="space-between">
         <Text as="h2" bold>
-          Create sheet
+          Sheet
         </Text>
         <Button as="a" href="/" secondary>
           Back
         </Button>
       </Flex>
     </Margin>
-    {createSheetSuccess && (
+    <hr />
+    {updateSheetSuccess && (
       <Margin>
         <Alert color={colors.white} type={colors.success}>
-          Sheet has been created
+          Sheet has been updated
         </Alert>
       </Margin>
     )}
-    {createSheetError && (
+    {updateSheetError && (
       <Margin>
         <Alert color={colors.white} type={colors.danger}>
-          Sheet could not be created
+          Sheet could not be updated
         </Alert>
       </Margin>
     )}
     <Formik
-      initialValues={{ date: '', title: '' }}
+      initialValues={sheet}
       onSubmit={(values) => {
-        createSheet(values);
+        updateSheet(values);
       }}
       validationSchema={validation}
     >
@@ -89,7 +97,7 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
               onBlur={handleBlur}
               onChange={handleChange}
               type="date"
-              value={values.date}
+              value={dayjs(values.date).format('YYYY-MM-DD')}
             />
             {errors.date && touched.date && (
               <Text color={colors.danger}>
@@ -97,8 +105,21 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
               </Text>
             )}
           </Margin>
+          <Margin>
+            <Label>
+              Published
+            </Label>
+            <Input
+              checked={values.isPublished}
+              name="isPublished"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              type="checkbox"
+              value={values.isPublished}
+            />
+          </Margin>
           <Button type="submit">
-            Submit
+            Save
           </Button>
         </form>
       )}
@@ -106,29 +127,32 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
   </div>
 );
 
-CreateSheetContainer.propTypes = {
-  createSheet: PropTypes.func.isRequired,
-  createSheetError: PropTypes.bool,
-  createSheetSuccess: PropTypes.bool,
+UpdateSheetContainer.propTypes = {
+  sheet: PropTypes.shape().isRequired,
+  updateSheet: PropTypes.func.isRequired,
+  updateSheetError: PropTypes.bool,
+  updateSheetSuccess: PropTypes.bool,
 };
 
-CreateSheetContainer.defaultProps = {
-  createSheetError: false,
-  createSheetSuccess: false,
+UpdateSheetContainer.defaultProps = {
+  updateSheetError: false,
+  updateSheetSuccess: false,
 };
 
 const mapDispatchToProps = dispatch => ({
-  createSheet: (values) => {
-    dispatch(sheetCreate(values));
+  updateSheet: (values) => {
+    dispatch(sheetUpdate(values));
   },
 });
 
 const mapStateToProps = state => ({
-  createSheetError: getSheetCreateError(state),
-  createSheetSuccess: getSheetCreateSuccess(state),
+  error: getSheetFetchError(state),
+  sheet: getSheetFetchSuccess(state),
+  updateSheetError: getSheetUpdateError(state),
+  updateSheetSuccess: getSheetUpdateSuccess(state),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(CreateSheetContainer);
+)(UpdateSheetContainer);

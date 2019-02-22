@@ -4,3 +4,5 @@ export const getSheetDeleteError = store => store.sheet.delete.error;
 export const getSheetDeleteSuccess = store => store.sheet.delete.success;
 export const getSheetFetchSuccess = store => store.sheet.fetch.success;
 export const getSheetFetchError = store => store.sheet.fetch.error;
+export const getSheetUpdateError = store => store.sheet.update.error;
+export const getSheetUpdateSuccess = store => store.sheet.update.success;
