@@ -97,8 +97,21 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
               </Text>
             )}
           </Margin>
+          <Margin>
+            <Label>
+              Published
+            </Label>
+            <Input
+              checked={values.isPublished}
+              name="isPublished"
+              onBlur={handleBlur}
+              onChange={handleChange}
+              type="checkbox"
+              value={values.isPublished}
+            />
+          </Margin>
           <Button type="submit">
-            Submit
+            Save
           </Button>
         </form>
       )}

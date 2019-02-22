@@ -6,10 +6,9 @@ import sheetsPath from '../../config/endpoints';
 
 export default function* createSheet(data) {
   try {
-    const transformData = { ...data.payload, isPublished: false };
     const res = yield fetch(sheetsPath, {
       ...headers,
-      body: JSON.stringify(transformData),
+      body: JSON.stringify(data.payload),
       method: 'POST',
     });
     if (res.status !== 200) {
