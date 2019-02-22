@@ -2,9 +2,9 @@ import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 import dayjs from 'dayjs';
 
+import validate from '../../helpers/validate';
 import { sheetUpdate } from '../../actions/sheet/update';
 import {
   getSheetFetchError, getSheetFetchSuccess, getSheetUpdateError, getSheetUpdateSuccess,
@@ -17,13 +17,6 @@ import Input from '../../components/atoms/Input/Input';
 import Label from '../../components/atoms/Label/Label';
 import Margin from '../../components/atoms/Margin/Margin';
 import Text from '../../components/atoms/Text/Text';
-
-// @TODO: move to a shared place
-const validation = Yup.object().shape({
-  date: Yup.date().required(),
-  isPublished: Yup.boolean(),
-  title: Yup.string().required(),
-});
 
 const UpdateSheetContainer = ({
   sheet, updateSheet, updateSheetError, updateSheetSuccess,
@@ -58,7 +51,7 @@ const UpdateSheetContainer = ({
       onSubmit={(values) => {
         updateSheet(values);
       }}
-      validationSchema={validation}
+      validationSchema={validate}
     >
       {({
         errors,

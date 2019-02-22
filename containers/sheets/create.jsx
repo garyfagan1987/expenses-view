@@ -2,8 +2,8 @@ import { Formik } from 'formik';
 import { connect } from 'react-redux';
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Yup from 'yup';
 
+import validate from '../../helpers/validate';
 import { sheetCreate } from '../../actions/sheet/create';
 import { getSheetCreateError, getSheetCreateSuccess } from '../../selectors/sheet';
 import Alert from '../../components/atoms/Alert/Alert';
@@ -14,11 +14,6 @@ import Input from '../../components/atoms/Input/Input';
 import Label from '../../components/atoms/Label/Label';
 import Margin from '../../components/atoms/Margin/Margin';
 import Text from '../../components/atoms/Text/Text';
-
-const validation = Yup.object().shape({
-  date: Yup.date().required(),
-  title: Yup.string().required(),
-});
 
 const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSuccess }) => (
   <div>
@@ -51,7 +46,7 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
       onSubmit={(values) => {
         createSheet(values);
       }}
-      validationSchema={validation}
+      validationSchema={validate}
     >
       {({
         errors,
