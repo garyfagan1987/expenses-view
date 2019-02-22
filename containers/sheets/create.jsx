@@ -25,7 +25,7 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
     <Margin>
       <Flex justifyContent="space-between">
         <Text as="h2" bold>
-          Create sheet
+          Create Sheet
         </Text>
         <Button as="a" href="/" secondary>
           Back

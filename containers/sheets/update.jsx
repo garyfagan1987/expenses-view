@@ -32,7 +32,7 @@ const UpdateSheetContainer = ({
     <Margin>
       <Flex justifyContent="space-between">
         <Text as="h2" bold>
-          Update sheet
+          Update Sheet
         </Text>
         <Button as="a" href="/" secondary>
           Back

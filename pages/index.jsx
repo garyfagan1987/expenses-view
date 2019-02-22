@@ -13,7 +13,7 @@ export default class Home extends Component {
     return (
       <React.Fragment>
         <Head>
-          <title>Sheets</title>
+          <title>Expenses | Sheets</title>
         </Head>
         <SheetContainer />
       </React.Fragment>

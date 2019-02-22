@@ -6,7 +6,7 @@ import CreateSheetContainer from '../containers/sheets/create';
 export default () => (
   <React.Fragment>
     <Head>
-      <title>Create sheet</title>
+      <title>Expenses | Create Sheet</title>
     </Head>
     <CreateSheetContainer />
   </React.Fragment>
