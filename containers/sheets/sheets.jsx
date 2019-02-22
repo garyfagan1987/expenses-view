@@ -9,7 +9,7 @@ import { sheetDelete } from '../../actions/sheet/delete';
 import Alert from '../../components/atoms/Alert/Alert';
 import Button from '../../components/atoms/Button/Button';
 import colors from '../../styles/colors';
-import Flex from '../../components/atoms/Flex/Flex';
+import FlexRow from '../../components/atoms/Flex/FlexRow';
 import Loading from '../../components/atoms/Loading/Loading';
 import ListItem from '../../components/atoms/ListItem/ListItem';
 import Margin from '../../components/atoms/Margin/Margin';
@@ -40,7 +40,7 @@ class SheetContainer extends Component {
       <UnorderedList>
         {sheets.map(sheet => (
           <ListItem key={sheet.id}>
-            <Flex justifyContent="space-between">
+            <FlexRow justifyContent="space-between">
               <Text as="a" href={`/sheet/${sheet.id}`}>
                 {sheet.title}
                 {!sheet.isPublished && ' (Draft)'}
@@ -48,7 +48,7 @@ class SheetContainer extends Component {
               <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.id)}>
                 Delete
               </Button>
-            </Flex>
+            </FlexRow>
           </ListItem>
         ))}
       </UnorderedList>
@@ -63,14 +63,14 @@ class SheetContainer extends Component {
     return (
       <React.Fragment>
         <Margin>
-          <Flex justifyContent="space-between">
+          <FlexRow justifyContent="space-between">
             <Text as="h2" bold>
               Sheets
             </Text>
             <Button as="a" href="/create" secondary>
               Create sheet
             </Button>
-          </Flex>
+          </FlexRow>
         </Margin>
         {fetchError && (
           <Margin>
