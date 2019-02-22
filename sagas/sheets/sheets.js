@@ -4,6 +4,13 @@ import { sheetsFetchError, sheetsFetchSuccess } from '../../actions/sheets/sheet
 import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 
+export const transformSheets = sheets => (sheets).map(sheet => ({
+  date: sheet.date,
+  id: sheet._id,
+  isPublished: sheet.isPublished,
+  title: sheet.title,
+}));
+
 export default function* loadSheets() {
   try {
     const res = yield fetch(sheetsPath, {
@@ -11,7 +18,8 @@ export default function* loadSheets() {
       method: 'GET',
     });
     const sheets = yield res.json();
-    yield put(sheetsFetchSuccess(sheets));
+    const payload = transformSheets(sheets);
+    yield put(sheetsFetchSuccess(payload));
   } catch (err) {
     yield put(sheetsFetchError());
   }
