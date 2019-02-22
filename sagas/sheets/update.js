@@ -4,7 +4,7 @@ import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/sheet/update
 import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 
-const transformUpdateData = data => ({
+const transformUpdateSheet = data => ({
   date: data.date,
   isPublished: data.isPublished,
   title: data.title,
@@ -12,7 +12,7 @@ const transformUpdateData = data => ({
 
 export default function* updateSheet(data) {
   try {
-    const payload = transformUpdateData({ ...data.payload });
+    const payload = transformUpdateSheet({ ...data.payload });
     const res = yield fetch(`${sheetsPath}/${data.payload._id}`, {
       ...headers,
       body: JSON.stringify(payload),
