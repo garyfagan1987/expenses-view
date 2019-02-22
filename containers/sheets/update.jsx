@@ -13,6 +13,7 @@ import Alert from '../../components/atoms/Alert/Alert';
 import Button from '../../components/atoms/Button/Button';
 import colors from '../../styles/colors';
 import Flex from '../../components/atoms/Flex/Flex';
+import FlexRow from '../../components/atoms/Flex/FlexRow';
 import Input from '../../components/atoms/Input/Input';
 import Label from '../../components/atoms/Label/Label';
 import Margin from '../../components/atoms/Margin/Margin';
@@ -23,14 +24,14 @@ const UpdateSheetContainer = ({
 }) => (
   <div>
     <Margin>
-      <Flex justifyContent="space-between">
+      <FlexRow justifyContent="space-between">
         <Text as="h2" bold>
           Update Sheet
         </Text>
         <Button as="a" href="/" secondary>
           Back
         </Button>
-      </Flex>
+      </FlexRow>
     </Margin>
     {updateSheetSuccess && (
       <Margin>
