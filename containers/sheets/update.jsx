@@ -32,14 +32,13 @@ const UpdateSheetContainer = ({
     <Margin>
       <Flex justifyContent="space-between">
         <Text as="h2" bold>
-          Sheet
+          Update sheet
         </Text>
         <Button as="a" href="/" secondary>
           Back
         </Button>
       </Flex>
     </Margin>
-    <hr />
     {updateSheetSuccess && (
       <Margin>
         <Alert color={colors.white} type={colors.success}>
