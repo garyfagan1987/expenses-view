@@ -43,10 +43,9 @@ class SheetContainer extends Component {
             <Flex justifyContent="space-between">
               <Text as="a" href={`/sheet/${sheet.id}`}>
                 {sheet.title}
-                &nbsp;
-                {!sheet.isPublished && '(Draft)'}
+                {!sheet.isPublished && ' (Draft)'}
               </Text>
-              <Button onClick={deleteSheet(sheet.id)}>
+              <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.id)}>
                 Delete
               </Button>
             </Flex>
