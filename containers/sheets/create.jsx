@@ -47,7 +47,7 @@ const CreateSheetContainer = ({ createSheet, createSheetError, createSheetSucces
       </Margin>
     )}
     <Formik
-      initialValues={{ date: '', title: '' }}
+      initialValues={{ date: '', isPublished: '', title: '' }}
       onSubmit={(values) => {
         createSheet(values);
       }}

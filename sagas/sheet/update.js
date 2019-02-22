@@ -1,14 +1,9 @@
 import { put } from 'redux-saga/effects';
 
 import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/sheet/update';
+import { transformUpdateSheet } from '../../helpers/transformers';
 import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
-
-const transformUpdateSheet = data => ({
-  date: data.date,
-  isPublished: data.isPublished,
-  title: data.title,
-});
 
 export default function* updateSheet(data) {
   try {

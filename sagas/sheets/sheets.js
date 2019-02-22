@@ -1,15 +1,9 @@
 import { put } from 'redux-saga/effects';
 
 import { sheetsFetchError, sheetsFetchSuccess } from '../../actions/sheets/sheets';
+import { transformSheets } from '../../helpers/transformers';
 import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
-
-export const transformSheets = sheets => (sheets).map(sheet => ({
-  date: sheet.date,
-  id: sheet._id,
-  isPublished: sheet.isPublished,
-  title: sheet.title,
-}));
 
 export default function* loadSheets() {
   try {
