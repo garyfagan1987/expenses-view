@@ -5,9 +5,9 @@ import { SHEETS_FETCH_REQUESTED } from '../actions/sheets/actions';
 import {
   SHEET_CREATE, SHEET_DELETE, SHEET_FETCH_REQUESTED, SHEET_UPDATE,
 } from '../actions/sheet/actions';
-import createSheet from './sheets/create';
-import deleteSheet from './sheets/delete';
-import updateSheet from './sheets/update';
+import createSheet from './sheet/create';
+import deleteSheet from './sheet/delete';
+import updateSheet from './sheet/update';
 import loadSheet from './sheet/sheet';
 import loadSheets from './sheets/sheets';
 
