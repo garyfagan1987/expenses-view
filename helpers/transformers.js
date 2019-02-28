@@ -1,6 +1,7 @@
 export const transformCreateSheet = data => ({
   date: data.date,
   isPublished: data.isPublished ? true : false,
+  items: [],
   title: data.title,
 });
 
