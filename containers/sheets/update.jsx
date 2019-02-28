@@ -121,7 +121,13 @@ const UpdateSheetContainer = ({
                       <Alert color={colors.white} type={colors.warning}>
                         You have no items
                         <Button
-                          onClick={() => arrayHelpers.push({ date: '', title: '' })}
+                          onClick={() => arrayHelpers.push({
+                            date: '',
+                            price_gross: '',
+                            price_net: '',
+                            price_vat: '',
+                            title: '',
+                          })}
                           type="button"
                         >
                           Add an item
