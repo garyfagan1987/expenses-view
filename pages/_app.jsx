@@ -30,7 +30,7 @@ const Page = styled.div`
   background-color: #FFF;
   margin: 0 auto;
   padding: 20px;
-  width: 500px;
+  width: 1024px;
 `;
 
 class MyApp extends App {

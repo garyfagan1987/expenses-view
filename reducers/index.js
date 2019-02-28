@@ -5,6 +5,7 @@ import {
   SHEET_DELETE_SUCCESS,
   SHEET_FETCH_ERROR,
   SHEET_FETCH_SUCCESS,
+  SHEET_UPDATE_CALCULATION,
   SHEET_UPDATE_ERROR,
   SHEET_UPDATE_SUCCESS,
 } from '../actions/sheet/actions';
@@ -151,6 +152,17 @@ export default (state = initialSheetState, action) => {
           },
         },
         sheetsLoading: false,
+      };
+    case SHEET_UPDATE_CALCULATION:
+      return {
+        ...state,
+        sheet: {
+          ...state.sheet,
+          fetch: {
+            error: false,
+            success: action.payload,
+          },
+        },
       };
     default:
       return state;

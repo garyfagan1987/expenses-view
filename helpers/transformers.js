@@ -7,6 +7,7 @@ export const transformCreateSheet = data => ({
 export const transformUpdateSheet = data => ({
   date: data.date,
   isPublished: data.isPublished,
+  items: data.items,
   title: data.title,
 });
 
