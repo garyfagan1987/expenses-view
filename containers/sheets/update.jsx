@@ -1,251 +1,288 @@
 import { Formik, FieldArray, Field } from 'formik';
 import { connect } from 'react-redux';
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import dayjs from 'dayjs';
+import Link from 'next/link';
+import moment from 'moment';
+
+import {
+  Button,
+  Breadcrumb,
+  Card,
+  Checkbox,
+  Col,
+  DatePicker,
+  Empty,
+  Form,
+  Icon,
+  Input,
+  message,
+  Row,
+} from 'antd';
 
 import validate from '../../helpers/validate';
 import { sheetUpdate, sheetUpdateCalculation } from '../../actions/sheet/update';
 import {
   getSheetFetchError, getSheetFetchSuccess, getSheetUpdateError, getSheetUpdateSuccess,
 } from '../../selectors/sheet';
-import Alert from '../../components/atoms/Alert/Alert';
-import Button from '../../components/atoms/Button/Button';
-import colors from '../../styles/colors';
-import FlexRow from '../../components/atoms/Flex/FlexRow';
-import Input from '../../components/atoms/Input/Input';
-import Label from '../../components/atoms/Label/Label';
-import Margin from '../../components/atoms/Margin/Margin';
-import Text from '../../components/atoms/Text/Text';
-import Well from '../../components/atoms/Well/Well';
 
-const UpdateSheetContainer = ({
-  sheet, updateCalculation, updateSheet, updateSheetError, updateSheetSuccess,
-}) => (
-  <div>
-    <Margin>
-      <FlexRow justifyContent="space-between">
-        <Text as="h2" bold>
-          Update Sheet
-        </Text>
-        <Button as="a" href="/" secondary>
-          Back
-        </Button>
-      </FlexRow>
-    </Margin>
-    {updateSheetSuccess && (
-      <Margin>
-        <Alert color={colors.white} type={colors.success}>
-          Sheet has been updated
-        </Alert>
-      </Margin>
-    )}
-    {updateSheetError && (
-      <Margin>
-        <Alert color={colors.white} type={colors.danger}>
-          Sheet could not be updated
-        </Alert>
-      </Margin>
-    )}
-    <Formik
-      initialValues={sheet}
-      onSubmit={(values) => {
-        updateSheet(values);
-      }}
-      validationSchema={validate}
-    >
-      {({
-        errors,
-        handleBlur,
-        handleChange,
-        handleSubmit,
-        touched,
-        values,
-      }) => (
-        <form onSubmit={handleSubmit}>
-          <Margin>
-            <Label>
-              Title *
-            </Label>
-            <Input
-              autoComplete="off"
-              name="title"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              type="text"
-              value={values.title}
-            />
-            {errors.title && touched.title && (
-              <Text color={colors.danger}>
-                Please enter a title
-              </Text>
-            )}
-          </Margin>
-          <Margin>
-            <Label>
-              Date *
-            </Label>
-            <Input
-              name="date"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              type="date"
-              value={dayjs(values.date).format('YYYY-MM-DD')}
-            />
-            {errors.date && touched.date && (
-              <Text color={colors.danger}>
-                Please enter a date
-              </Text>
-            )}
-          </Margin>
-          <Margin>
-            <Label>
-              Published
-            </Label>
-            <Input
-              checked={values.isPublished}
-              name="isPublished"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              type="checkbox"
-              value={values.isPublished}
-            />
-          </Margin>
-          <Margin>
-            <Well>
-              <FieldArray
-                name="items"
-                render={arrayHelpers => (
-                  <React.Fragment>
-                    {values.items.length < 1 && (
-                      <Alert color={colors.white} type={colors.warning}>
-                        You have no items
-                        <Button
-                          onClick={() => arrayHelpers.push({
-                            date: '',
-                            price_gross: '',
-                            price_net: '',
-                            price_vat: '',
-                            title: '',
-                          })}
-                          type="button"
-                        >
-                          Add an item
-                        </Button>
-                      </Alert>
-                    )}
-                    {values.items.length > 0 && (
-                      <table style={{ tableLayout: 'fixed' }} width="100%">
-                        <tbody>
-                          <tr>
-                            <th align="left">Item</th>
-                            <th align="left">Date</th>
-                            <th align="left">Net</th>
-                            <th align="left">VAT</th>
-                            <th align="left">Gross</th>
-                            <th align="right">Actions</th>
-                          </tr>
-                          {values.items.map((item, index) => (
-                            <tr key={index}>
-                              <td>
-                                <Field name={`items[${index}].title`} type="text" />
-                              </td>
-                              <td>
-                                <Field name={`items.${index}.date`} type="date" value={dayjs(item.date).format('YYYY-MM-DD')} />
-                              </td>
-                              <td>
-                                <Field
-                                  min={0}
-                                  name={`items.${index}.price_net`}
-                                  onBlur={() => updateCalculation(values)}
-                                  type="number"
-                                />
-                              </td>
-                              <td>
-                                <Field
-                                  min={0}
-                                  name={`items.${index}.price_vat`}
-                                  onBlur={() => updateCalculation(values)}
-                                  type="number"
-                                />
-                              </td>
-                              <td>
-                                <Field
-                                  min={0}
-                                  name={`items.${index}.price_gross`}
-                                  onBlur={() => updateCalculation(values)}
-                                  type="number"
-                                />
-                              </td>
-                              <td align="right">
-                                <Button
-                                  onClick={() => arrayHelpers.remove(index)}
-                                  secondary
-                                  type="button"
-                                >
-                                  -
-                                </Button>
-                                {values.items.length === (index + 1) && (
-                                  <Button
-                                    onClick={() => arrayHelpers.push({
-                                      date: '',
-                                      price_gross: '',
-                                      price_net: '',
-                                      price_vat: '',
-                                      title: '',
-                                    })}
-                                    type="button"
-                                  >
-                                    +
-                                  </Button>
-                                )}
-                              </td>
-                            </tr>
-                          ))}
-                          <tr>
-                            <td colSpan="2" />
-                            <td>
-                              Net Total:&nbsp;
-                              {sheet.total_net}
-                            </td>
-                            <td>
-                              VAT Total:&nbsp;
-                              {sheet.total_vat}
-                            </td>
-                            <td>
-                              Gross Total:&nbsp;
-                              {sheet.total_gross}
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    )}
-                  </React.Fragment>
-                )}
-              />
-            </Well>
-          </Margin>
-          <Button type="submit">
-            Save
-          </Button>
-        </form>
-      )}
-    </Formik>
-  </div>
-);
-
-UpdateSheetContainer.propTypes = {
-  sheet: PropTypes.shape().isRequired,
-  updateCalculation: PropTypes.func.isRequired,
-  updateSheet: PropTypes.func.isRequired,
-  updateSheetError: PropTypes.bool,
-  updateSheetSuccess: PropTypes.bool,
+const initialItem = {
+  date: moment(),
+  price_gross: 0,
+  price_net: 0,
+  price_vat: 0,
+  title: '',
 };
 
-UpdateSheetContainer.defaultProps = {
-  updateSheetError: false,
-  updateSheetSuccess: false,
-};
+class UpdateSheetContainer extends Component {
+  static propTypes = {
+    sheet: PropTypes.shape().isRequired,
+    updateCalculation: PropTypes.func.isRequired,
+    updateSheet: PropTypes.func.isRequired,
+    updateSheetError: PropTypes.bool,
+    updateSheetSuccess: PropTypes.bool,
+  };
+
+  static defaultProps = {
+    updateSheetError: false,
+    updateSheetSuccess: false,
+  };
+
+  componentDidUpdate() {
+    const { updateSheetError, updateSheetSuccess } = this.props;
+    if (updateSheetSuccess) message.success('Sheet has been updated');
+    if (updateSheetError) message.error('Sheet could not be updated');
+  }
+
+  render() {
+    const { sheet, updateCalculation, updateSheet } = this.props;
+    return (
+      <React.Fragment>
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>
+            <Link href="/">
+              <a>
+                Expense Sheets
+              </a>
+            </Link>
+          </Breadcrumb.Item>
+          <Breadcrumb.Item>
+            Update
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
+          <Formik
+            initialValues={sheet}
+            onSubmit={(values) => {
+              updateSheet(values);
+            }}
+            validationSchema={validate}
+          >
+            {({
+              errors,
+              handleBlur,
+              handleChange,
+              handleSubmit,
+              touched,
+              setFieldValue,
+              values,
+            }) => (
+              <Form
+                onSubmit={handleSubmit}
+              >
+                <Form.Item
+                  help={errors.title && touched.title ? errors.title : ''}
+                  label="Title *"
+                  validateStatus={errors.title && touched.title ? 'error' : undefined}
+                >
+                  <Input
+                    autoComplete="off"
+                    name="title"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    type="text"
+                    value={values.title}
+                  />
+                </Form.Item>
+                <Form.Item
+                  help={errors.date && touched.date ? errors.date : ''}
+                  label="Date *"
+                  validateStatus={errors.date && touched.date ? 'error' : undefined}
+                >
+                  <DatePicker
+                    defaultValue={moment(values.date, 'YYYY-MM-DD')}
+                    name="date"
+                    onBlur={handleBlur}
+                    onChange={(_, dateString) => setFieldValue('date', dateString)}
+                    style={{ width: '100%' }}
+                  />
+                </Form.Item>
+                <Form.Item>
+                  <Checkbox
+                    checked={values.isPublished}
+                    name="isPublished"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.isPublished}
+                  >
+                    Published
+                  </Checkbox>
+                </Form.Item>
+                <FieldArray
+                  name="items"
+                  render={arrayHelpers => (
+                    <React.Fragment>
+                      <Card>
+                        {values.items.length < 1 && (
+                          <Empty description={<span>You have no items</span>}>
+                            <Button
+                              onClick={() => arrayHelpers.push(initialItem)}
+                              type="primary"
+                            >
+                              Add an item
+                            </Button>
+                          </Empty>
+                        )}
+                        {values.items.length > 0 && (
+                          <React.Fragment>
+                            <Row gutter={15}>
+                              <Col span={4}>Title *</Col>
+                              <Col span={4}>Date *</Col>
+                              <Col span={4}>Net *</Col>
+                              <Col span={4}>VAT *</Col>
+                              <Col span={4}>Gross *</Col>
+                              <Col span={4}>Actions</Col>
+                            </Row>
+                            {values.items.map((item, index) => (
+                              <Row gutter={15} key={index}>
+                                <Col span={4}>
+                                  <Field
+                                    autoComplete="off"
+                                    name={`items[${index}].title`}
+                                    onBlur={handleBlur}
+                                    onChange={handleChange}
+                                    render={({ field }) => (
+                                      <Form.Item>
+                                        <Input {...field} />
+                                      </Form.Item>
+                                    )}
+                                    type="text"
+                                  />
+                                </Col>
+                                <Col span={4}>
+                                  <Field
+                                    render={() => (
+                                      <Form.Item>
+                                        <DatePicker
+                                          defaultValue={moment(item.date, 'YYYY-MM-DD')}
+                                          name={`items[${index}].date`}
+                                          onBlur={handleBlur}
+                                          onChange={(_, dateString) => setFieldValue(`items.${index}.date`, dateString)}
+                                        />
+                                      </Form.Item>
+                                    )}
+                                  />
+                                </Col>
+                                <Col span={4}>
+                                  <Field
+                                    name={`items.${index}.price_net`}
+                                    render={({ field }) => (
+                                      <Form.Item>
+                                        <Input
+                                          {...field}
+                                          min={0}
+                                          onBlur={() => updateCalculation(values)}
+                                          onChange={handleChange}
+                                          type="number"
+                                        />
+                                      </Form.Item>
+                                    )}
+                                  />
+                                </Col>
+                                <Col span={4}>
+                                  <Field
+                                    name={`items.${index}.price_vat`}
+                                    render={({ field }) => (
+                                      <Form.Item>
+                                        <Input
+                                          {...field}
+                                          min={0}
+                                          onBlur={() => updateCalculation(values)}
+                                          onChange={handleChange}
+                                          type="number"
+                                        />
+                                      </Form.Item>
+                                    )}
+                                  />
+                                </Col>
+                                <Col span={4}>
+                                  <Field
+                                    name={`items.${index}.price_gross`}
+                                    render={({ field }) => (
+                                      <Form.Item>
+                                        <Input
+                                          {...field}
+                                          min={0}
+                                          onBlur={() => updateCalculation(values)}
+                                          onChange={handleChange}
+                                          type="number"
+                                        />
+                                      </Form.Item>
+                                    )}
+                                  />
+                                </Col>
+                                <Col span={4}>
+                                  <Icon
+                                    onClick={() => arrayHelpers.remove(index)}
+                                    style={{ fontSize: '24px', position: 'relative', top: '8px' }}
+                                    type="minus-circle-o"
+                                  />
+                                  {values.items.length === (index + 1) && (
+                                    <Icon
+                                      onClick={() => arrayHelpers.push(initialItem)}
+                                      style={{ fontSize: '24px', marginLeft: '10px', position: 'relative', top: '8px' }}
+                                      type="plus-circle-o"
+                                    />
+                                  )}
+                                </Col>
+                              </Row>
+                            ))}
+                            <Row gutter={15}>
+                              <Col span={8} />
+                              <Col span={4}>
+                                Net Total:&nbsp;
+                                {sheet.total_net}
+                              </Col>
+                              <Col span={4}>
+                                VAT Total:&nbsp;
+                                {sheet.total_vat}
+                              </Col>
+                              <Col span={8}>
+                                Gross Total:&nbsp;
+                                {sheet.total_gross}
+                              </Col>
+                            </Row>
+                          </React.Fragment>
+                        )}
+                      </Card>
+                    </React.Fragment>
+                  )}
+                />
+                <Button
+                  htmlType="submit"
+                  style={{ marginTop: '20px' }}
+                  type="primary"
+                >
+                  Save
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </React.Fragment>
+    );
+  }
+}
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 

@@ -1,10 +1,12 @@
 import {
   SHEET_CREATE_ERROR,
   SHEET_CREATE_SUCCESS,
+  SHEET_DELETE,
   SHEET_DELETE_ERROR,
   SHEET_DELETE_SUCCESS,
   SHEET_FETCH_ERROR,
   SHEET_FETCH_SUCCESS,
+  SHEET_UPDATE,
   SHEET_UPDATE_CALCULATION,
   SHEET_UPDATE_ERROR,
   SHEET_UPDATE_SUCCESS,
@@ -34,7 +36,13 @@ export default (state = initialSheetState, action) => {
   switch (action.type) {
     case SHEETS_FETCH_REQUESTED:
       return {
-        ...state,
+        sheet: {
+          ...state.sheet,
+          delete: {
+            error: undefined,
+            success: undefined,
+          },
+        },
         sheets: {
           error: false,
           loading: true,
@@ -58,6 +66,18 @@ export default (state = initialSheetState, action) => {
           loading: false,
           success: [],
         },
+      };
+    case SHEET_DELETE:
+      return {
+        ...state,
+        sheet: {
+          ...state.sheet,
+          delete: {
+            error: undefined,
+            success: undefined,
+          },
+        },
+        sheetsLoading: false,
       };
     case SHEET_DELETE_ERROR:
       return {
@@ -128,6 +148,18 @@ export default (state = initialSheetState, action) => {
             success: {},
           },
         },
+      };
+    case SHEET_UPDATE:
+      return {
+        ...state,
+        sheet: {
+          ...state.sheet,
+          update: {
+            error: undefined,
+            success: undefined,
+          },
+        },
+        sheetsLoading: false,
       };
     case SHEET_UPDATE_ERROR:
       return {

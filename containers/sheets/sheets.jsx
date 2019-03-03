@@ -1,20 +1,21 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
+import {
+  Alert,
+  Button,
+  Breadcrumb,
+  Empty,
+  List,
+  message,
+  Spin,
+} from 'antd';
 
 import { getSheets, getSheetsLoading, getSheetsError } from '../../selectors/sheets';
 import { getSheetDeleteError, getSheetDeleteSuccess } from '../../selectors/sheet';
 
 import { sheetDelete } from '../../actions/sheet/delete';
-import Alert from '../../components/atoms/Alert/Alert';
-import Button from '../../components/atoms/Button/Button';
-import colors from '../../styles/colors';
-import FlexRow from '../../components/atoms/Flex/FlexRow';
-import Loading from '../../components/atoms/Loading/Loading';
-import ListItem from '../../components/atoms/ListItem/ListItem';
-import Margin from '../../components/atoms/Margin/Margin';
-import Text from '../../components/atoms/Text/Text';
-import UnorderedList from '../../components/atoms/UnorderedList/UnorderedList';
 
 class SheetContainer extends Component {
   static propTypes = {
@@ -34,68 +35,48 @@ class SheetContainer extends Component {
     sheets: [],
   }
 
+  componentDidUpdate() {
+    const { deleteError, deleteSuccess } = this.props;
+    if (deleteSuccess) message.success('Your sheet was deleted');
+    if (deleteError) message.error('There was a problem trying to delete this sheet');
+  }
+
   renderSheets = () => {
     const { deleteSheet, sheets } = this.props;
     return (
-      <UnorderedList>
-        {sheets.map(sheet => (
-          <ListItem key={sheet.id}>
-            <FlexRow justifyContent="space-between">
-              <Text as="a" href={`/sheet/${sheet.id}`}>
-                {sheet.title}
-                {!sheet.isPublished && ' (Draft)'}
-              </Text>
-              <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.id)}>
-                Delete
-              </Button>
-            </FlexRow>
-          </ListItem>
-        ))}
-      </UnorderedList>
+      <List
+        dataSource={sheets}
+        itemLayout="horizontal"
+        renderItem={sheet => (
+          <List.Item actions={
+            [
+              <Button href={`/sheet/${sheet.id}`}>edit</Button>,
+              <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.id)}>delete</Button>,
+            ]}
+          >
+            <List.Item.Meta title={<Link href={`/sheet/${sheet.id}`}><a>{sheet.title} {!sheet.isPublished && ' (Draft)'}</a></Link>} />
+          </List.Item>
+        )}
+      />
     );
   }
 
   render() {
-    const {
-      deleteError, deleteSuccess, fetchError, loading, sheets,
-    } = this.props;
+    const { fetchError, loading, sheets } = this.props;
 
     return (
       <React.Fragment>
-        <Margin>
-          <FlexRow justifyContent="space-between">
-            <Text as="h2" bold>
-              Sheets
-            </Text>
-            <Button as="a" href="/create" secondary>
-              Create sheet
-            </Button>
-          </FlexRow>
-        </Margin>
-        {fetchError && (
-          <Margin>
-            <Alert color={colors.white} type={colors.danger}>
-              There was a problem loading your sheets
-            </Alert>
-          </Margin>
-        )}
-        {!fetchError && loading && <Loading>Loading...</Loading>}
-        {!fetchError && !sheets.length && <Text>There are no sheets</Text>}
-        {deleteError && (
-          <Margin>
-            <Alert color={colors.white} type={colors.danger}>
-              There was a problem trying to delete this sheet
-            </Alert>
-          </Margin>
-        )}
-        {deleteSuccess && (
-          <Margin>
-            <Alert color={colors.white} type={colors.success}>
-              Your sheet was deleted
-            </Alert>
-          </Margin>
-        )}
-        {!fetchError && this.renderSheets()}
+        <Breadcrumb style={{ margin: '16px 0' }}>
+          <Breadcrumb.Item>
+            Expense Sheets
+          </Breadcrumb.Item>
+        </Breadcrumb>
+        <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
+          {fetchError && <Alert message="There was a problem loading your sheets" type="error" />}
+          {!fetchError && loading && <Spin />}
+          {!fetchError && !sheets.length && <Empty />}
+          {!fetchError && this.renderSheets()}
+        </div>
       </React.Fragment>
     );
   }
