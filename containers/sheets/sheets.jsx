@@ -1,21 +1,22 @@
+import moment from 'moment';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
 import {
   Alert,
   Button,
   Breadcrumb,
-  Empty,
-  List,
+  Icon,
   message,
   Spin,
+  Table,
 } from 'antd';
 
 import { getSheets, getSheetsLoading, getSheetsError } from '../../selectors/sheets';
 import { getSheetDeleteError, getSheetDeleteSuccess } from '../../selectors/sheet';
 
 import { sheetDelete } from '../../actions/sheet/delete';
+import { transformSheetsForTable } from '../../helpers/transformers';
 
 class SheetContainer extends Component {
   static propTypes = {
@@ -43,26 +44,56 @@ class SheetContainer extends Component {
 
   renderSheets = () => {
     const { deleteSheet, sheets } = this.props;
-    return (
-      <List
-        dataSource={sheets}
-        itemLayout="horizontal"
-        renderItem={sheet => (
-          <List.Item actions={
-            [
-              <Button href={`/sheet/${sheet.id}`}>edit</Button>,
-              <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.id)}>delete</Button>,
-            ]}
-          >
-            <List.Item.Meta title={<Link href={`/sheet/${sheet.id}`}><a>{sheet.title} {!sheet.isPublished && ' (Draft)'}</a></Link>} />
-          </List.Item>
-        )}
-      />
-    );
+    const transformedSheets = transformSheetsForTable(sheets);
+
+    const columns = [{
+      dataIndex: 'title',
+      key: 'title',
+      title: 'Title',
+    }, {
+      dataIndex: 'date',
+      key: 'date',
+      render: date => <span>{moment(date).format('DD-MM-YYYY')}</span>,
+      title: 'Date',
+    }, {
+      dataIndex: 'isPublished',
+      key: 'isPublished',
+      render: isPublished => (
+        <span>
+          {isPublished && <Icon type="check" />}
+          {!isPublished && <Icon type="close" />}
+        </span>
+      ),
+      title: 'Published',
+    }, {
+      dataIndex: 'totalNet',
+      key: 'totalNet',
+      title: 'Total Net',
+    }, {
+      dataIndex: 'totalVat',
+      key: 'totalVat',
+      title: 'Total VAT',
+    }, {
+      dataIndex: 'totalGross',
+      key: 'totalGross',
+      title: 'Total Gross',
+    }, {
+      key: 'action',
+      render: sheet => (
+        <span>
+          <Button href={`/sheet/${sheet.key}`}>edit</Button>
+          &nbsp;
+          <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.key)}>delete</Button>
+        </span>
+      ),
+      title: 'Action',
+    }];
+
+    return <Table columns={columns} dataSource={transformedSheets} />;
   }
 
   render() {
-    const { fetchError, loading, sheets } = this.props;
+    const { fetchError, loading } = this.props;
 
     return (
       <React.Fragment>
@@ -74,7 +105,6 @@ class SheetContainer extends Component {
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
           {fetchError && <Alert message="There was a problem loading your sheets" type="error" />}
           {!fetchError && loading && <Spin />}
-          {!fetchError && !sheets.length && <Empty />}
           {!fetchError && this.renderSheets()}
         </div>
       </React.Fragment>

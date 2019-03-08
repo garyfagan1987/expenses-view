@@ -264,15 +264,15 @@ class UpdateSheetContainer extends Component {
                               <Col span={8} />
                               <Col span={4}>
                                 Net Total:&nbsp;
-                                {sheet.total_net}
+                                {sheet.totalNet}
                               </Col>
                               <Col span={4}>
                                 VAT Total:&nbsp;
-                                {sheet.total_vat}
+                                {sheet.totalVat}
                               </Col>
                               <Col span={8}>
                                 Gross Total:&nbsp;
-                                {sheet.total_gross}
+                                {sheet.totalGross}
                               </Col>
                             </Row>
                           </React.Fragment>
@@ -306,9 +306,9 @@ const mapDispatchToProps = dispatch => ({
     const vatCalculation = values.items.map(item => item.price_vat).reduce(reducer);
     dispatch(sheetUpdateCalculation({
       ...values,
-      total_gross: grossCalculation,
-      total_net: netCalculation,
-      total_vat: vatCalculation,
+      totalGross: grossCalculation,
+      totalNet: netCalculation,
+      totalVat: vatCalculation,
     }));
   },
   updateSheet: (values) => {
