@@ -54,6 +54,14 @@ class UpdateSheetContainer extends Component {
     if (updateSheetError) message.error('Sheet could not be updated');
   }
 
+  handleRemoveItem = (arrayHelpers, index, values) => {
+    // @todo, add updateCalculation(values) to remove callback
+    // open PR - https://github.com/jaredpalmer/formik/issues/1253
+    // const { updateCalculation } = this.props;
+    arrayHelpers.remove(index);
+    // updateCalculation(values);
+  }
+
   render() {
     const { sheet, updateCalculation, updateSheet } = this.props;
     return (
@@ -233,14 +241,19 @@ class UpdateSheetContainer extends Component {
                                 </Col>
                                 <Col span={4}>
                                   <Icon
-                                    onClick={() => arrayHelpers.remove(index)}
+                                    onClick={() => this.handleRemoveItem(arrayHelpers, index, values)}
                                     style={{ fontSize: '24px', position: 'relative', top: '8px' }}
                                     type="minus-circle-o"
                                   />
                                   {values.items.length === (index + 1) && (
                                     <Icon
                                       onClick={() => arrayHelpers.push(initialItem)}
-                                      style={{ fontSize: '24px', marginLeft: '10px', position: 'relative', top: '8px' }}
+                                      style={{
+                                        fontSize: '24px',
+                                        marginLeft: '10px',
+                                        position: 'relative',
+                                        top: '8px',
+                                      }}
                                       type="plus-circle-o"
                                     />
                                   )}

@@ -60,6 +60,14 @@ class CreateSheetContainer extends Component {
     if (createSheetError) message.error('Sheet could not be created');
   }
 
+  handleRemoveItem = (arrayHelpers, index, values) => {
+    // @todo, add updateCalculation(values) to remove callback
+    // open PR - https://github.com/jaredpalmer/formik/issues/1253
+    // const { updateCalculation } = this.props;
+    arrayHelpers.remove(index);
+    // updateCalculation(values);
+  }
+
   render() {
     const { createSheet, updateCalculation, sheet } = this.props;
     return (
@@ -237,7 +245,7 @@ class CreateSheetContainer extends Component {
                                 </Col>
                                 <Col span={4}>
                                   <Icon
-                                    onClick={() => arrayHelpers.remove(index)}
+                                    onClick={() => this.handleRemoveItem(arrayHelpers, index, values)}
                                     style={{ fontSize: '24px', position: 'relative', top: '8px' }}
                                     type="minus-circle-o"
                                   />
