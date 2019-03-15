@@ -2,15 +2,17 @@ import { put } from 'redux-saga/effects';
 
 import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/sheet/update';
 import { transformUpdateSheet } from '../../helpers/transformers';
-import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 
-export default function* updateSheet(data) {
+export default function* updateSheet({ payload: { values, token } }) {
   try {
-    const payload = transformUpdateSheet({ ...data.payload });
-    const res = yield fetch(`${sheetsPath}/${data.payload._id}`, {
-      ...headers,
+    const payload = transformUpdateSheet({ ...values });
+    const res = yield fetch(`${sheetsPath}/${values._id}`, {
       body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
       method: 'PUT',
     });
     if (res.status !== 200) {

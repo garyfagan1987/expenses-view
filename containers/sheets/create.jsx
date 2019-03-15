@@ -46,6 +46,7 @@ class CreateSheetContainer extends Component {
     createSheetError: PropTypes.bool,
     createSheetSuccess: PropTypes.bool,
     sheet: PropTypes.shape().isRequired,
+    token: PropTypes.string.isRequired,
     updateCalculation: PropTypes.func.isRequired,
   };
 
@@ -69,7 +70,9 @@ class CreateSheetContainer extends Component {
   }
 
   render() {
-    const { createSheet, updateCalculation, sheet } = this.props;
+    const {
+      createSheet, updateCalculation, sheet, token,
+    } = this.props;
     return (
       <React.Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -88,7 +91,7 @@ class CreateSheetContainer extends Component {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, { resetForm }) => {
-              createSheet(values);
+              createSheet(values, token);
               resetForm(initialValues);
             }}
             validationSchema={validate}
@@ -304,8 +307,8 @@ class CreateSheetContainer extends Component {
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
 const mapDispatchToProps = dispatch => ({
-  createSheet: (values) => {
-    dispatch(sheetCreate(values));
+  createSheet: (values, token) => {
+    dispatch(sheetCreate(values, token));
   },
   updateCalculation: (values) => {
     const grossCalculation = values.items.map(item => item.price_gross).reduce(reducer);

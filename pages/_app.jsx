@@ -4,6 +4,7 @@ import App, { Container } from 'next/app';
 import Link from 'next/link';
 import compose from 'lodash/fp/compose';
 import React from 'react';
+import nookies from 'nookies';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 
@@ -11,8 +12,16 @@ import createStore from '../store';
 
 const { Header, Content, Footer } = Layout;
 
+// @todo, this token needs to be set when authenticated
+const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YzNiMTUwNzhhZDUxOTdkYTZjNjkyNzgiLCJpYXQiOjE1NDczNzU4Nzl9.ABBMgXk00ud4oRbvCHWYwHLzJUITN1mTDIF_B997Rk4';
+
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
+    nookies.set(ctx, 'token', token, {
+      maxAge: 100,
+      path: '/',
+    });
+
     const pageProps = Component.getInitialProps ? await Component.getInitialProps(ctx) : {};
     return { pageProps };
   }

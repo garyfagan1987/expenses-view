@@ -1,10 +1,9 @@
 import { SHEETS_FETCH_ERROR, SHEETS_FETCH_REQUESTED, SHEETS_FETCH_SUCCESS } from './actions';
 
-export function sheetsFetch() {
-  return {
-    type: SHEETS_FETCH_REQUESTED,
-  };
-}
+export const sheetsFetch = token => ({
+  payload: token,
+  type: SHEETS_FETCH_REQUESTED,
+});
 
 export function sheetsFetchError() {
   return {

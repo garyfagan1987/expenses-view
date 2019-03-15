@@ -1,5 +1,6 @@
 const express = require('express');
 const next = require('next');
+const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
 const port = process.env.PORT || 3001;
@@ -10,6 +11,7 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
   server.use(compression());
+  server.use(cookieParser());
 
   server.get('/sheet/:slug', (req, res) => app.render(req, res, '/sheet', { slug: req.params.slug }));
 

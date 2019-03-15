@@ -37,6 +37,7 @@ const initialItem = {
 class UpdateSheetContainer extends Component {
   static propTypes = {
     sheet: PropTypes.shape().isRequired,
+    token: PropTypes.string.isRequired,
     updateCalculation: PropTypes.func.isRequired,
     updateSheet: PropTypes.func.isRequired,
     updateSheetError: PropTypes.bool,
@@ -63,7 +64,9 @@ class UpdateSheetContainer extends Component {
   }
 
   render() {
-    const { sheet, updateCalculation, updateSheet } = this.props;
+    const {
+      sheet, token, updateCalculation, updateSheet,
+    } = this.props;
     return (
       <React.Fragment>
         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -82,7 +85,7 @@ class UpdateSheetContainer extends Component {
           <Formik
             initialValues={sheet}
             onSubmit={(values) => {
-              updateSheet(values);
+              updateSheet(values, token);
             }}
             validationSchema={validate}
           >
@@ -311,8 +314,8 @@ const mapDispatchToProps = dispatch => ({
       totalVat: vatCalculation,
     }));
   },
-  updateSheet: (values) => {
-    dispatch(sheetUpdate(values));
+  updateSheet: (values, token) => {
+    dispatch(sheetUpdate(values, token));
   },
 });
 

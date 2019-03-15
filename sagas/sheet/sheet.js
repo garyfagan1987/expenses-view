@@ -1,16 +1,18 @@
 import { put } from 'redux-saga/effects';
 
 import { sheetFetchError, sheetFetchSuccess } from '../../actions/sheet/sheet';
-import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 
-export default function* loadSheet(data) {
+export default function* loadSheet({ payload: { slug, token } }) {
   try {
-    const res = yield fetch(`${sheetsPath}/${data.payload}`, {
-      ...headers,
+    const response = yield fetch(`${sheetsPath}/${slug}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
       method: 'GET',
     });
-    const sheet = yield res.json();
+    const sheet = yield response.json();
     yield put(sheetFetchSuccess(sheet));
   } catch (err) {
     yield put(sheetFetchError());

@@ -2,12 +2,10 @@ import {
   SHEET_UPDATE, SHEET_UPDATE_CALCULATION, SHEET_UPDATE_ERROR, SHEET_UPDATE_SUCCESS,
 } from './actions';
 
-export function sheetUpdate(data) {
-  return {
-    payload: data,
-    type: SHEET_UPDATE,
-  };
-}
+export const sheetUpdate = (values, token) => ({
+  payload: { token, values },
+  type: SHEET_UPDATE,
+});
 
 export function sheetUpdateError() {
   return {

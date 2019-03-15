@@ -26,6 +26,7 @@ class SheetContainer extends Component {
     fetchError: PropTypes.bool,
     loading: PropTypes.bool,
     sheets: PropTypes.arrayOf(PropTypes.shape().isRequired),
+    token: PropTypes.string.isRequired,
   }
 
   static defaultProps = {
@@ -43,7 +44,7 @@ class SheetContainer extends Component {
   }
 
   renderSheets = () => {
-    const { deleteSheet, sheets } = this.props;
+    const { deleteSheet, sheets, token } = this.props;
     const transformedSheets = transformSheetsForTable(sheets);
 
     const columns = [{
@@ -83,7 +84,7 @@ class SheetContainer extends Component {
         <span>
           <Button href={`/sheet/${sheet.key}`}>edit</Button>
           &nbsp;
-          <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.key)}>delete</Button>
+          <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.key, token)}>delete</Button>
         </span>
       ),
       title: 'Action',
@@ -113,8 +114,8 @@ class SheetContainer extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  deleteSheet(id) {
-    return () => dispatch(sheetDelete(id));
+  deleteSheet(id, token) {
+    return () => dispatch(sheetDelete(id, token));
   },
 });
 

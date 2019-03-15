@@ -2,15 +2,17 @@ import { put } from 'redux-saga/effects';
 
 import { sheetCreateError, sheetCreateSuccess } from '../../actions/sheet/create';
 import { transformCreateSheet } from '../../helpers/transformers';
-import headers from '../../config/headers';
 import sheetsPath from '../../config/endpoints';
 
-export default function* createSheet(data) {
+export default function* createSheet({ payload: { values, token } }) {
   try {
-    const payload = transformCreateSheet({ ...data.payload });
+    const payload = transformCreateSheet({ ...values });
     const res = yield fetch(sheetsPath, {
-      ...headers,
       body: JSON.stringify(payload),
+      headers: {
+        'Content-Type': 'application/json',
+        'x-auth-token': token,
+      },
       method: 'POST',
     });
     if (res.status !== 200) {

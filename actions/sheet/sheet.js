@@ -6,12 +6,10 @@ export function sheetFetchError() {
   };
 }
 
-export function sheetFetch(data) {
-  return {
-    payload: data,
-    type: SHEET_FETCH_REQUESTED,
-  };
-}
+export const sheetFetch = (slug, token) => ({
+  payload: { slug, token },
+  type: SHEET_FETCH_REQUESTED,
+});
 
 export function sheetFetchSuccess(data) {
   return {
