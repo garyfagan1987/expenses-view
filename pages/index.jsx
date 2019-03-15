@@ -10,7 +10,6 @@ import {
   Alert,
   Button,
   Breadcrumb,
-  Icon,
   message,
   Spin,
   Table,
@@ -73,8 +72,7 @@ class Home extends Component {
       key: 'isPublished',
       render: isPublished => (
         <span>
-          {isPublished && <Icon type="check" />}
-          {!isPublished && <Icon type="close" />}
+          {isPublished ? 'Yes' : 'No'}
         </span>
       ),
       title: 'Published',
