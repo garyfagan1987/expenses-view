@@ -219,7 +219,7 @@ class Home extends Component {
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
                                           onChange={handleChange}
-                                          type="number"
+                                          type="text"
                                         />
                                       </Form.Item>
                                     )}
@@ -235,7 +235,7 @@ class Home extends Component {
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
                                           onChange={handleChange}
-                                          type="number"
+                                          type="text"
                                         />
                                       </Form.Item>
                                     )}
@@ -251,7 +251,7 @@ class Home extends Component {
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
                                           onChange={handleChange}
-                                          type="number"
+                                          type="text"
                                         />
                                       </Form.Item>
                                     )}
@@ -319,9 +319,9 @@ const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
 const mapDispatchToProps = dispatch => ({
   updateCalculation: (values) => {
-    const grossCalculation = values.items.map(item => item.price_gross).reduce(reducer);
-    const netCalculation = values.items.map(item => item.price_net).reduce(reducer);
-    const vatCalculation = values.items.map(item => item.price_vat).reduce(reducer);
+    const grossCalculation = values.items.map(item => parseFloat(item.price_gross)).reduce(reducer);
+    const netCalculation = values.items.map(item => parseFloat(item.price_net)).reduce(reducer);
+    const vatCalculation = values.items.map(item => parseFloat(item.price_vat)).reduce(reducer);
     dispatch(sheetUpdateCalculation({
       ...values,
       totalGross: grossCalculation,
