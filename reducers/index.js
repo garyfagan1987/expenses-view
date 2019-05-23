@@ -1,4 +1,9 @@
 import {
+  USER_AUTHENTICATE_ERROR,
+  USER_AUTHENTICATE_SUCCESS,
+} from '../actions/user/actions';
+
+import {
   SHEET_CREATE_ERROR,
   SHEET_CREATE_SUCCESS,
   SHEET_DELETE,
@@ -18,7 +23,12 @@ import {
   SHEETS_FETCH_SUCCESS,
 } from '../actions/sheets/actions';
 
-export const initialSheetState = {
+export const initialState = {
+  authenticate: {
+    error: false,
+    success: false,
+    token: undefined,
+  },
   sheet: {
     create: { error: false, success: false },
     delete: { error: false, success: false },
@@ -32,10 +42,29 @@ export const initialSheetState = {
   },
 };
 
-export default (state = initialSheetState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
+    case USER_AUTHENTICATE_ERROR:
+      return {
+        ...state,
+        authenticate: {
+          error: true,
+          success: false,
+          token: undefined,
+        },
+      };
+    case USER_AUTHENTICATE_SUCCESS:
+      return {
+        ...state,
+        authenticate: {
+          error: false,
+          success: true,
+          token: action.payload,
+        },
+      };
     case SHEETS_FETCH_REQUESTED:
       return {
+        ...state,
         sheet: {
           ...state.sheet,
           delete: {

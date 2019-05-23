@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import rootReducer, { initialSheetState } from './reducers';
+import rootReducer, { initialState as state } from './reducers';
 import rootSaga from './sagas/root';
 
 const { composeWithDevTools } = require('redux-devtools-extension');
@@ -14,7 +14,7 @@ const bindMiddleware = (middleware) => {
   return applyMiddleware(...middleware);
 };
 
-function configureStore(initialState = initialSheetState) {
+function configureStore(initialState = state) {
   const store = createStore(
     rootReducer,
     initialState,
