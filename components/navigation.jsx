@@ -1,9 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Menu } from 'antd';
 import Link from 'next/link';
 import Cookies from 'universal-cookie';
+import PropTypes from 'prop-types';
 
-const Navigation = () => {
+import { userLogout } from '../actions/user/logout';
+
+const Navigation = ({ logout }) => {
   const cookies = new Cookies();
   const isLoggedIn = !!cookies.get('token');
 
@@ -27,8 +31,26 @@ const Navigation = () => {
           </Link>
         </Menu.Item>
       )}
+      {isLoggedIn && (
+        <Menu.Item key="3">
+          <a onClick={logout}>Log out</a>
+        </Menu.Item>
+      )}
     </Menu>
   );
 };
 
-export default Navigation;
+Navigation.propTypes = {
+  logout: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = dispatch => ({
+  logout: (values) => {
+    dispatch(userLogout(values));
+  },
+});
+
+export default connect(
+  null,
+  mapDispatchToProps,
+)(Navigation);

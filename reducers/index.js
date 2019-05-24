@@ -1,6 +1,8 @@
 import {
   USER_AUTHENTICATE_ERROR,
   USER_AUTHENTICATE_SUCCESS,
+  USER_LOGOUT_ERROR,
+  USER_LOGOUT_SUCCESS,
 } from '../actions/user/actions';
 
 import {
@@ -28,6 +30,10 @@ export const initialState = {
     error: false,
     success: false,
     token: undefined,
+  },
+  logout: {
+    error: false,
+    success: false,
   },
   sheet: {
     create: { error: false, success: false },
@@ -60,6 +66,22 @@ export default (state = initialState, action) => {
           error: false,
           success: true,
           token: action.payload,
+        },
+      };
+    case USER_LOGOUT_ERROR:
+      return {
+        ...state,
+        logout: {
+          error: true,
+          success: false,
+        },
+      };
+    case USER_LOGOUT_SUCCESS:
+      return {
+        ...state,
+        logout: {
+          error: false,
+          success: true,
         },
       };
     case SHEETS_FETCH_REQUESTED:
