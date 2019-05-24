@@ -88,7 +88,7 @@ class Home extends Component {
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            <Link href="/">
+            <Link href="/sheets">
               <a>
                 Expense Sheets
               </a>

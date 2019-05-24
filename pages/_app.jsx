@@ -1,13 +1,13 @@
-import { Layout, Menu } from 'antd';
+import { Layout } from 'antd';
 import { Provider } from 'react-redux';
 import App, { Container } from 'next/app';
-import Link from 'next/link';
 import compose from 'lodash/fp/compose';
 import React from 'react';
 import withRedux from 'next-redux-wrapper';
 import withReduxSaga from 'next-redux-saga';
 
 import createStore from '../store';
+import Navigation from '../components/navigation';
 
 const { Header, Content, Footer } = Layout;
 
@@ -19,27 +19,10 @@ class MyApp extends App {
         <Container>
           <Layout>
             <Header>
-              <h1 style={{ float: 'left', margin: '0 20px 0 0' }}>
-                <Link href="/">
-                  <a style={{ color: '#FFF' }}>Expensr</a>
-                </Link>
+              <h1 style={{ color: '#FFF', float: 'left', margin: '0 20px 0 0' }}>
+                Expensr
               </h1>
-              <Menu
-                mode="horizontal"
-                style={{ lineHeight: '64px' }}
-                theme="dark"
-              >
-                <Menu.Item key="1">
-                  <Link href="/create">
-                    <a>Create sheet</a>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item key="2">
-                  <Link href="/login">
-                    <a>Log in</a>
-                  </Link>
-                </Menu.Item>
-              </Menu>
+              <Navigation />
             </Header>
             <Content style={{ padding: '0 50px' }}>
               <main>
