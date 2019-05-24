@@ -11,9 +11,8 @@ export function userAuthenticateError() {
   };
 }
 
-export function userAuthenticateSuccess(data) {
+export function userAuthenticateSuccess() {
   return {
-    payload: data.token,
     type: USER_AUTHENTICATE_SUCCESS,
   };
 }

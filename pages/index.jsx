@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Head from 'next/head';
-import Router from 'next/router';
 import { Formik } from 'formik';
-import Cookies from 'universal-cookie';
 import {
   Button, Form, Icon, Input, message, PageHeader,
 } from 'antd';
@@ -12,7 +10,7 @@ import PropTypes from 'prop-types';
 import { userAuthenticate } from '../actions/user/authenticate';
 import { authenticate as validate } from '../helpers/validate';
 
-import { getAuthenticateError, getAuthenticateSuccess, getToken } from '../selectors/authenticate';
+import { getAuthenticateError, getAuthenticateSuccess } from '../selectors/authenticate';
 
 const initialValues = {
   email: '',
@@ -24,28 +22,17 @@ class Login extends Component {
     authenticate: PropTypes.func.isRequired,
     authenticateError: PropTypes.bool,
     authenticateSuccess: PropTypes.bool,
-    token: PropTypes.string,
   };
 
   static defaultProps = {
     authenticateError: false,
     authenticateSuccess: false,
-    token: '',
   };
 
   componentDidUpdate() {
     const { authenticateError, authenticateSuccess } = this.props;
     if (authenticateError) message.error('Unable to log in');
-
-    if (authenticateSuccess) {
-      const cookies = new Cookies();
-      const { token } = this.props;
-      cookies.set('token', token, { path: '/' });
-      message.success('Logged in');
-      Router.push({
-        pathname: '/sheets',
-      });
-    }
+    if (authenticateSuccess) message.success('Logged in');
   }
 
   render() {
@@ -125,7 +112,6 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   authenticateError: getAuthenticateError(state),
   authenticateSuccess: getAuthenticateSuccess(state),
-  token: getToken(state),
 });
 
 export default connect(

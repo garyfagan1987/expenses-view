@@ -29,7 +29,6 @@ export const initialState = {
   authenticate: {
     error: false,
     success: false,
-    token: undefined,
   },
   logout: {
     error: false,
@@ -56,7 +55,6 @@ export default (state = initialState, action) => {
         authenticate: {
           error: true,
           success: false,
-          token: undefined,
         },
       };
     case USER_AUTHENTICATE_SUCCESS:
@@ -65,7 +63,6 @@ export default (state = initialState, action) => {
         authenticate: {
           error: false,
           success: true,
-          token: action.payload,
         },
       };
     case USER_LOGOUT_ERROR:
