@@ -56,6 +56,7 @@ export default (state = initialState, action) => {
           error: true,
           success: false,
         },
+        isAuthenticated: false,
       };
     case USER_AUTHENTICATE_SUCCESS:
       return {
@@ -64,10 +65,12 @@ export default (state = initialState, action) => {
           error: false,
           success: true,
         },
+        isAuthenticated: true,
       };
     case USER_LOGOUT_ERROR:
       return {
         ...state,
+        isAuthenticated: true,
         logout: {
           error: true,
           success: false,
@@ -76,6 +79,7 @@ export default (state = initialState, action) => {
     case USER_LOGOUT_SUCCESS:
       return {
         ...state,
+        isAuthenticated: false,
         logout: {
           error: false,
           success: true,

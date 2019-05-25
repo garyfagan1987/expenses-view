@@ -2,14 +2,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Menu } from 'antd';
 import Link from 'next/link';
-import Cookies from 'universal-cookie';
 import PropTypes from 'prop-types';
+import Cookies from 'universal-cookie';
 
 import { userLogout } from '../actions/user/logout';
+import { getIsAuthenticated } from '../selectors/authenticate';
 
-const Navigation = ({ logout }) => {
+const Navigation = ({ isAuthenticated, logout }) => {
   const cookies = new Cookies();
-  const isLoggedIn = !!cookies.get('token');
+  const isLoggedIn = typeof isAuthenticated !== 'undefined' ? isAuthenticated : !!cookies.get('token');
 
   return (
     <Menu
@@ -41,7 +42,12 @@ const Navigation = ({ logout }) => {
 };
 
 Navigation.propTypes = {
+  isAuthenticated: PropTypes.bool,
   logout: PropTypes.func.isRequired,
+};
+
+Navigation.defaultProps = {
+  isAuthenticated: undefined,
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -50,7 +56,11 @@ const mapDispatchToProps = dispatch => ({
   },
 });
 
+const mapStateToProps = state => ({
+  isAuthenticated: getIsAuthenticated(state),
+});
+
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(Navigation);
