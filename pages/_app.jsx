@@ -20,7 +20,7 @@ class MyApp extends App {
           <Layout>
             <Header>
               <h1 style={{ color: '#FFF', float: 'left', margin: '0 20px 0 0' }}>
-                Expensr
+                Expenses
               </h1>
               <Navigation />
             </Header>

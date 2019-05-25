@@ -7,6 +7,7 @@ import Cookies from 'universal-cookie';
 
 import { userLogout } from '../actions/user/logout';
 import { getIsAuthenticated } from '../selectors/authenticate';
+import { createSheetPath, sheetsPath } from '../config/paths';
 
 const Navigation = ({ isAuthenticated, logout }) => {
   const cookies = new Cookies();
@@ -20,14 +21,14 @@ const Navigation = ({ isAuthenticated, logout }) => {
     >
       {isLoggedIn && (
         <Menu.Item key="1">
-          <Link href="/sheets">
+          <Link href={sheetsPath}>
             <a>Sheets</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="2">
-          <Link href="/create">
+          <Link href={createSheetPath}>
             <a>Create sheet</a>
           </Link>
         </Menu.Item>

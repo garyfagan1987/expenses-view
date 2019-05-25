@@ -28,6 +28,7 @@ import {
   getSheetFetchError, getSheetFetchSuccess, getSheetUpdateError, getSheetUpdateSuccess,
 } from '../selectors/sheet';
 import { sheetFetch } from '../actions/sheet/sheet';
+import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
 
 const initialItem = {
@@ -86,7 +87,7 @@ class Home extends Component {
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            <Link href="/">
+            <Link href={sheetsPath}>
               <a>
                 Expense Sheets
               </a>

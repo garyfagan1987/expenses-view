@@ -26,6 +26,7 @@ import {
 import { sheetCreate } from '../actions/sheet/create';
 import { sheetUpdateCalculation } from '../actions/sheet/update';
 import { getSheetCreateError, getSheetCreateSuccess, getSheetFetchSuccess } from '../selectors/sheet';
+import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
 
 const initialValues = {
@@ -88,7 +89,7 @@ class Home extends Component {
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            <Link href="/sheets">
+            <Link href={sheetsPath}>
               <a>
                 Expense Sheets
               </a>
