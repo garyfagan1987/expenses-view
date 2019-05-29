@@ -3,6 +3,8 @@ import {
   USER_AUTHENTICATE_SUCCESS,
   USER_LOGOUT_ERROR,
   USER_LOGOUT_SUCCESS,
+  USER_REGISTER_ERROR,
+  USER_REGISTER_SUCCESS,
 } from '../actions/user/actions';
 
 import {
@@ -31,6 +33,10 @@ export const initialState = {
     success: false,
   },
   logout: {
+    error: false,
+    success: false,
+  },
+  register: {
     error: false,
     success: false,
   },
@@ -81,6 +87,22 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: false,
         logout: {
+          error: false,
+          success: true,
+        },
+      };
+    case USER_REGISTER_ERROR:
+      return {
+        ...state,
+        register: {
+          error: true,
+          success: false,
+        },
+      };
+    case USER_REGISTER_SUCCESS:
+      return {
+        ...state,
+        register: {
           error: false,
           success: true,
         },

@@ -1,9 +1,10 @@
 import 'isomorphic-unfetch';
 import { all, takeLatest } from 'redux-saga/effects';
 
-import { USER_AUTHENTICATE, USER_LOGOUT } from '../actions/user/actions';
+import { USER_AUTHENTICATE, USER_LOGOUT, USER_REGISTER } from '../actions/user/actions';
 import userAuthenticate from './user/authenticate';
 import userLogout from './user/logout';
+import userRegister from './user/register';
 
 import { SHEETS_FETCH_REQUESTED } from '../actions/sheets/actions';
 import {
@@ -19,6 +20,7 @@ function* rootSaga() {
   yield all([
     takeLatest(USER_AUTHENTICATE, userAuthenticate),
     takeLatest(USER_LOGOUT, userLogout),
+    takeLatest(USER_REGISTER, userRegister),
     takeLatest(SHEETS_FETCH_REQUESTED, loadSheets),
     takeLatest(SHEET_DELETE, deleteSheet),
     takeLatest(SHEET_CREATE, createSheet),
