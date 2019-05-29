@@ -19,13 +19,12 @@ import {
   Form,
   Icon,
   Input,
-  message,
   Row,
 } from 'antd';
 
 import { sheetCreate } from '../actions/sheet/create';
 import { sheetUpdateCalculation } from '../actions/sheet/update';
-import { getSheetCreateError, getSheetCreateSuccess, getSheetFetchSuccess } from '../selectors/sheet';
+import { getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
 
@@ -48,26 +47,13 @@ class Home extends Component {
   static propTypes = {
     cookies: PropTypes.shape().isRequired,
     createSheet: PropTypes.func.isRequired,
-    createSheetError: PropTypes.bool,
-    createSheetSuccess: PropTypes.bool,
     sheet: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    createSheetError: false,
-    createSheetSuccess: false,
   };
 
   static async getInitialProps(ctx) {
     const cookies = ctx.isServer ? nextCookie(ctx) : Cookies.get();
     return { cookies };
-  }
-
-  componentDidUpdate() {
-    const { createSheetError, createSheetSuccess } = this.props;
-    if (createSheetSuccess) message.success('Sheet has been created');
-    if (createSheetError) message.error('Sheet could not be created');
   }
 
   handleRemoveItem = (arrayHelpers, index, values) => {
@@ -336,8 +322,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  createSheetError: getSheetCreateError(state),
-  createSheetSuccess: getSheetCreateSuccess(state),
   sheet: getSheetFetchSuccess(state),
 });
 

@@ -19,14 +19,11 @@ import {
   Form,
   Icon,
   Input,
-  message,
   Row,
 } from 'antd';
 
 import { sheetUpdate, sheetUpdateCalculation } from '../actions/sheet/update';
-import {
-  getSheetFetchError, getSheetFetchSuccess, getSheetUpdateError, getSheetUpdateSuccess,
-} from '../selectors/sheet';
+import { getSheetFetchError, getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetFetch } from '../actions/sheet/sheet';
 import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
@@ -45,13 +42,6 @@ class Home extends Component {
     sheet: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
     updateSheet: PropTypes.func.isRequired,
-    updateSheetError: PropTypes.bool,
-    updateSheetSuccess: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    updateSheetError: false,
-    updateSheetSuccess: false,
   };
 
   static async getInitialProps(ctx) {
@@ -60,12 +50,6 @@ class Home extends Component {
     const { token } = cookies;
     dispatch(sheetFetch(query.slug, token));
     return { cookies };
-  }
-
-  componentDidUpdate() {
-    const { updateSheetError, updateSheetSuccess } = this.props;
-    if (updateSheetSuccess) message.success('Sheet has been updated');
-    if (updateSheetError) message.error('Sheet could not be updated');
   }
 
   handleRemoveItem = (arrayHelpers, index, values) => {
@@ -181,7 +165,7 @@ class Home extends Component {
                               <Col span={4}>Actions</Col>
                             </Row>
                             {values.items.map((item, index) => (
-                              <Row gutter={15} key={index}>
+                              <Row key={index} gutter={15}>
                                 <Col span={4}>
                                   <Field
                                     autoComplete="off"
@@ -336,10 +320,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
+  // TODO, is error being used?
   error: getSheetFetchError(state),
   sheet: getSheetFetchSuccess(state),
-  updateSheetError: getSheetUpdateError(state),
-  updateSheetSuccess: getSheetUpdateSuccess(state),
 });
 
 export default connect(

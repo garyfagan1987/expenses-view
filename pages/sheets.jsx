@@ -10,31 +10,25 @@ import {
   Alert,
   Button,
   Breadcrumb,
-  message,
   Spin,
   Table,
 } from 'antd';
 
 import { sheetsFetch } from '../actions/sheets/sheets';
 import { getSheets, getSheetsLoading, getSheetsError } from '../selectors/sheets';
-import { getSheetDeleteError, getSheetDeleteSuccess } from '../selectors/sheet';
 import { sheetDelete } from '../actions/sheet/delete';
 import { transformSheetsForTable } from '../helpers/transformers';
 
 class Home extends Component {
   static propTypes = {
     cookies: PropTypes.shape().isRequired,
-    deleteError: PropTypes.bool,
     deleteSheet: PropTypes.func.isRequired,
-    deleteSuccess: PropTypes.bool,
     fetchError: PropTypes.bool,
     loading: PropTypes.bool,
     sheets: PropTypes.arrayOf(PropTypes.shape().isRequired),
   }
 
   static defaultProps = {
-    deleteError: false,
-    deleteSuccess: false,
     fetchError: false,
     loading: false,
     sheets: [],
@@ -46,12 +40,6 @@ class Home extends Component {
     const { token } = cookies;
     dispatch(sheetsFetch(token));
     return { cookies };
-  }
-
-  componentDidUpdate() {
-    const { deleteError, deleteSuccess } = this.props;
-    if (deleteSuccess) message.success('Your sheet was deleted');
-    if (deleteError) message.error('There was a problem trying to delete this sheet');
   }
 
   renderSheets = () => {
@@ -133,8 +121,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  deleteError: getSheetDeleteError(state),
-  deleteSuccess: getSheetDeleteSuccess(state),
   fetchError: getSheetsError(state),
   loading: getSheetsLoading(state),
   sheets: getSheets(state),
