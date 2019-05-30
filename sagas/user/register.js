@@ -14,7 +14,7 @@ export default function* userRegister({ payload: values }) {
       method: 'POST',
     });
     if (response.status !== 200) {
-      message.success('Unable to register');
+      message.error('Unable to register');
       throw new Error('Bad response from server');
     }
     message.success('Registered');

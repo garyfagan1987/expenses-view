@@ -23,7 +23,7 @@ import {
 } from 'antd';
 
 import { sheetUpdate, sheetUpdateCalculation } from '../actions/sheet/update';
-import { getSheetFetchError, getSheetFetchSuccess } from '../selectors/sheet';
+import { getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetFetch } from '../actions/sheet/sheet';
 import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
@@ -320,8 +320,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  // TODO, is error being used?
-  error: getSheetFetchError(state),
   sheet: getSheetFetchSuccess(state),
 });
 

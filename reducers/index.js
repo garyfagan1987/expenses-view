@@ -3,22 +3,15 @@ import {
   USER_AUTHENTICATE_SUCCESS,
   USER_LOGOUT_ERROR,
   USER_LOGOUT_SUCCESS,
-  USER_REGISTER_ERROR,
-  USER_REGISTER_SUCCESS,
 } from '../actions/user/actions';
 
 import {
-  SHEET_CREATE_ERROR,
-  SHEET_CREATE_SUCCESS,
   SHEET_DELETE,
   SHEET_DELETE_ERROR,
   SHEET_DELETE_SUCCESS,
   SHEET_FETCH_ERROR,
   SHEET_FETCH_SUCCESS,
-  SHEET_UPDATE,
   SHEET_UPDATE_CALCULATION,
-  SHEET_UPDATE_ERROR,
-  SHEET_UPDATE_SUCCESS,
 } from '../actions/sheet/actions';
 
 import {
@@ -28,23 +21,9 @@ import {
 } from '../actions/sheets/actions';
 
 export const initialState = {
-  authenticate: {
-    error: false,
-    success: false,
-  },
-  logout: {
-    error: false,
-    success: false,
-  },
-  register: {
-    error: false,
-    success: false,
-  },
+  isAuthenticated: undefined,
   sheet: {
-    create: { error: false, success: false },
-    delete: { error: false, success: false },
     fetch: { error: true, success: {} },
-    update: { error: false, success: false },
   },
   sheets: {
     error: false,
@@ -58,65 +37,26 @@ export default (state = initialState, action) => {
     case USER_AUTHENTICATE_ERROR:
       return {
         ...state,
-        authenticate: {
-          error: true,
-          success: false,
-        },
         isAuthenticated: false,
       };
     case USER_AUTHENTICATE_SUCCESS:
       return {
         ...state,
-        authenticate: {
-          error: false,
-          success: true,
-        },
         isAuthenticated: true,
       };
     case USER_LOGOUT_ERROR:
       return {
         ...state,
         isAuthenticated: true,
-        logout: {
-          error: true,
-          success: false,
-        },
       };
     case USER_LOGOUT_SUCCESS:
       return {
         ...state,
         isAuthenticated: false,
-        logout: {
-          error: false,
-          success: true,
-        },
-      };
-    case USER_REGISTER_ERROR:
-      return {
-        ...state,
-        register: {
-          error: true,
-          success: false,
-        },
-      };
-    case USER_REGISTER_SUCCESS:
-      return {
-        ...state,
-        register: {
-          error: false,
-          success: true,
-        },
       };
     case SHEETS_FETCH_REQUESTED:
       return {
         ...state,
-        sheet: {
-          ...state.sheet,
-          delete: {
-            error: undefined,
-            success: undefined,
-          },
-        },
         sheets: {
           error: false,
           loading: true,
@@ -141,73 +81,12 @@ export default (state = initialState, action) => {
           success: [],
         },
       };
-    case SHEET_DELETE:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          delete: {
-            error: undefined,
-            success: undefined,
-          },
-        },
-        sheetsLoading: false,
-      };
-    case SHEET_DELETE_ERROR:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          delete: {
-            error: true,
-            success: false,
-          },
-        },
-        sheetsLoading: false,
-      };
-    case SHEET_DELETE_SUCCESS:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          delete: {
-            error: false,
-            success: true,
-          },
-        },
-        sheetsLoading: false,
-      };
-    case SHEET_CREATE_ERROR:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          create: {
-            error: true,
-            success: false,
-          },
-        },
-        sheetsLoading: false,
-      };
-    case SHEET_CREATE_SUCCESS:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          create: {
-            error: false,
-            success: true,
-          },
-        },
-        sheetsLoading: false,
-      };
     case SHEET_FETCH_SUCCESS:
       return {
         ...state,
         sheet: {
           ...state.sheet,
           fetch: {
-            error: false,
             success: action.payload,
           },
         },
@@ -218,46 +97,9 @@ export default (state = initialState, action) => {
         sheet: {
           ...state.sheet,
           fetch: {
-            error: true,
             success: {},
           },
         },
-      };
-    case SHEET_UPDATE:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          update: {
-            error: undefined,
-            success: undefined,
-          },
-        },
-        sheetsLoading: false,
-      };
-    case SHEET_UPDATE_ERROR:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          update: {
-            error: true,
-            success: false,
-          },
-        },
-        sheetsLoading: false,
-      };
-    case SHEET_UPDATE_SUCCESS:
-      return {
-        ...state,
-        sheet: {
-          ...state.sheet,
-          update: {
-            error: false,
-            success: true,
-          },
-        },
-        sheetsLoading: false,
       };
     case SHEET_UPDATE_CALCULATION:
       return {
@@ -265,7 +107,6 @@ export default (state = initialState, action) => {
         sheet: {
           ...state.sheet,
           fetch: {
-            error: false,
             success: action.payload,
           },
         },

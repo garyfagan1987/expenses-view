@@ -15,7 +15,7 @@ import {
 } from 'antd';
 
 import { sheetsFetch } from '../actions/sheets/sheets';
-import { getSheets, getSheetsLoading, getSheetsError } from '../selectors/sheets';
+import { getSheetsSuccess, getSheetsLoading, getSheetsError } from '../selectors/sheets';
 import { sheetDelete } from '../actions/sheet/delete';
 import { transformSheetsForTable } from '../helpers/transformers';
 
@@ -23,13 +23,13 @@ class Home extends Component {
   static propTypes = {
     cookies: PropTypes.shape().isRequired,
     deleteSheet: PropTypes.func.isRequired,
-    fetchError: PropTypes.bool,
+    error: PropTypes.bool,
     loading: PropTypes.bool,
     sheets: PropTypes.arrayOf(PropTypes.shape().isRequired),
   }
 
   static defaultProps = {
-    fetchError: false,
+    error: false,
     loading: false,
     sheets: [],
   }
@@ -92,7 +92,7 @@ class Home extends Component {
   }
 
   render() {
-    const { fetchError, loading } = this.props;
+    const { error, loading } = this.props;
 
     return (
       <React.Fragment>
@@ -105,9 +105,9 @@ class Home extends Component {
           </Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-          {fetchError && <Alert message="There was a problem loading your sheets" type="error" />}
-          {!fetchError && loading && <Spin />}
-          {!fetchError && this.renderSheets()}
+          {error && <Alert message="There was a problem loading your sheets" type="error" />}
+          {!error && loading && <Spin />}
+          {!error && this.renderSheets()}
         </div>
       </React.Fragment>
     );
@@ -121,9 +121,9 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  fetchError: getSheetsError(state),
+  error: getSheetsError(state),
   loading: getSheetsLoading(state),
-  sheets: getSheets(state),
+  sheets: getSheetsSuccess(state),
 });
 
 export default connect(
