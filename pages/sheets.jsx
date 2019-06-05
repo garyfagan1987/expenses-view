@@ -65,10 +65,6 @@ class Home extends Component {
       ),
       title: 'Published',
     }, {
-      dataIndex: 'totalNet',
-      key: 'totalNet',
-      title: 'Total Net',
-    }, {
       dataIndex: 'totalVat',
       key: 'totalVat',
       title: 'Total VAT',

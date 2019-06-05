@@ -18,7 +18,6 @@ export const transformSheets = sheets => (sheets).map(sheet => ({
   isPublished: sheet.isPublished,
   title: sheet.title,
   totalGross: sheet.totalGross,
-  totalNet: sheet.totalNet,
   totalVat: sheet.totalVat,
 }));
 
@@ -28,6 +27,5 @@ export const transformSheetsForTable = sheets => (sheets).map(sheet => ({
   key: sheet.id,
   title: sheet.title,
   totalGross: sheet.totalGross,
-  totalNet: sheet.totalNet,
   totalVat: sheet.totalVat,
 }));

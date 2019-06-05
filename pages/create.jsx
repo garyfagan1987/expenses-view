@@ -38,7 +38,6 @@ const initialValues = {
 const initialItem = {
   date: moment(),
   price_gross: 0,
-  price_net: 0,
   price_vat: 0,
   title: '',
 };
@@ -159,16 +158,15 @@ class Home extends Component {
                         {values.items.length > 0 && (
                           <React.Fragment>
                             <Row gutter={15}>
-                              <Col span={4}>Title *</Col>
-                              <Col span={4}>Date *</Col>
-                              <Col span={4}>Net *</Col>
-                              <Col span={4}>VAT *</Col>
-                              <Col span={4}>Gross *</Col>
+                              <Col span={5}>Title *</Col>
+                              <Col span={5}>Date *</Col>
+                              <Col span={5}>VAT *</Col>
+                              <Col span={5}>Gross *</Col>
                               <Col span={4}>Actions</Col>
                             </Row>
                             {values.items.map((item, index) => (
                               <Row gutter={15} key={index}>
-                                <Col span={4}>
+                                <Col span={5}>
                                   <Field
                                     autoComplete="off"
                                     name={`items[${index}].title`}
@@ -182,7 +180,7 @@ class Home extends Component {
                                     type="text"
                                   />
                                 </Col>
-                                <Col span={4}>
+                                <Col span={5}>
                                   <Field
                                     render={() => (
                                       <Form.Item>
@@ -196,23 +194,7 @@ class Home extends Component {
                                     )}
                                   />
                                 </Col>
-                                <Col span={4}>
-                                  <Field
-                                    name={`items.${index}.price_net`}
-                                    render={({ field }) => (
-                                      <Form.Item>
-                                        <Input
-                                          {...field}
-                                          min={0}
-                                          onBlur={() => updateCalculation(values)}
-                                          onChange={handleChange}
-                                          type="number"
-                                        />
-                                      </Form.Item>
-                                    )}
-                                  />
-                                </Col>
-                                <Col span={4}>
+                                <Col span={5}>
                                   <Field
                                     name={`items.${index}.price_vat`}
                                     render={({ field }) => (
@@ -228,7 +210,7 @@ class Home extends Component {
                                     )}
                                   />
                                 </Col>
-                                <Col span={4}>
+                                <Col span={5}>
                                   <Field
                                     name={`items.${index}.price_gross`}
                                     render={({ field }) => (
@@ -266,16 +248,12 @@ class Home extends Component {
                               </Row>
                             ))}
                             <Row gutter={15}>
-                              <Col span={8} />
-                              <Col span={4}>
-                                Net Total:&nbsp;
-                                {sheet.totalNet}
-                              </Col>
-                              <Col span={4}>
+                              <Col span={10} />
+                              <Col span={5}>
                                 VAT Total:&nbsp;
                                 {sheet.totalVat}
                               </Col>
-                              <Col span={8}>
+                              <Col span={5}>
                                 Gross Total:&nbsp;
                                 {sheet.totalGross}
                               </Col>
@@ -310,12 +288,10 @@ const mapDispatchToProps = dispatch => ({
   },
   updateCalculation: (values) => {
     const grossCalculation = values.items.map(item => item.price_gross).reduce(reducer);
-    const netCalculation = values.items.map(item => item.price_net).reduce(reducer);
     const vatCalculation = values.items.map(item => item.price_vat).reduce(reducer);
     dispatch(sheetUpdateCalculation({
       ...values,
       totalGross: grossCalculation,
-      totalNet: netCalculation,
       totalVat: vatCalculation,
     }));
   },
