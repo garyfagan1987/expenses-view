@@ -1,4 +1,5 @@
 import {
+  USER_AUTHENTICATE,
   USER_AUTHENTICATE_ERROR,
   USER_AUTHENTICATE_SUCCESS,
   USER_LOGOUT_ERROR,
@@ -6,9 +7,6 @@ import {
 } from '../actions/user/actions';
 
 import {
-  SHEET_DELETE,
-  SHEET_DELETE_ERROR,
-  SHEET_DELETE_SUCCESS,
   SHEET_FETCH_ERROR,
   SHEET_FETCH_SUCCESS,
   SHEET_UPDATE_CALCULATION,
@@ -22,6 +20,7 @@ import {
 
 export const initialState = {
   isAuthenticated: undefined,
+  isLoading: false,
   sheet: {
     fetch: { error: true, success: {} },
   },
@@ -34,15 +33,23 @@ export const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case USER_AUTHENTICATE:
+      return {
+        ...state,
+        isAuthenticated: false,
+        isLoading: true,
+      };
     case USER_AUTHENTICATE_ERROR:
       return {
         ...state,
         isAuthenticated: false,
+        isLoading: false,
       };
     case USER_AUTHENTICATE_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
+        isLoading: false,
       };
     case USER_LOGOUT_ERROR:
       return {

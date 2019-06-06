@@ -100,11 +100,12 @@ class Home extends Component {
             Expense Sheets
           </Breadcrumb.Item>
         </Breadcrumb>
-        <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-          {error && <Alert message="There was a problem loading your sheets" type="error" />}
-          {!error && loading && <Spin />}
-          {!error && this.renderSheets()}
-        </div>
+        <Spin spinning={loading} tip="Getting your sheets">
+          <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
+            {error && <Alert message="There was a problem loading your sheets" type="error" />}
+            {!error && this.renderSheets()}
+          </div>
+        </Spin>
       </React.Fragment>
     );
   }
