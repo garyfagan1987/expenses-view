@@ -1,4 +1,5 @@
 import { put } from 'redux-saga/effects';
+import Router from 'next/router';
 import { message } from 'antd';
 
 import { sheetCreateError, sheetCreateSuccess } from '../../actions/sheet/create';
@@ -20,8 +21,11 @@ export default function* createSheet({ payload: { values, token } }) {
       message.error('Sheet could not be created');
       throw new Error('Bad response from server');
     }
-    message.success('Sheet has been created');
     yield put(sheetCreateSuccess());
+    message.success('Sheet has been created');
+    Router.push({
+      pathname: '/sheets',
+    });
   } catch (err) {
     yield put(sheetCreateError());
   }
