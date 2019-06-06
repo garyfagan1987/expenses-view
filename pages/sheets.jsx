@@ -18,6 +18,7 @@ import { sheetsFetch } from '../actions/sheets/sheets';
 import { getSheetsSuccess, getSheetsLoading, getSheetsError } from '../selectors/sheets';
 import { sheetDelete } from '../actions/sheet/delete';
 import { transformSheetsForTable } from '../helpers/transformers';
+import { createSheetPath } from '../config/paths';
 
 class Home extends Component {
   static propTypes = {
@@ -102,6 +103,9 @@ class Home extends Component {
         </Breadcrumb>
         <Spin spinning={loading} tip="Getting your sheets">
           <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
+            <div style={{ marginBottom: '16px', textAlign: 'right' }}>
+              <Button href={createSheetPath}>Create sheet</Button>
+            </div>
             {error && <Alert message="There was a problem loading your sheets" type="error" />}
             {!error && this.renderSheets()}
           </div>
