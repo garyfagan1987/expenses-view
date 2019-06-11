@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
 
 import { userLogout } from '../actions/user/logout';
 import { getIsAuthenticated } from '../selectors/authenticate';
-import { sheetsPath } from '../config/paths';
+import { loginPath, registerPath, sheetsPath } from '../config/paths';
 
 const Navigation = ({ isAuthenticated, logout }) => {
   const cookies = new Cookies();
@@ -19,15 +19,29 @@ const Navigation = ({ isAuthenticated, logout }) => {
       style={{ lineHeight: '64px' }}
       theme="dark"
     >
-      {isLoggedIn && (
+      {!isLoggedIn && (
         <Menu.Item key="1">
+          <Link href={loginPath}>
+            <a>Login</a>
+          </Link>
+        </Menu.Item>
+      )}
+      {!isLoggedIn && (
+        <Menu.Item key="2">
+          <Link href={registerPath}>
+            <a>Register</a>
+          </Link>
+        </Menu.Item>
+      )}
+      {isLoggedIn && (
+        <Menu.Item key="3">
           <Link href={sheetsPath}>
             <a>Sheets</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
-        <Menu.Item key="3">
+        <Menu.Item key="4">
           <a onClick={logout}>Log out</a>
         </Menu.Item>
       )}

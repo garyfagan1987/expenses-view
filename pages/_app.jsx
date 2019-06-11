@@ -1,6 +1,7 @@
 import { Layout } from 'antd';
 import { Provider } from 'react-redux';
 import App, { Container } from 'next/app';
+import Link from 'next/link';
 import compose from 'lodash/fp/compose';
 import React from 'react';
 import withRedux from 'next-redux-wrapper';
@@ -8,6 +9,7 @@ import withReduxSaga from 'next-redux-saga';
 
 import createStore from '../store';
 import Navigation from '../components/navigation';
+import { indexPath } from '../config/paths';
 
 const { Header, Content, Footer } = Layout;
 
@@ -19,8 +21,10 @@ class MyApp extends App {
         <Container>
           <Layout>
             <Header>
-              <h1 style={{ color: '#FFF', float: 'left', margin: '0 20px 0 0' }}>
-                Expenses
+              <h1 style={{ float: 'left', margin: '0 20px 0 0' }}>
+                <Link href={indexPath}>
+                  <a style={{ color: '#FFF' }}>Expenses</a>
+                </Link>
               </h1>
               <Navigation />
             </Header>
