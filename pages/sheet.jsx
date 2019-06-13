@@ -20,13 +20,17 @@ import {
   Icon,
   Input,
   Row,
+  Select,
 } from 'antd';
 
 import { sheetUpdate, sheetUpdateCalculation } from '../actions/sheet/update';
 import { getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetFetch } from '../actions/sheet/sheet';
 import { sheetsPath } from '../config/paths';
+import itemTypes from '../config/item-types';
 import validate from '../helpers/validate';
+
+const { Option } = Select;
 
 const initialItem = {
   date: moment(),
@@ -94,6 +98,7 @@ class Home extends Component {
               handleChange,
               handleSubmit,
               touched,
+              setFieldTouched,
               setFieldValue,
               values,
             }) => (
@@ -166,16 +171,20 @@ class Home extends Component {
                               <Row key={index} gutter={15}>
                                 <Col span={5}>
                                   <Field
-                                    autoComplete="off"
                                     name={`items[${index}].title`}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
                                     render={({ field }) => (
                                       <Form.Item>
-                                        <Input {...field} />
+                                        <Select
+                                          {...field}
+                                          onBlur={() => setFieldTouched(`items[${index}].title`, true)}
+                                          onChange={value => setFieldValue(`items[${index}].title`, value)}
+                                        >
+                                          {itemTypes.map((type, index) => (
+                                            <Option key={index} value={type}>{type}</Option>
+                                          ))}
+                                        </Select>
                                       </Form.Item>
                                     )}
-                                    type="text"
                                   />
                                 </Col>
                                 <Col span={5}>

@@ -20,13 +20,17 @@ import {
   Icon,
   Input,
   Row,
+  Select,
 } from 'antd';
 
 import { sheetCreate } from '../actions/sheet/create';
 import { sheetUpdateCalculation } from '../actions/sheet/update';
 import { getSheetFetchSuccess } from '../selectors/sheet';
 import { sheetsPath } from '../config/paths';
+import itemTypes from '../config/item-types';
 import validate from '../helpers/validate';
+
+const { Option } = Select;
 
 const initialValues = {
   date: moment(),
@@ -98,6 +102,7 @@ class Home extends Component {
               handleBlur,
               handleChange,
               handleSubmit,
+              setFieldTouched,
               setFieldValue,
               touched,
               values,
@@ -165,19 +170,23 @@ class Home extends Component {
                               <Col span={4}>Actions</Col>
                             </Row>
                             {values.items.map((item, index) => (
-                              <Row gutter={15} key={index}>
+                              <Row key={index} gutter={15}>
                                 <Col span={5}>
                                   <Field
-                                    autoComplete="off"
                                     name={`items[${index}].title`}
-                                    onBlur={handleBlur}
-                                    onChange={handleChange}
                                     render={({ field }) => (
                                       <Form.Item>
-                                        <Input {...field} />
+                                        <Select
+                                          {...field}
+                                          onBlur={() => setFieldTouched(`items[${index}].title`, true)}
+                                          onChange={value => setFieldValue(`items[${index}].title`, value)}
+                                        >
+                                          {itemTypes.map((type, index) => (
+                                            <Option key={index} value={type}>{type}</Option>
+                                          ))}
+                                        </Select>
                                       </Form.Item>
                                     )}
-                                    type="text"
                                   />
                                 </Col>
                                 <Col span={5}>
