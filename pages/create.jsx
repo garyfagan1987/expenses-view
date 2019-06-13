@@ -142,7 +142,7 @@ class Home extends Component {
                     onChange={handleChange}
                     value={values.isPublished}
                   >
-                    Published
+                    Publish
                   </Checkbox>
                 </Form.Item>
                 <FieldArray

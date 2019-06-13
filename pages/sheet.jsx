@@ -112,6 +112,7 @@ class Home extends Component {
                 >
                   <Input
                     autoComplete="off"
+                    disabled={values.isPublished}
                     name="title"
                     onBlur={handleBlur}
                     onChange={handleChange}
@@ -126,6 +127,7 @@ class Home extends Component {
                 >
                   <DatePicker
                     defaultValue={moment(values.date, 'YYYY-MM-DD')}
+                    disabled={values.isPublished}
                     name="date"
                     onBlur={handleBlur}
                     onChange={(_, dateString) => setFieldValue('date', dateString)}
@@ -140,7 +142,7 @@ class Home extends Component {
                     onChange={handleChange}
                     value={values.isPublished}
                   >
-                    Published
+                    Publish
                   </Checkbox>
                 </Form.Item>
                 <FieldArray
@@ -151,6 +153,7 @@ class Home extends Component {
                         {values.items.length < 1 && (
                           <Empty description={<span>You have no items</span>}>
                             <Button
+                              disabled={values.isPublished}
                               onClick={() => arrayHelpers.push(initialItem)}
                               type="primary"
                             >
@@ -176,6 +179,7 @@ class Home extends Component {
                                       <Form.Item>
                                         <Select
                                           {...field}
+                                          disabled={values.isPublished}
                                           onBlur={() => setFieldTouched(`items[${index}].title`, true)}
                                           onChange={value => setFieldValue(`items[${index}].title`, value)}
                                         >
@@ -193,6 +197,7 @@ class Home extends Component {
                                       <Form.Item>
                                         <DatePicker
                                           defaultValue={moment(item.date, 'YYYY-MM-DD')}
+                                          disabled={values.isPublished}
                                           name={`items[${index}].date`}
                                           onBlur={handleBlur}
                                           onChange={(_, dateString) => setFieldValue(`items.${index}.date`, dateString)}
@@ -208,6 +213,7 @@ class Home extends Component {
                                       <Form.Item>
                                         <Input
                                           {...field}
+                                          disabled={values.isPublished}
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
                                           onChange={handleChange}
@@ -224,6 +230,7 @@ class Home extends Component {
                                       <Form.Item>
                                         <Input
                                           {...field}
+                                          disabled={values.isPublished}
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
                                           onChange={handleChange}
@@ -234,21 +241,20 @@ class Home extends Component {
                                   />
                                 </Col>
                                 <Col span={4}>
-                                  <Icon
+                                  <Button
+                                    disabled={values.isPublished}
+                                    icon="minus-circle-o"
                                     onClick={() => this.handleRemoveItem(arrayHelpers, index, values)}
-                                    style={{ fontSize: '24px', position: 'relative', top: '8px' }}
-                                    type="minus-circle-o"
+                                    style={{ fontSize: '24px', position: 'relative', top: '2px' }}
+                                    type="link"
                                   />
                                   {values.items.length === (index + 1) && (
-                                    <Icon
+                                    <Button
+                                      disabled={values.isPublished}
+                                      icon="plus-circle-o"
                                       onClick={() => arrayHelpers.push(initialItem)}
-                                      style={{
-                                        fontSize: '24px',
-                                        marginLeft: '10px',
-                                        position: 'relative',
-                                        top: '8px',
-                                      }}
-                                      type="plus-circle-o"
+                                      style={{ fontSize: '24px', position: 'relative', top: '2px' }}
+                                      type="link"
                                     />
                                   )}
                                 </Col>
