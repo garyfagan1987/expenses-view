@@ -175,6 +175,7 @@ class Home extends Component {
                                           disabled={values.isPublished}
                                           onBlur={() => setFieldTouched(`items[${index}].title`, true)}
                                           onChange={value => setFieldValue(`items[${index}].title`, value)}
+                                          showSearch
                                         >
                                           {itemTypes.map((type, index) => (
                                             <Option key={index} value={type}>{type}</Option>
