@@ -17,7 +17,6 @@ import {
   DatePicker,
   Empty,
   Form,
-  Icon,
   Input,
   Row,
   Select,
@@ -133,17 +132,6 @@ class Home extends Component {
                     onChange={(_, dateString) => setFieldValue('date', dateString)}
                     style={{ width: '100%' }}
                   />
-                </Form.Item>
-                <Form.Item>
-                  <Checkbox
-                    checked={values.isPublished}
-                    name="isPublished"
-                    onBlur={handleBlur}
-                    onChange={handleChange}
-                    value={values.isPublished}
-                  >
-                    Publish
-                  </Checkbox>
                 </Form.Item>
                 <FieldArray
                   name="items"
@@ -277,9 +265,19 @@ class Home extends Component {
                     </React.Fragment>
                   )}
                 />
+                <Form.Item style={{ marginTop: '20px' }}>
+                  <Checkbox
+                    checked={values.isPublished}
+                    name="isPublished"
+                    onBlur={handleBlur}
+                    onChange={handleChange}
+                    value={values.isPublished}
+                  >
+                    Publish
+                  </Checkbox>
+                </Form.Item>
                 <Button
                   htmlType="submit"
-                  style={{ marginTop: '20px' }}
                   type="primary"
                 >
                   Save
