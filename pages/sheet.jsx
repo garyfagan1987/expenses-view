@@ -28,6 +28,7 @@ import { sheetFetch } from '../actions/sheet/sheet';
 import { sheetsPath } from '../config/paths';
 import itemTypes from '../config/item-types';
 import validate from '../helpers/validate';
+import { currency } from '../helpers/parsers';
 
 const { Option } = Select;
 
@@ -54,6 +55,7 @@ class Home extends Component {
     return { cookies };
   }
 
+  // eslint-disable-next-line no-unused-vars
   handleRemoveItem = (arrayHelpers, index, values) => {
     // @todo, add updateCalculation(values) to remove callback
     // open PR - https://github.com/jaredpalmer/formik/issues/1253
@@ -189,6 +191,7 @@ class Home extends Component {
                                           name={`items[${index}].date`}
                                           onBlur={handleBlur}
                                           onChange={(_, dateString) => setFieldValue(`items.${index}.date`, dateString)}
+                                          style={{ width: '100%' }}
                                         />
                                       </Form.Item>
                                     )}
@@ -201,6 +204,7 @@ class Home extends Component {
                                       <Form.Item>
                                         <Input
                                           {...field}
+                                          addonBefore="£"
                                           disabled={values.isPublished}
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
@@ -218,6 +222,7 @@ class Home extends Component {
                                       <Form.Item>
                                         <Input
                                           {...field}
+                                          addonBefore="£"
                                           disabled={values.isPublished}
                                           min={0}
                                           onBlur={() => updateCalculation(values)}
@@ -252,11 +257,11 @@ class Home extends Component {
                               <Col span={10} />
                               <Col span={5}>
                                 VAT Total:&nbsp;
-                                {sheet.totalVat}
+                                {currency(sheet.totalVat)}
                               </Col>
                               <Col span={5}>
                                 Gross Total:&nbsp;
-                                {sheet.totalGross}
+                                {currency(sheet.totalGross)}
                               </Col>
                             </Row>
                           </React.Fragment>
