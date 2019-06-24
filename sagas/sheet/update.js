@@ -1,4 +1,5 @@
 import { put } from 'redux-saga/effects';
+import Router from 'next/router';
 import { message } from 'antd';
 
 import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/sheet/update';
@@ -23,6 +24,9 @@ export default function* updateSheet({ payload: { values, token } }) {
     }
     message.success('Sheet has been updated');
     yield put(sheetUpdateSuccess());
+    Router.push({
+      pathname: '/sheets',
+    });
   } catch (err) {
     yield put(sheetUpdateError());
   }
