@@ -107,7 +107,7 @@ class Home extends Component {
                 onSubmit={handleSubmit}
               >
                 <Form.Item
-                  help={errors.title && touched.title ? errors.title : ''}
+                  help={errors.title && touched.title ? 'Enter a title' : ''}
                   label="Title *"
                   validateStatus={errors.title && touched.title ? 'error' : undefined}
                 >
@@ -122,7 +122,7 @@ class Home extends Component {
                   />
                 </Form.Item>
                 <Form.Item
-                  help={errors.date && touched.date ? errors.date : ''}
+                  help={errors.date && touched.date ? 'Enter a date' : ''}
                   label="Date *"
                   validateStatus={errors.date && touched.date ? 'error' : undefined}
                 >
@@ -166,7 +166,10 @@ class Home extends Component {
                                   <Field
                                     name={`items[${index}].title`}
                                     render={({ field }) => (
-                                      <Form.Item>
+                                      <Form.Item
+                                        help={errors.items && errors.items[index] && errors.items[index].title && touched.items && touched.items[index] && touched.items[index].title ? 'Enter a title' : ''}
+                                        validateStatus={errors.items && errors.items[index] && errors.items[index].title && touched.items && touched.items[index] && touched.items[index].title ? 'error' : undefined}
+                                      >
                                         <Select
                                           {...field}
                                           disabled={values.isPublished}
@@ -185,7 +188,10 @@ class Home extends Component {
                                 <Col span={5}>
                                   <Field
                                     render={() => (
-                                      <Form.Item>
+                                      <Form.Item
+                                        help={errors.items && errors.items[index] && errors.items[index].date && touched.items && touched.items[index] && touched.items[index].date ? 'Enter a date' : ''}
+                                        validateStatus={errors.items && errors.items[index] && errors.items[index].date && touched.items && touched.items[index] && touched.items[index].date ? 'error' : undefined}
+                                      >
                                         <DatePicker
                                           defaultValue={moment(item.date, 'YYYY-MM-DD')}
                                           disabled={values.isPublished}
@@ -202,7 +208,10 @@ class Home extends Component {
                                   <Field
                                     name={`items.${index}.price_vat`}
                                     render={({ field }) => (
-                                      <Form.Item>
+                                      <Form.Item
+                                        help={errors.items && errors.items[index] && errors.items[index].price_vat && touched.items && touched.items[index] && touched.items[index].price_vat ? 'Enter the VAT price' : ''}
+                                        validateStatus={errors.items && errors.items[index] && errors.items[index].price_vat && touched.items && touched.items[index] && touched.items[index].price_vat ? 'error' : undefined}
+                                      >
                                         <Input
                                           {...field}
                                           addonBefore="£"
@@ -220,7 +229,10 @@ class Home extends Component {
                                   <Field
                                     name={`items.${index}.price_gross`}
                                     render={({ field }) => (
-                                      <Form.Item>
+                                      <Form.Item
+                                        help={errors.items && errors.items[index] && errors.items[index].price_gross && touched.items && touched.items[index] && touched.items[index].price_gross ? 'Enter the gross price' : ''}
+                                        validateStatus={errors.items && errors.items[index] && errors.items[index].price_gross && touched.items && touched.items[index] && touched.items[index].price_gross ? 'error' : undefined}
+                                      >
                                         <Input
                                           {...field}
                                           addonBefore="£"
