@@ -22,9 +22,7 @@ clean-build:
 depend:
 	yarn install
 
-build: build-app
-
-build-app:
+build:
 	$(PROD_CONFIG) next build
 
 deploy:
