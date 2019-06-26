@@ -89,6 +89,7 @@ class Create extends Component {
                 errors={errors}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
+                handleRemoveItem={this.handleRemoveItem}
                 handleSubmit={handleSubmit}
                 setFieldTouched={setFieldTouched}
                 setFieldValue={setFieldValue}

@@ -33,6 +33,7 @@ const ExpenseForm = ({
   errors,
   handleBlur,
   handleChange,
+  handleRemoveItem,
   handleSubmit,
   setFieldTouched,
   setFieldValue,
@@ -186,7 +187,7 @@ const ExpenseForm = ({
                       <Button
                         disabled={values.isPublished}
                         icon="minus-circle-o"
-                        onClick={() => this.handleRemoveItem(arrayHelpers, index, values)}
+                        onClick={() => handleRemoveItem(arrayHelpers, index, values)}
                         style={{ fontSize: '24px', position: 'relative', top: '2px' }}
                         type="link"
                       />
