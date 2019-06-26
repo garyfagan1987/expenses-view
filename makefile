@@ -40,10 +40,4 @@ prod:
 lint:
 	eslint "**/*.jsx" "**/*.js" --config .eslintrc
 
-test:
-	yarn test
-
-storybook:
-	npm run storybook -p 9001 -c .storybook
-
 .PHONY: test lint
