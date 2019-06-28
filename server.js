@@ -13,7 +13,7 @@ app.prepare().then(() => {
   server.use(compression());
   server.use(cookieParser());
 
-  server.get('/sheet/:slug', (req, res) => app.render(req, res, '/sheet', { slug: req.params.slug }));
+  server.get('/report/:slug', (req, res) => app.render(req, res, '/report', { slug: req.params.slug }));
 
   server.get('*', (req, res) => handle(req, res));
 

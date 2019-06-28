@@ -9,9 +9,9 @@ import nextCookie from 'next-cookies';
 import PropTypes from 'prop-types';
 import { Breadcrumb } from 'antd';
 
-import { sheetCreate } from '../actions/sheet/create';
-import { sheetUpdateCalculation } from '../actions/sheet/update';
-import { getSheetFetchSuccess } from '../selectors/sheet';
+import { sheetCreate } from '../actions/report/create';
+import { sheetUpdateCalculation } from '../actions/report/update';
+import { getSheetFetchSuccess } from '../selectors/report';
 import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
 import Form from '../components/form';
@@ -27,7 +27,7 @@ class Create extends Component {
   static propTypes = {
     cookies: PropTypes.shape().isRequired,
     createSheet: PropTypes.func.isRequired,
-    sheet: PropTypes.shape().isRequired,
+    report: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
   };
 
@@ -47,18 +47,18 @@ class Create extends Component {
 
   render() {
     const {
-      createSheet, updateCalculation, sheet, cookies: { token },
+      createSheet, updateCalculation, report, cookies: { token },
     } = this.props;
     return (
       <React.Fragment>
         <Head>
-          <title>Expenses | Create Sheet</title>
+          <title>Expenses | Create Report</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
               <a>
-                Expense Sheets
+                Expense Reports
               </a>
             </Link>
           </Breadcrumb.Item>
@@ -93,7 +93,7 @@ class Create extends Component {
                 handleSubmit={handleSubmit}
                 setFieldTouched={setFieldTouched}
                 setFieldValue={setFieldValue}
-                sheet={sheet}
+                report={report}
                 touched={touched}
                 updateCalculation={updateCalculation}
                 values={values}
@@ -124,7 +124,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  sheet: getSheetFetchSuccess(state),
+  report: getSheetFetchSuccess(state),
 });
 
 export default connect(

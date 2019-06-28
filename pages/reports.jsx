@@ -14,9 +14,9 @@ import {
   Table,
 } from 'antd';
 
-import { sheetsFetch } from '../actions/sheets/sheets';
-import { getSheetsSuccess, getSheetsLoading, getSheetsError } from '../selectors/sheets';
-import { sheetDelete } from '../actions/sheet/delete';
+import { sheetsFetch } from '../actions/reports/reports';
+import { getSheetsSuccess, getSheetsLoading, getSheetsError } from '../selectors/reports';
+import { sheetDelete } from '../actions/report/delete';
 import { transformSheetsForTable } from '../helpers/transformers';
 import { createSheetPath } from '../config/paths';
 
@@ -26,13 +26,13 @@ class Home extends Component {
     deleteSheet: PropTypes.func.isRequired,
     error: PropTypes.bool,
     loading: PropTypes.bool,
-    sheets: PropTypes.arrayOf(PropTypes.shape().isRequired),
+    reports: PropTypes.arrayOf(PropTypes.shape().isRequired),
   }
 
   static defaultProps = {
     error: false,
     loading: false,
-    sheets: [],
+    reports: [],
   }
 
   static async getInitialProps(ctx) {
@@ -44,8 +44,8 @@ class Home extends Component {
   }
 
   renderSheets = () => {
-    const { deleteSheet, sheets, cookies: { token } } = this.props;
-    const transformedSheets = transformSheetsForTable(sheets);
+    const { deleteSheet, reports, cookies: { token } } = this.props;
+    const transformedSheets = transformSheetsForTable(reports);
 
     const columns = [{
       dataIndex: 'title',
@@ -75,11 +75,11 @@ class Home extends Component {
       title: 'Total Gross',
     }, {
       key: 'action',
-      render: sheet => (
+      render: report => (
         <span>
-          <Button href={`/sheet/${sheet.key}`}>edit</Button>
+          <Button href={`/report/${report.key}`}>edit</Button>
           &nbsp;
-          <Button disabled={sheet.isPublished} onClick={deleteSheet(sheet.key, token)}>delete</Button>
+          <Button disabled={report.isPublished} onClick={deleteSheet(report.key, token)}>delete</Button>
         </span>
       ),
       title: 'Action',
@@ -94,19 +94,19 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Head>
-          <title>Expenses | Sheets</title>
+          <title>Expenses | Reports</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            Expense Sheets
+            Expense Reports
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Spin spinning={loading} tip="Getting your sheets">
+        <Spin spinning={loading} tip="Getting your reports">
           <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
             <div style={{ marginBottom: '16px', textAlign: 'right' }}>
-              <Button href={createSheetPath}>Create sheet</Button>
+              <Button href={createSheetPath}>Create report</Button>
             </div>
-            {error && <Alert message="There was a problem loading your sheets" type="error" />}
+            {error && <Alert message="There was a problem loading your reports" type="error" />}
             {!error && this.renderSheets()}
           </div>
         </Spin>
@@ -124,7 +124,7 @@ const mapDispatchToProps = dispatch => ({
 const mapStateToProps = state => ({
   error: getSheetsError(state),
   loading: getSheetsLoading(state),
-  sheets: getSheetsSuccess(state),
+  reports: getSheetsSuccess(state),
 });
 
 export default connect(

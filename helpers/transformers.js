@@ -14,21 +14,21 @@ export const transformUpdateSheet = data => ({
   title: data.title,
 });
 
-export const transformSheets = sheets => (sheets).map(sheet => ({
-  date: sheet.date,
+export const transformSheets = reports => (reports).map(report => ({
+  date: report.date,
   // eslint-disable-next-line no-underscore-dangle
-  id: sheet._id,
-  isPublished: sheet.isPublished,
-  title: sheet.title,
-  totalGross: currency(sheet.totalGross),
-  totalVat: currency(sheet.totalVat),
+  id: report._id,
+  isPublished: report.isPublished,
+  title: report.title,
+  totalGross: currency(report.totalGross),
+  totalVat: currency(report.totalVat),
 }));
 
-export const transformSheetsForTable = sheets => (sheets).map(sheet => ({
-  date: sheet.date,
-  isPublished: sheet.isPublished,
-  key: sheet.id,
-  title: sheet.title,
-  totalGross: sheet.totalGross,
-  totalVat: sheet.totalVat,
+export const transformSheetsForTable = reports => (reports).map(report => ({
+  date: report.date,
+  isPublished: report.isPublished,
+  key: report.id,
+  title: report.title,
+  totalGross: report.totalGross,
+  totalVat: report.totalVat,
 }));

@@ -36,7 +36,7 @@ const Navigation = ({ isAuthenticated, logout }) => {
       {isLoggedIn && (
         <Menu.Item key="3">
           <Link href={sheetsPath}>
-            <a>Sheets</a>
+            <a>Reports</a>
           </Link>
         </Menu.Item>
       )}

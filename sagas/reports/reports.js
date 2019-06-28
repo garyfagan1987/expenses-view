@@ -1,6 +1,6 @@
 import { put } from 'redux-saga/effects';
 
-import { sheetsFetchError, sheetsFetchSuccess } from '../../actions/sheets/sheets';
+import { sheetsFetchError, sheetsFetchSuccess } from '../../actions/reports/reports';
 import { transformSheets } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
 
@@ -13,8 +13,8 @@ export default function* loadSheets({ payload }) {
       },
       method: 'GET',
     });
-    const sheets = yield response.json();
-    const successPayload = transformSheets(sheets);
+    const reports = yield response.json();
+    const successPayload = transformSheets(reports);
     yield put(sheetsFetchSuccess(successPayload));
   } catch (err) {
     yield put(sheetsFetchError());

@@ -10,21 +10,21 @@ import {
   SHEET_FETCH_ERROR,
   SHEET_FETCH_SUCCESS,
   SHEET_UPDATE_CALCULATION,
-} from '../actions/sheet/actions';
+} from '../actions/report/actions';
 
 import {
   SHEETS_FETCH_ERROR,
   SHEETS_FETCH_REQUESTED,
   SHEETS_FETCH_SUCCESS,
-} from '../actions/sheets/actions';
+} from '../actions/reports/actions';
 
 export const initialState = {
   isAuthenticated: undefined,
   isLoading: false,
-  sheet: {
+  report: {
     fetch: { error: true, success: {} },
   },
-  sheets: {
+  reports: {
     error: false,
     loading: false,
     success: [],
@@ -64,7 +64,7 @@ export default (state = initialState, action) => {
     case SHEETS_FETCH_REQUESTED:
       return {
         ...state,
-        sheets: {
+        reports: {
           error: false,
           loading: true,
           success: [],
@@ -73,7 +73,7 @@ export default (state = initialState, action) => {
     case SHEETS_FETCH_SUCCESS:
       return {
         ...state,
-        sheets: {
+        reports: {
           error: false,
           loading: false,
           success: action.payload,
@@ -82,7 +82,7 @@ export default (state = initialState, action) => {
     case SHEETS_FETCH_ERROR:
       return {
         ...state,
-        sheets: {
+        reports: {
           error: true,
           loading: false,
           success: [],
@@ -91,8 +91,8 @@ export default (state = initialState, action) => {
     case SHEET_FETCH_SUCCESS:
       return {
         ...state,
-        sheet: {
-          ...state.sheet,
+        report: {
+          ...state.report,
           fetch: {
             success: action.payload,
           },
@@ -101,8 +101,8 @@ export default (state = initialState, action) => {
     case SHEET_FETCH_ERROR:
       return {
         ...state,
-        sheet: {
-          ...state.sheet,
+        report: {
+          ...state.report,
           fetch: {
             success: {},
           },
@@ -111,8 +111,8 @@ export default (state = initialState, action) => {
     case SHEET_UPDATE_CALCULATION:
       return {
         ...state,
-        sheet: {
-          ...state.sheet,
+        report: {
+          ...state.report,
           fetch: {
             success: action.payload,
           },

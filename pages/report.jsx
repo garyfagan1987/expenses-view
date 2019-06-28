@@ -8,17 +8,17 @@ import nextCookie from 'next-cookies';
 import PropTypes from 'prop-types';
 import { Breadcrumb } from 'antd';
 
-import { sheetUpdate, sheetUpdateCalculation } from '../actions/sheet/update';
-import { getSheetFetchSuccess } from '../selectors/sheet';
-import { sheetFetch } from '../actions/sheet/sheet';
+import { sheetUpdate, sheetUpdateCalculation } from '../actions/report/update';
+import { getSheetFetchSuccess } from '../selectors/report';
+import { sheetFetch } from '../actions/report/report';
 import { sheetsPath } from '../config/paths';
 import validate from '../helpers/validate';
 import Form from '../components/form';
 
-class Sheet extends Component {
+class Report extends Component {
   static propTypes = {
     cookies: PropTypes.shape().isRequired,
-    sheet: PropTypes.shape().isRequired,
+    report: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
     updateSheet: PropTypes.func.isRequired,
   };
@@ -42,18 +42,18 @@ class Sheet extends Component {
 
   render() {
     const {
-      sheet, cookies: { token }, updateCalculation, updateSheet,
+      report, cookies: { token }, updateCalculation, updateSheet,
     } = this.props;
     return (
       <React.Fragment>
         <Head>
-          <title>Expenses | Update Sheet</title>
+          <title>Expenses | Update Report</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
               <a>
-                Expense Sheets
+                Expense Reports
               </a>
             </Link>
           </Breadcrumb.Item>
@@ -63,7 +63,7 @@ class Sheet extends Component {
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
           <Formik
-            initialValues={sheet}
+            initialValues={report}
             onSubmit={(values) => {
               updateSheet(values, token);
             }}
@@ -87,7 +87,7 @@ class Sheet extends Component {
                 handleSubmit={handleSubmit}
                 setFieldTouched={setFieldTouched}
                 setFieldValue={setFieldValue}
-                sheet={sheet}
+                report={report}
                 touched={touched}
                 updateCalculation={updateCalculation}
                 values={values}
@@ -119,10 +119,10 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  sheet: getSheetFetchSuccess(state),
+  report: getSheetFetchSuccess(state),
 });
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Sheet);
+)(Report);

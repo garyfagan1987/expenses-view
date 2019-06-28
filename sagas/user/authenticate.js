@@ -25,7 +25,7 @@ export default function* userAuthenticate({ payload: values }) {
     cookies.set('token', authenticateResponse.token, { path: '/' });
     message.success('Logged in');
     Router.push({
-      pathname: '/sheets',
+      pathname: '/reports',
     });
   } catch (err) {
     yield put(userAuthenticateError());

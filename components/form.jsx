@@ -37,7 +37,7 @@ const ExpenseForm = ({
   handleSubmit,
   setFieldTouched,
   setFieldValue,
-  sheet,
+  report,
   touched,
   updateCalculation,
   values,
@@ -207,11 +207,11 @@ const ExpenseForm = ({
                   <Col span={10} />
                   <Col span={5}>
                     VAT Total:&nbsp;
-                    {currency(sheet.totalVat)}
+                    {currency(report.totalVat)}
                   </Col>
                   <Col span={5}>
                     Gross Total:&nbsp;
-                    {currency(sheet.totalGross)}
+                    {currency(report.totalGross)}
                   </Col>
                 </Row>
               </React.Fragment>

@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import Router from 'next/router';
 import { message } from 'antd';
 
-import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/sheet/update';
+import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/report/update';
 import { transformUpdateSheet } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
 
@@ -19,13 +19,13 @@ export default function* updateSheet({ payload: { values, token } }) {
       method: 'PUT',
     });
     if (res.status !== 200) {
-      message.error('Sheet could not be updated');
+      message.error('Report could not be updated');
       throw new Error('Bad response from server');
     }
-    message.success('Sheet has been updated');
+    message.success('Report has been updated');
     yield put(sheetUpdateSuccess());
     Router.push({
-      pathname: '/sheets',
+      pathname: '/reports',
     });
   } catch (err) {
     yield put(sheetUpdateError());

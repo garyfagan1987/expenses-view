@@ -6,15 +6,15 @@ import userAuthenticate from './user/authenticate';
 import userLogout from './user/logout';
 import userRegister from './user/register';
 
-import { SHEETS_FETCH_REQUESTED } from '../actions/sheets/actions';
+import { SHEETS_FETCH_REQUESTED } from '../actions/reports/actions';
 import {
   SHEET_CREATE, SHEET_DELETE, SHEET_FETCH_REQUESTED, SHEET_UPDATE,
-} from '../actions/sheet/actions';
-import createSheet from './sheet/create';
-import deleteSheet from './sheet/delete';
-import updateSheet from './sheet/update';
-import loadSheet from './sheet/sheet';
-import loadSheets from './sheets/sheets';
+} from '../actions/report/actions';
+import createSheet from './report/create';
+import deleteSheet from './report/delete';
+import updateSheet from './report/update';
+import loadSheet from './report/report';
+import loadSheets from './reports/reports';
 
 function* rootSaga() {
   yield all([
