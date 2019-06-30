@@ -31,10 +31,7 @@ export default {
     title: 'Expenses',
   },
   navigation: {
-    item1: 'Login',
-    item2: 'Register',
-    item3: 'Reports',
-    item4: 'Log out',
+    items: ['Login', 'Register', 'Reports', 'Log out'],
     primary: 'Expenses',
   },
   register: {

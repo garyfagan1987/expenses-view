@@ -23,27 +23,27 @@ const Navigation = ({ isAuthenticated, logout }) => {
       {!isLoggedIn && (
         <Menu.Item key="1">
           <Link href={loginPath}>
-            <a>{messages.navigation.item1}</a>
+            <a>{messages.navigation.items[0]}</a>
           </Link>
         </Menu.Item>
       )}
       {!isLoggedIn && (
         <Menu.Item key="2">
           <Link href={registerPath}>
-            <a>{messages.navigation.item2}</a>
+            <a>{messages.navigation.items[1]}</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="3">
           <Link href={sheetsPath}>
-            <a>{messages.navigation.item3}</a>
+            <a>{messages.navigation.items[2]}</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="4">
-          <a onClick={logout}>{messages.navigation.item4}</a>
+          <a onClick={logout}>{messages.navigation.items[3]}</a>
         </Menu.Item>
       )}
     </Menu>
