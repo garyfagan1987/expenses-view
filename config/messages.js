@@ -1,7 +1,4 @@
 export default {
-  footer: {
-    primary: 'Expensr ©2019 Created by Gary Fagan',
-  },
   index: {
     heading: 'Welcome to expenses app',
     title: 'Expenses',
@@ -81,7 +78,7 @@ export default {
     table: {
       action: 'Action',
       date: 'Date',
-      published: 'published',
+      published: 'Published',
       publishedNo: 'No',
       publishedYes: 'Yes',
       title: 'Title',

@@ -12,7 +12,7 @@ import Navigation from '../components/navigation';
 import { indexPath } from '../config/paths';
 import messages from '../config/messages';
 
-const { Header, Content, Footer } = Layout;
+const { Header, Content } = Layout;
 
 class MyApp extends App {
   render() {
@@ -20,7 +20,7 @@ class MyApp extends App {
     return (
       <Provider store={store}>
         <Container>
-          <Layout>
+          <Layout style={{ height: '100vh' }}>
             <Header>
               <h1 style={{ float: 'left', margin: '0 20px 0 0' }}>
                 <Link href={indexPath}>
@@ -34,7 +34,6 @@ class MyApp extends App {
                 <Component {...pageProps} />
               </main>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>{messages.footer.primary}</Footer>
           </Layout>
         </Container>
       </Provider>
