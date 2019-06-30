@@ -1,15 +1,17 @@
 import React from 'react';
 import Head from 'next/head';
 
-const IndexPage = () => (
+import messages from '../config/messages';
+
+const Index = () => (
   <React.Fragment>
     <Head>
-      <title>Expenses</title>
+      <title>{messages.index.title}</title>
     </Head>
     <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-      <p>Welcome to expenses app</p>
+      <p>{messages.index.heading}</p>
     </div>
   </React.Fragment>
 );
 
-export default IndexPage;
+export default Index;

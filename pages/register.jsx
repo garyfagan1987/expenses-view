@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { userRegister } from '../actions/user/register';
 import { authenticate as validate } from '../helpers/validate';
 import { getIsLoading } from '../selectors/authenticate';
+import messages from '../config/messages';
 
 const initialRegisterValues = {
   email: '',
@@ -17,14 +18,14 @@ const initialRegisterValues = {
   password: '',
 };
 
-const RegisterPage = ({ isLoading, register }) => (
+const Register = ({ isLoading, register }) => (
   <React.Fragment>
     <Head>
-      <title>Expenses</title>
+      <title>{messages.register.title}</title>
     </Head>
-    <Spin spinning={isLoading} tip="Beep-boop">
+    <Spin spinning={isLoading} tip={messages.register.spinner}>
       <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-        <PageHeader title="Register">
+        <PageHeader title={messages.register.heading}>
           <Formik
             initialValues={initialRegisterValues}
             onSubmit={(values) => {
@@ -49,7 +50,7 @@ const RegisterPage = ({ isLoading, register }) => (
                     name="name"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Name"
+                    placeholder={messages.register.form.fields.name.placeholder}
                     type="text"
                     value={values.name}
                   />
@@ -62,7 +63,7 @@ const RegisterPage = ({ isLoading, register }) => (
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder={messages.register.form.fields.email.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="user" />}
                     value={values.email}
                   />
@@ -75,16 +76,14 @@ const RegisterPage = ({ isLoading, register }) => (
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Password"
+                    placeholder={messages.register.form.fields.password.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="lock" />}
                     type="password"
                     value={values.password}
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Button htmlType="submit" type="primary">
-                    Register
-                  </Button>
+                  <Button htmlType="submit" type="primary">{messages.register.form.button}</Button>
                 </Form.Item>
               </Form>
             )}
@@ -95,12 +94,12 @@ const RegisterPage = ({ isLoading, register }) => (
   </React.Fragment>
 );
 
-RegisterPage.propTypes = {
+Register.propTypes = {
   isLoading: PropTypes.bool,
   register: PropTypes.func.isRequired,
 };
 
-RegisterPage.defaultProps = {
+Register.defaultProps = {
   isLoading: false,
 };
 
@@ -117,4 +116,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(RegisterPage);
+)(Register);

@@ -5,6 +5,7 @@ import { message } from 'antd';
 import { sheetsFetch } from '../../actions/reports/reports';
 import { sheetDeleteError, sheetDeleteSuccess } from '../../actions/report/delete';
 import sheetsPath from '../../config/endpoints';
+import messages from '../../config/messages';
 
 export default function* deleteSheet({ payload: { id, token } }) {
   try {
@@ -16,10 +17,10 @@ export default function* deleteSheet({ payload: { id, token } }) {
       method: 'DELETE',
     });
     if (res.status !== 200) {
-      message.error('There was a problem trying to delete this report');
-      throw new Error('Bad response from server');
+      message.error(messages.reportDelete.error);
+      throw new Error(messages.reportDelete.error);
     }
-    message.success('Your report was deleted');
+    message.success(messages.reportDelete.success);
     yield put(sheetDeleteSuccess());
     yield put(sheetsFetch(token));
   } catch (err) {

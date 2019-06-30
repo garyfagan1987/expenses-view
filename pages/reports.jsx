@@ -19,8 +19,9 @@ import { getSheetsSuccess, getSheetsLoading, getSheetsError } from '../selectors
 import { sheetDelete } from '../actions/report/delete';
 import { transformSheetsForTable } from '../helpers/transformers';
 import { createSheetPath } from '../config/paths';
+import messages from '../config/messages';
 
-class Home extends Component {
+class Reports extends Component {
   static propTypes = {
     cookies: PropTypes.shape().isRequired,
     deleteSheet: PropTypes.func.isRequired,
@@ -46,43 +47,46 @@ class Home extends Component {
   renderSheets = () => {
     const { deleteSheet, reports, cookies: { token } } = this.props;
     const transformedSheets = transformSheetsForTable(reports);
-
     const columns = [{
       dataIndex: 'title',
       key: 'title',
-      title: 'Title',
+      title: messages.reports.table.title,
     }, {
       dataIndex: 'date',
       key: 'date',
       render: date => <span>{moment(date).format('DD-MM-YYYY')}</span>,
-      title: 'Date',
+      title: messages.reports.table.date,
     }, {
       dataIndex: 'isPublished',
       key: 'isPublished',
       render: isPublished => (
         <span>
-          {isPublished ? 'Yes' : 'No'}
+          {isPublished ? messages.reports.table.publishedYes : messages.reports.table.publishedNo}
         </span>
       ),
-      title: 'Published',
+      title: messages.reports.table.published,
     }, {
       dataIndex: 'totalVat',
       key: 'totalVat',
-      title: 'Total VAT',
+      title: messages.reports.table.totalVat,
     }, {
       dataIndex: 'totalGross',
       key: 'totalGross',
-      title: 'Total Gross',
+      title: messages.reports.table.totalGross,
     }, {
       key: 'action',
       render: report => (
         <span>
-          <Button href={`/report/${report.key}`}>edit</Button>
+          <Button href={`/report/${report.key}`}>
+            {messages.reports.buttons.edit}
+          </Button>
           &nbsp;
-          <Button disabled={report.isPublished} onClick={deleteSheet(report.key, token)}>delete</Button>
+          <Button disabled={report.isPublished} onClick={deleteSheet(report.key, token)}>
+            {messages.reports.buttons.delete}
+          </Button>
         </span>
       ),
-      title: 'Action',
+      title: messages.reports.table.action,
     }];
 
     return <Table columns={columns} dataSource={transformedSheets} />;
@@ -94,19 +98,19 @@ class Home extends Component {
     return (
       <React.Fragment>
         <Head>
-          <title>Expenses | Reports</title>
+          <title>{messages.reports.title}</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            Expense Reports
+            {messages.reports.breadcrumb}
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Spin spinning={loading} tip="Getting your reports">
+        <Spin spinning={loading} tip={messages.reports.spinner}>
           <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
             <div style={{ marginBottom: '16px', textAlign: 'right' }}>
-              <Button href={createSheetPath}>Create report</Button>
+              <Button href={createSheetPath}>{messages.reports.buttons.create}</Button>
             </div>
-            {error && <Alert message="There was a problem loading your reports" type="error" />}
+            {error && <Alert message={messages.reports.error} type="error" />}
             {!error && this.renderSheets()}
           </div>
         </Spin>
@@ -130,4 +134,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Home);
+)(Reports);

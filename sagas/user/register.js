@@ -3,6 +3,7 @@ import { message } from 'antd';
 
 import { userRegisterError, userRegisterSuccess } from '../../actions/user/register';
 import { registerPath } from '../../config/endpoints';
+import messages from '../../config/messages';
 
 export default function* userRegister({ payload: values }) {
   try {
@@ -14,10 +15,10 @@ export default function* userRegister({ payload: values }) {
       method: 'POST',
     });
     if (response.status !== 200) {
-      message.error('Unable to register');
-      throw new Error('Bad response from server');
+      message.error(messages.register.error);
+      throw new Error(messages.register.error);
     }
-    message.success('Registered');
+    message.success(messages.register.success);
     yield put(userRegisterSuccess());
   } catch (err) {
     yield put(userRegisterError());

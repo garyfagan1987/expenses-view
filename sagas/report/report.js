@@ -3,6 +3,7 @@ import { message } from 'antd';
 
 import { sheetFetchError, sheetFetchSuccess } from '../../actions/report/report';
 import sheetsPath from '../../config/endpoints';
+import messages from '../../config/messages';
 
 export default function* loadSheet({ payload: { slug, token } }) {
   try {
@@ -14,8 +15,8 @@ export default function* loadSheet({ payload: { slug, token } }) {
       method: 'GET',
     });
     if (response.status !== 200) {
-      message.error('Report could not be found');
-      throw new Error('Bad response from server');
+      message.error(messages.report.error);
+      throw new Error(messages.report.error);
     }
     const report = yield response.json();
     yield put(sheetFetchSuccess(report));

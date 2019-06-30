@@ -8,6 +8,7 @@ import Cookies from 'universal-cookie';
 import { userLogout } from '../actions/user/logout';
 import { getIsAuthenticated } from '../selectors/authenticate';
 import { loginPath, registerPath, sheetsPath } from '../config/paths';
+import messages from '../config/messages';
 
 const Navigation = ({ isAuthenticated, logout }) => {
   const cookies = new Cookies();
@@ -22,27 +23,27 @@ const Navigation = ({ isAuthenticated, logout }) => {
       {!isLoggedIn && (
         <Menu.Item key="1">
           <Link href={loginPath}>
-            <a>Login</a>
+            <a>{messages.navigation.item1}</a>
           </Link>
         </Menu.Item>
       )}
       {!isLoggedIn && (
         <Menu.Item key="2">
           <Link href={registerPath}>
-            <a>Register</a>
+            <a>{messages.navigation.item2}</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="3">
           <Link href={sheetsPath}>
-            <a>Reports</a>
+            <a>{messages.navigation.item3}</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="4">
-          <a onClick={logout}>Log out</a>
+          <a onClick={logout}>{messages.navigation.item4}</a>
         </Menu.Item>
       )}
     </Menu>

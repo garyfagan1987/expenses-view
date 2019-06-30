@@ -12,6 +12,7 @@ import { sheetUpdate, sheetUpdateCalculation } from '../actions/report/update';
 import { getSheetFetchSuccess } from '../selectors/report';
 import { sheetFetch } from '../actions/report/report';
 import { sheetsPath } from '../config/paths';
+import messages from '../config/messages';
 import validate from '../helpers/validate';
 import Form from '../components/form';
 
@@ -47,18 +48,16 @@ class Report extends Component {
     return (
       <React.Fragment>
         <Head>
-          <title>Expenses | Update Report</title>
+          <title>{messages.report.title}</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
-              <a>
-                Expense Reports
-              </a>
+              <a>{messages.report.breadcrumb1}</a>
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            Update
+            {messages.report.breadcrumb2}
           </Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
@@ -85,9 +84,9 @@ class Report extends Component {
                 handleChange={handleChange}
                 handleRemoveItem={this.handleRemoveItem}
                 handleSubmit={handleSubmit}
+                report={report}
                 setFieldTouched={setFieldTouched}
                 setFieldValue={setFieldValue}
-                report={report}
                 touched={touched}
                 updateCalculation={updateCalculation}
                 values={values}

@@ -10,20 +10,21 @@ import PropTypes from 'prop-types';
 import { userAuthenticate } from '../actions/user/authenticate';
 import { authenticate as validate } from '../helpers/validate';
 import { getIsLoading } from '../selectors/authenticate';
+import messages from '../config/messages';
 
 const initialLoginValues = {
   email: '',
   password: '',
 };
 
-const LoginPage = ({ authenticate, isLoading }) => (
+const Login = ({ authenticate, isLoading }) => (
   <React.Fragment>
     <Head>
-      <title>Expenses</title>
+      <title>{messages.login.title}</title>
     </Head>
-    <Spin spinning={isLoading} tip="Beep-boop">
+    <Spin spinning={isLoading} tip={messages.login.spinner}>
       <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-        <PageHeader title="Log in">
+        <PageHeader title={messages.login.heading}>
           <Formik
             initialValues={initialLoginValues}
             onSubmit={(values) => {
@@ -48,7 +49,7 @@ const LoginPage = ({ authenticate, isLoading }) => (
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Email"
+                    placeholder={messages.login.form.fields.email.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="user" />}
                     value={values.email}
                   />
@@ -61,16 +62,14 @@ const LoginPage = ({ authenticate, isLoading }) => (
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder="Password"
+                    placeholder={messages.login.form.fields.password.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="lock" />}
                     type="password"
                     value={values.password}
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Button htmlType="submit" type="primary">
-                    Log in
-                  </Button>
+                  <Button htmlType="submit" type="primary">{messages.login.form.button}</Button>
                 </Form.Item>
               </Form>
             )}
@@ -81,12 +80,12 @@ const LoginPage = ({ authenticate, isLoading }) => (
   </React.Fragment>
 );
 
-LoginPage.propTypes = {
+Login.propTypes = {
   authenticate: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
 };
 
-LoginPage.defaultProps = {
+Login.defaultProps = {
   isLoading: false,
 };
 
@@ -103,4 +102,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(LoginPage);
+)(Login);

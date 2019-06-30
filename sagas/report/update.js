@@ -5,6 +5,7 @@ import { message } from 'antd';
 import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/report/update';
 import { transformUpdateSheet } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
+import messages from '../../config/messages';
 
 export default function* updateSheet({ payload: { values, token } }) {
   try {
@@ -19,10 +20,10 @@ export default function* updateSheet({ payload: { values, token } }) {
       method: 'PUT',
     });
     if (res.status !== 200) {
-      message.error('Report could not be updated');
-      throw new Error('Bad response from server');
+      message.error(messages.report.error);
+      throw new Error(messages.report.error);
     }
-    message.success('Report has been updated');
+    message.success(messages.report.success);
     yield put(sheetUpdateSuccess());
     Router.push({
       pathname: '/reports',

@@ -10,6 +10,7 @@ import withReduxSaga from 'next-redux-saga';
 import createStore from '../store';
 import Navigation from '../components/navigation';
 import { indexPath } from '../config/paths';
+import messages from '../config/messages';
 
 const { Header, Content, Footer } = Layout;
 
@@ -23,7 +24,7 @@ class MyApp extends App {
             <Header>
               <h1 style={{ float: 'left', margin: '0 20px 0 0' }}>
                 <Link href={indexPath}>
-                  <a style={{ color: '#FFF' }}>Expenses</a>
+                  <a style={{ color: '#FFF' }}>{messages.navigation.primary}</a>
                 </Link>
               </h1>
               <Navigation />
@@ -33,9 +34,7 @@ class MyApp extends App {
                 <Component {...pageProps} />
               </main>
             </Content>
-            <Footer style={{ textAlign: 'center' }}>
-              Expensr ©2019 Created by Gary Fagan
-            </Footer>
+            <Footer style={{ textAlign: 'center' }}>{messages.footer.primary}</Footer>
           </Layout>
         </Container>
       </Provider>
