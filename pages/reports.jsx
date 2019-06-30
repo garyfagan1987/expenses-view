@@ -102,7 +102,7 @@ class Reports extends Component {
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            {messages.reports.breadcrumb}
+            {messages.reports.breadcrumbs[0]}
           </Breadcrumb.Item>
         </Breadcrumb>
         <Spin spinning={loading} tip={messages.reports.spinner}>

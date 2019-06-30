@@ -50,15 +50,13 @@ export default {
     title: 'Expenses',
   },
   report: {
-    breadcrumb1: 'Expense Report',
-    breadcrumb2: 'Update',
+    breadcrumbs: ['Expense Report', 'Update'],
     error: 'Report could not be found',
     success: 'Report has been updated',
     title: 'Expenses | Update Report',
   },
   reportCreate: {
-    breadcrumb1: 'Expense Reports',
-    breadcrumb2: 'Create',
+    breadcrumbs: ['Expense Reports', 'Create'],
     error: 'Report could not be created',
     title: 'Expenses | Create Report',
   },
@@ -67,7 +65,7 @@ export default {
     success: 'Your report was deleted',
   },
   reports: {
-    breadcrumb: 'Expense Reports',
+    breadcrumbs: ['Expense Reports'],
     buttons: {
       create: 'Create report',
       delete: 'delete',

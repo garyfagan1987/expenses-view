@@ -53,11 +53,11 @@ class Report extends Component {
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
-              <a>{messages.report.breadcrumb1}</a>
+              <a>{messages.report.breadcrumbs[0]}</a>
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            {messages.report.breadcrumb2}
+            {messages.report.breadcrumbs[1]}
           </Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
