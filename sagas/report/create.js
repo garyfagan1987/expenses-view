@@ -19,8 +19,8 @@ export default function* createSheet({ payload: { values, token } }) {
       method: 'POST',
     });
     if (res.status !== 200) {
-      message.error(messages.reportCreate.error);
-      throw new Error(messages.reportCreate.error);
+      message.error(messages.create.error);
+      throw new Error(messages.create.error);
     }
     yield put(sheetCreateSuccess());
     message.success('Report has been created');

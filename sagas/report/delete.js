@@ -17,10 +17,10 @@ export default function* deleteSheet({ payload: { id, token } }) {
       method: 'DELETE',
     });
     if (res.status !== 200) {
-      message.error(messages.reportDelete.error);
-      throw new Error(messages.reportDelete.error);
+      message.error(messages.delete.error);
+      throw new Error(messages.delete.error);
     }
-    message.success(messages.reportDelete.success);
+    message.success(messages.delete.success);
     yield put(sheetDeleteSuccess());
     yield put(sheetsFetch(token));
   } catch (err) {

@@ -1,4 +1,13 @@
 export default {
+  create: {
+    breadcrumbs: ['Expense Reports', 'Create'],
+    error: 'Report could not be created',
+    title: 'Expenses | Create Report',
+  },
+  delete: {
+    error: 'There was a problem trying to delete this report',
+    success: 'Your report was deleted',
+  },
   index: {
     heading: 'Welcome to expenses app',
     title: 'Expenses',
@@ -54,15 +63,6 @@ export default {
     error: 'Report could not be found',
     success: 'Report has been updated',
     title: 'Expenses | Update Report',
-  },
-  reportCreate: {
-    breadcrumbs: ['Expense Reports', 'Create'],
-    error: 'Report could not be created',
-    title: 'Expenses | Create Report',
-  },
-  reportDelete: {
-    error: 'There was a problem trying to delete this report',
-    success: 'Your report was deleted',
   },
   reports: {
     breadcrumbs: ['Expense Reports'],

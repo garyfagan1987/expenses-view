@@ -53,16 +53,16 @@ class Create extends Component {
     return (
       <React.Fragment>
         <Head>
-          <title>{messages.reportCreate.title}</title>
+          <title>{messages.create.title}</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
-              <a>{messages.reportCreate.breadcrumbs[0]}</a>
+              <a>{messages.create.breadcrumbs[0]}</a>
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            {messages.reportCreate.breadcrumbs[1]}
+            {messages.create.breadcrumbs[1]}
           </Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
