@@ -47,22 +47,23 @@ class Create extends Component {
   }
 
   render() {
+    const message = messages.create;
     const {
       createSheet, updateCalculation, report, cookies: { token },
     } = this.props;
     return (
       <React.Fragment>
         <Head>
-          <title>{messages.create.title}</title>
+          <title>{message.title}</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
-              <a>{messages.create.breadcrumbs[0]}</a>
+              <a>{message.breadcrumbs[0]}</a>
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            {messages.create.breadcrumbs[1]}
+            {message.breadcrumbs[1]}
           </Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>

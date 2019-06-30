@@ -1,10 +1,12 @@
 import { put } from 'redux-saga/effects';
-import { message } from 'antd';
+import { message as antMessage } from 'antd';
 
 import { userRegisterError } from '../../actions/user/register';
 import { registerPath } from '../../config/endpoints';
 import messages from '../../config/messages';
 import userAuthenticate from './authenticate';
+
+const message = messages.register;
 
 export default function* userRegister({ payload: values }) {
   try {
@@ -16,8 +18,8 @@ export default function* userRegister({ payload: values }) {
       method: 'POST',
     });
     if (response.status !== 200) {
-      message.error(messages.register.error);
-      throw new Error(messages.register.error);
+      antMessage.error(message.error);
+      throw new Error(message.error);
     }
     yield* (userAuthenticate({
       payload: {

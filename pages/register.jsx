@@ -18,14 +18,16 @@ const initialRegisterValues = {
   password: '',
 };
 
+const message = messages.register;
+
 const Register = ({ isLoading, register }) => (
   <React.Fragment>
     <Head>
-      <title>{messages.register.title}</title>
+      <title>{message.title}</title>
     </Head>
-    <Spin spinning={isLoading} tip={messages.register.spinner}>
+    <Spin spinning={isLoading} tip={message.spinner}>
       <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-        <PageHeader title={messages.register.heading}>
+        <PageHeader title={message.heading}>
           <Formik
             initialValues={initialRegisterValues}
             onSubmit={(values) => {
@@ -50,7 +52,7 @@ const Register = ({ isLoading, register }) => (
                     name="name"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder={messages.register.form.fields.name.placeholder}
+                    placeholder={message.form.fields.name.placeholder}
                     type="text"
                     value={values.name}
                   />
@@ -63,7 +65,7 @@ const Register = ({ isLoading, register }) => (
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder={messages.register.form.fields.email.placeholder}
+                    placeholder={message.form.fields.email.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="user" />}
                     value={values.email}
                   />
@@ -76,14 +78,14 @@ const Register = ({ isLoading, register }) => (
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder={messages.register.form.fields.password.placeholder}
+                    placeholder={message.form.fields.password.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="lock" />}
                     type="password"
                     value={values.password}
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Button htmlType="submit" type="primary">{messages.register.form.button}</Button>
+                  <Button htmlType="submit" type="primary">{message.form.button}</Button>
                 </Form.Item>
               </Form>
             )}

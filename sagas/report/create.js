@@ -1,11 +1,13 @@
 import { put } from 'redux-saga/effects';
 import Router from 'next/router';
-import { message } from 'antd';
+import { message as antMessage } from 'antd';
 
 import { sheetCreateError, sheetCreateSuccess } from '../../actions/report/create';
 import { transformCreateSheet } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
 import messages from '../../config/messages';
+
+const message = messages.create;
 
 export default function* createSheet({ payload: { values, token } }) {
   try {
@@ -19,11 +21,11 @@ export default function* createSheet({ payload: { values, token } }) {
       method: 'POST',
     });
     if (res.status !== 200) {
-      message.error(messages.create.error);
-      throw new Error(messages.create.error);
+      antMessage.error(message.error);
+      throw new Error(message.error);
     }
     yield put(sheetCreateSuccess());
-    message.success('Report has been created');
+    antMessage.success('Report has been created');
     Router.push({
       pathname: '/reports',
     });

@@ -45,72 +45,74 @@ class Reports extends Component {
   }
 
   renderSheets = () => {
+    const message = messages.reports;
     const { deleteSheet, reports, cookies: { token } } = this.props;
     const transformedSheets = transformSheetsForTable(reports);
     const columns = [{
       dataIndex: 'title',
       key: 'title',
-      title: messages.reports.table.title,
+      title: message.table.title,
     }, {
       dataIndex: 'date',
       key: 'date',
       render: date => <span>{moment(date).format('DD-MM-YYYY')}</span>,
-      title: messages.reports.table.date,
+      title: message.table.date,
     }, {
       dataIndex: 'isPublished',
       key: 'isPublished',
       render: isPublished => (
         <span>
-          {isPublished ? messages.reports.table.publishedYes : messages.reports.table.publishedNo}
+          {isPublished ? message.table.publishedYes : message.table.publishedNo}
         </span>
       ),
-      title: messages.reports.table.published,
+      title: message.table.published,
     }, {
       dataIndex: 'totalVat',
       key: 'totalVat',
-      title: messages.reports.table.totalVat,
+      title: message.table.totalVat,
     }, {
       dataIndex: 'totalGross',
       key: 'totalGross',
-      title: messages.reports.table.totalGross,
+      title: message.table.totalGross,
     }, {
       key: 'action',
       render: report => (
         <span>
           <Button href={`/report/${report.key}`}>
-            {messages.reports.buttons.edit}
+            {message.buttons.edit}
           </Button>
           &nbsp;
           <Button disabled={report.isPublished} onClick={deleteSheet(report.key, token)}>
-            {messages.reports.buttons.delete}
+            {message.buttons.delete}
           </Button>
         </span>
       ),
-      title: messages.reports.table.action,
+      title: message.table.action,
     }];
 
     return <Table columns={columns} dataSource={transformedSheets} />;
   }
 
   render() {
+    const message = messages.reports;
     const { error, loading } = this.props;
 
     return (
       <React.Fragment>
         <Head>
-          <title>{messages.reports.title}</title>
+          <title>{message.title}</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
-            {messages.reports.breadcrumbs[0]}
+            {message.breadcrumbs[0]}
           </Breadcrumb.Item>
         </Breadcrumb>
-        <Spin spinning={loading} tip={messages.reports.spinner}>
+        <Spin spinning={loading} tip={message.spinner}>
           <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
             <div style={{ marginBottom: '16px', textAlign: 'right' }}>
-              <Button href={createSheetPath}>{messages.reports.buttons.create}</Button>
+              <Button href={createSheetPath}>{message.buttons.create}</Button>
             </div>
-            {error && <Alert message={messages.reports.error} type="error" />}
+            {error && <Alert message={message.error} type="error" />}
             {!error && this.renderSheets()}
           </div>
         </Spin>

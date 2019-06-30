@@ -45,19 +45,22 @@ class Report extends Component {
     const {
       report, cookies: { token }, updateCalculation, updateSheet,
     } = this.props;
+
+    const message = messages.report;
+
     return (
       <React.Fragment>
         <Head>
-          <title>{messages.report.title}</title>
+          <title>{message.title}</title>
         </Head>
         <Breadcrumb style={{ margin: '16px 0' }}>
           <Breadcrumb.Item>
             <Link href={sheetsPath}>
-              <a>{messages.report.breadcrumbs[0]}</a>
+              <a>{message.breadcrumbs[0]}</a>
             </Link>
           </Breadcrumb.Item>
           <Breadcrumb.Item>
-            {messages.report.breadcrumbs[1]}
+            {message.breadcrumbs[1]}
           </Breadcrumb.Item>
         </Breadcrumb>
         <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>

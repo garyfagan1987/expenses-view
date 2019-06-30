@@ -1,11 +1,13 @@
 import { put } from 'redux-saga/effects';
 import Router from 'next/router';
 import Cookies from 'universal-cookie';
-import { message } from 'antd';
+import { message as antMessage } from 'antd';
 
 import { userAuthenticateError, userAuthenticateSuccess } from '../../actions/user/authenticate';
 import { authenticatePath } from '../../config/endpoints';
 import messages from '../../config/messages';
+
+const message = messages.login;
 
 export default function* userAuthenticate({ payload: values }) {
   try {
@@ -18,13 +20,13 @@ export default function* userAuthenticate({ payload: values }) {
       method: 'POST',
     });
     if (response.status !== 200) {
-      message.error(messages.login.error);
-      throw new Error(messages.login.error);
+      antMessage.error(message.error);
+      throw new Error(message.error);
     }
     const authenticateResponse = yield response.json();
     yield put(userAuthenticateSuccess());
     cookies.set('token', authenticateResponse.token, { path: '/' });
-    message.success(messages.login.success);
+    antMessage.success(message.success);
     Router.push({
       pathname: '/reports',
     });

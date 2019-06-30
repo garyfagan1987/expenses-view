@@ -1,11 +1,13 @@
 import { put } from 'redux-saga/effects';
 import Router from 'next/router';
-import { message } from 'antd';
+import { message as antMessage } from 'antd';
 
 import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/report/update';
 import { transformUpdateSheet } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
 import messages from '../../config/messages';
+
+const message = messages.report;
 
 export default function* updateSheet({ payload: { values, token } }) {
   try {
@@ -20,10 +22,10 @@ export default function* updateSheet({ payload: { values, token } }) {
       method: 'PUT',
     });
     if (res.status !== 200) {
-      message.error(messages.report.error);
-      throw new Error(messages.report.error);
+      antMessage.error(message.error);
+      throw new Error(message.error);
     }
-    message.success(messages.report.success);
+    antMessage.success(message.success);
     yield put(sheetUpdateSuccess());
     Router.push({
       pathname: '/reports',

@@ -1,11 +1,13 @@
 import { put } from 'redux-saga/effects';
 
-import { message } from 'antd';
+import { message as antMessage } from 'antd';
 
 import { sheetsFetch } from '../../actions/reports/reports';
 import { sheetDeleteError, sheetDeleteSuccess } from '../../actions/report/delete';
 import sheetsPath from '../../config/endpoints';
 import messages from '../../config/messages';
+
+const message = messages.delete;
 
 export default function* deleteSheet({ payload: { id, token } }) {
   try {
@@ -17,10 +19,10 @@ export default function* deleteSheet({ payload: { id, token } }) {
       method: 'DELETE',
     });
     if (res.status !== 200) {
-      message.error(messages.delete.error);
-      throw new Error(messages.delete.error);
+      antMessage.error(message.error);
+      throw new Error(message.error);
     }
-    message.success(messages.delete.success);
+    antMessage.success(message.success);
     yield put(sheetDeleteSuccess());
     yield put(sheetsFetch(token));
   } catch (err) {

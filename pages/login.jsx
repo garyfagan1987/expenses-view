@@ -17,14 +17,16 @@ const initialLoginValues = {
   password: '',
 };
 
+const message = messages.login;
+
 const Login = ({ authenticate, isLoading }) => (
   <React.Fragment>
     <Head>
-      <title>{messages.login.title}</title>
+      <title>{message.title}</title>
     </Head>
-    <Spin spinning={isLoading} tip={messages.login.spinner}>
+    <Spin spinning={isLoading} tip={message.spinner}>
       <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
-        <PageHeader title={messages.login.heading}>
+        <PageHeader title={message.heading}>
           <Formik
             initialValues={initialLoginValues}
             onSubmit={(values) => {
@@ -49,7 +51,7 @@ const Login = ({ authenticate, isLoading }) => (
                     name="email"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder={messages.login.form.fields.email.placeholder}
+                    placeholder={message.form.fields.email.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="user" />}
                     value={values.email}
                   />
@@ -62,14 +64,14 @@ const Login = ({ authenticate, isLoading }) => (
                     name="password"
                     onBlur={handleBlur}
                     onChange={handleChange}
-                    placeholder={messages.login.form.fields.password.placeholder}
+                    placeholder={message.form.fields.password.placeholder}
                     prefix={<Icon style={{ color: 'rgba(0,0,0,.25)' }} type="lock" />}
                     type="password"
                     value={values.password}
                   />
                 </Form.Item>
                 <Form.Item>
-                  <Button htmlType="submit" type="primary">{messages.login.form.button}</Button>
+                  <Button htmlType="submit" type="primary">{message.form.button}</Button>
                 </Form.Item>
               </Form>
             )}

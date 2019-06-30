@@ -13,6 +13,7 @@ import messages from '../config/messages';
 const Navigation = ({ isAuthenticated, logout }) => {
   const cookies = new Cookies();
   const isLoggedIn = typeof isAuthenticated !== 'undefined' ? isAuthenticated : !!cookies.get('token');
+  const message = messages.navigation;
 
   return (
     <Menu
@@ -23,27 +24,27 @@ const Navigation = ({ isAuthenticated, logout }) => {
       {!isLoggedIn && (
         <Menu.Item key="1">
           <Link href={loginPath}>
-            <a>{messages.navigation.items[0]}</a>
+            <a>{message.items[0]}</a>
           </Link>
         </Menu.Item>
       )}
       {!isLoggedIn && (
         <Menu.Item key="2">
           <Link href={registerPath}>
-            <a>{messages.navigation.items[1]}</a>
+            <a>{message.items[1]}</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="3">
           <Link href={sheetsPath}>
-            <a>{messages.navigation.items[2]}</a>
+            <a>{message.items[2]}</a>
           </Link>
         </Menu.Item>
       )}
       {isLoggedIn && (
         <Menu.Item key="4">
-          <a onClick={logout}>{messages.navigation.items[3]}</a>
+          <a onClick={logout}>{message.items[3]}</a>
         </Menu.Item>
       )}
     </Menu>

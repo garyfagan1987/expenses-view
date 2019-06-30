@@ -14,7 +14,9 @@ import messages from '../config/messages';
 
 const { Header, Content } = Layout;
 
-class MyApp extends App {
+const message = messages.navigation;
+
+class ExpensesApp extends App {
   render() {
     const { Component, pageProps, store } = this.props;
     return (
@@ -24,7 +26,7 @@ class MyApp extends App {
             <Header>
               <h1 style={{ float: 'left', margin: '0 20px 0 0' }}>
                 <Link href={indexPath}>
-                  <a style={{ color: '#FFF' }}>{messages.navigation.primary}</a>
+                  <a style={{ color: '#FFF' }}>{message.primary}</a>
                 </Link>
               </h1>
               <Navigation />
@@ -44,4 +46,4 @@ class MyApp extends App {
 export default compose(
   withRedux(createStore),
   withReduxSaga({ async: true }),
-)(MyApp);
+)(ExpensesApp);
