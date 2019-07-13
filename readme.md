@@ -7,10 +7,15 @@ make depend
 
 ## Run the app with dev config
 ```
-make deploy
+make dev
 ```
 
-## Deploy the app with prod config
+## Run the app with prod config
 ```
-make deploy
+make prod
+```
+
+## Deploy the app
+```
+make export
 ```
