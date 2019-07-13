@@ -32,7 +32,7 @@ dev:
 	$(DEV_CONFIG) node server.js
 
 export:
-	$(PROD_CONFIG) next dev
+	$(PROD_CONFIG) next export
 
 prod:
 	$(PROD_CONFIG) node server.js

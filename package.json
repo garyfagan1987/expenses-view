@@ -11,6 +11,7 @@
     "start": "NODE_ENV=production next build; NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "null-loader": "2.0.0",
     "@zeit/next-css": "^1.0.1",
     "antd": "^3.18.2",
     "babel-core": "^6.26.3",

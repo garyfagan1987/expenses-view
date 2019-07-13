@@ -77,7 +77,7 @@ const ExpenseForm = ({
       render={arrayHelpers => (
         <React.Fragment>
           <Card>
-            {values.items.length < 1 && (
+            {values.items && values.items.length < 1 && (
               <Empty description={<span>You have no items</span>}>
                 <Button
                   disabled={values.isPublished}
@@ -88,7 +88,7 @@ const ExpenseForm = ({
                 </Button>
               </Empty>
             )}
-            {values.items.length > 0 && (
+            {values.items && values.items.length > 0 && (
               <React.Fragment>
                 <Row gutter={15}>
                   <Col span={5}>Title *</Col>
