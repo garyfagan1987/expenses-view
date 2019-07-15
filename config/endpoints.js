@@ -1,3 +1,3 @@
-export const authenticatePath = 'http://localhost:3000/api/auth';
-export const registerPath = 'http://localhost:3000/api/users';
-export default 'http://localhost:3000/api/reports';
+export const authenticatePath = '/api/auth';
+export const registerPath = '/api/users';
+export default '/api/reports';

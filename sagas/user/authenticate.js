@@ -1,5 +1,6 @@
 import { put } from 'redux-saga/effects';
 import Router from 'next/router';
+import getConfig from 'next/config';
 import Cookies from 'universal-cookie';
 import { message as antMessage } from 'antd';
 
@@ -7,12 +8,13 @@ import { userAuthenticateError, userAuthenticateSuccess } from '../../actions/us
 import { authenticatePath } from '../../config/endpoints';
 import messages from '../../config/messages';
 
+const { publicRuntimeConfig: { API_PATH } } = getConfig();
 const message = messages.login;
 
 export default function* userAuthenticate({ payload: values }) {
   try {
     const cookies = new Cookies();
-    const response = yield fetch(authenticatePath, {
+    const response = yield fetch(`${API_PATH}${authenticatePath}`, {
       body: JSON.stringify(values),
       headers: {
         'Content-Type': 'application/json',

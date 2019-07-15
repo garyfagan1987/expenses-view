@@ -1,10 +1,10 @@
 PATH := node_modules/.bin:$(PATH)
 
 DEV_CONFIG := \
-	NODE_ENV=development \
+	NODE_ENV=development API_PATH=http://localhost:3000 \
 
 PROD_CONFIG := \
-	NODE_ENV=production \
+	NODE_ENV=production API_PATH=https://expenses-api.herokuapp.com \
 
 all: clean depend build
 
@@ -35,7 +35,7 @@ export:
 	$(PROD_CONFIG) next export
 
 prod:
-	$(PROD_CONFIG) node server.js
+	make build && $(PROD_CONFIG) node server.js
 
 lint:
 	eslint "**/*.jsx" "**/*.js" --config .eslintrc

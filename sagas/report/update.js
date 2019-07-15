@@ -1,5 +1,6 @@
 import { put } from 'redux-saga/effects';
 import Router from 'next/router';
+import getConfig from 'next/config';
 import { message as antMessage } from 'antd';
 
 import { sheetUpdateError, sheetUpdateSuccess } from '../../actions/report/update';
@@ -7,13 +8,14 @@ import { transformUpdateSheet } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
 import messages from '../../config/messages';
 
+const { publicRuntimeConfig: { API_PATH } } = getConfig();
 const message = messages.report;
 
 export default function* updateSheet({ payload: { values, token } }) {
   try {
     const payload = transformUpdateSheet({ ...values });
     // eslint-disable-next-line no-underscore-dangle
-    const res = yield fetch(`${sheetsPath}/${values._id}`, {
+    const res = yield fetch(`${API_PATH}${sheetsPath}/${values._id}`, {
       body: JSON.stringify(payload),
       headers: {
         'Content-Type': 'application/json',

@@ -1,12 +1,15 @@
 import { put } from 'redux-saga/effects';
+import getConfig from 'next/config';
 
 import { sheetsFetchError, sheetsFetchSuccess } from '../../actions/reports/reports';
 import { transformSheets } from '../../helpers/transformers';
 import sheetsPath from '../../config/endpoints';
 
+const { publicRuntimeConfig: { API_PATH } } = getConfig();
+
 export default function* loadSheets({ payload }) {
   try {
-    const response = yield fetch(sheetsPath, {
+    const response = yield fetch(`${API_PATH}${sheetsPath}`, {
       headers: {
         'Content-Type': 'application/json',
         'x-auth-token': payload,
