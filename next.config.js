@@ -2,7 +2,6 @@
 const withCss = require('@zeit/next-css')
 
 module.exports = withCss({
-  target: 'serverless',
   publicRuntimeConfig: {
     API_PATH: process.env.API_PATH,
   },
