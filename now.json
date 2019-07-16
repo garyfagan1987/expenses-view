@@ -1,1 +1,1 @@
-{"version":2,"name":"nextjs-now","builds":[{"src":"package.json","use":"@now/next"}]}
+{"version":2,"name":"expenses-view","builds":[{"src":"package.json","use":"@now/next"}]}
