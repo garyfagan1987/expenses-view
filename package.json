@@ -8,7 +8,7 @@
     "Gary Fagan <contact@garyfagan.com>"
   ],
   "scripts": {
-    "start": "NODE_ENV=production node server.js"
+    "start": "NODE_ENV=production API_PATH=https://expenses-api.herokuapp.com node server.js"
   },
   "dependencies": {
     "null-loader": "2.0.0",
