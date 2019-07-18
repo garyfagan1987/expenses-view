@@ -35,7 +35,7 @@ export:
 	$(PROD_CONFIG) next export
 
 prod:
-	make build && $(PROD_CONFIG) node server.js
+	$(PROD_CONFIG) node server.js
 
 lint:
 	eslint "**/*.jsx" "**/*.js" --config .eslintrc
