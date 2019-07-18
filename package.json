@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "build": "next build",
-    "dev": "next",
-    "now-build": "next build"
+    "export": "next export",
+    "deploy": "npm run build && npm run export"
   },
   "dependencies": {
     "null-loader": "2.0.0",
