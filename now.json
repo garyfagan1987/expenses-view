@@ -1,4 +1,8 @@
 {
-  "version": 1,
-  "name": "expenses-view"
+  "version": 2,
+  "name": "expenses-view",
+  "builds":[{
+    "src": "package.json",
+    "use": "@now/next"
+  }]
 }
