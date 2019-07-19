@@ -26,16 +26,10 @@ const initialValues = {
 
 class Create extends Component {
   static propTypes = {
-    cookies: PropTypes.shape().isRequired,
     createSheet: PropTypes.func.isRequired,
     report: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
   };
-
-  static async getInitialProps(ctx) {
-    const cookies = ctx.isServer ? nextCookie(ctx) : Cookies.get();
-    return { cookies };
-  }
 
   // eslint-disable-next-line no-unused-vars
   handleRemoveItem = (arrayHelpers, index, values) => {
@@ -49,8 +43,9 @@ class Create extends Component {
   render() {
     const message = messages.create;
     const {
-      createSheet, updateCalculation, report, cookies: { token },
+      createSheet, updateCalculation, report,
     } = this.props;
+
     return (
       <React.Fragment>
         <Head>
@@ -70,7 +65,7 @@ class Create extends Component {
           <Formik
             initialValues={initialValues}
             onSubmit={(values, { resetForm }) => {
-              createSheet(values, token);
+              createSheet(values, Cookies.get('token'));
               resetForm(initialValues);
             }}
             validationSchema={validate}
