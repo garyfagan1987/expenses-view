@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import Cookies from 'js-cookie';
 import Head from 'next/head';
+import Link from 'next/link';
 import moment from 'moment';
 import nextCookie from 'next-cookies';
 import PropTypes from 'prop-types';
@@ -78,9 +79,9 @@ class Reports extends Component {
       key: 'action',
       render: report => (
         <span>
-          <Button href={`/report/${report.key}`}>
-            {message.buttons.edit}
-          </Button>
+          <Link href={`/report/${report.key}`}>
+            <a>{message.buttons.edit}</a>
+          </Link>
           &nbsp;
           <Button disabled={report.isPublished} onClick={deleteSheet(report.key, token)}>
             {message.buttons.delete}
