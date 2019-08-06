@@ -21,6 +21,7 @@ class Report extends Component {
     cookies: PropTypes.shape().isRequired,
     report: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
+    updateNetCalculation: PropTypes.func.isRequired,
     updateSheet: PropTypes.func.isRequired,
   };
 
@@ -43,7 +44,7 @@ class Report extends Component {
 
   render() {
     const {
-      report, cookies: { token }, updateCalculation, updateSheet,
+      report, cookies: { token }, updateCalculation, updateNetCalculation, updateSheet,
     } = this.props;
 
     const message = messages.report;
@@ -92,6 +93,7 @@ class Report extends Component {
                 setFieldValue={setFieldValue}
                 touched={touched}
                 updateCalculation={updateCalculation}
+                updateNetCalculation={updateNetCalculation}
                 values={values}
               />
             )}
@@ -104,17 +106,21 @@ class Report extends Component {
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
+
 const mapDispatchToProps = dispatch => ({
   updateCalculation: (values) => {
     const totalGrossCalculation = values.items.map(item => parseFloat(item.price_gross)).reduce(reducer);
+    const totalNetCalculation = values.items.map(item => parseFloat(item.price_net)).reduce(reducer);
     const totalVatCalculation = values.items.map(item => parseFloat(item.price_vat)).reduce(reducer);
 
     dispatch(sheetUpdateCalculation({
       ...values,
       totalGross: totalGrossCalculation,
+      totalNet: totalNetCalculation,
       totalVat: totalVatCalculation,
     }));
   },
+  updateNetCalculation: (vat, gross) => gross - vat,
   updateSheet: (values, token) => {
     dispatch(sheetUpdate(values, token));
   },

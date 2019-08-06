@@ -25,6 +25,7 @@ const { Option } = Select;
 const initialItem = {
   date: moment(),
   price_gross: 0,
+  price_net: 0,
   price_vat: 0,
   title: '',
 };
@@ -40,6 +41,7 @@ const ExpenseForm = ({
   report,
   touched,
   updateCalculation,
+  updateNetCalculation,
   values,
 }) => (
   <Form onSubmit={handleSubmit}>
@@ -91,15 +93,16 @@ const ExpenseForm = ({
             {values.items && values.items.length > 0 && (
               <React.Fragment>
                 <Row gutter={15}>
-                  <Col span={5}>Title *</Col>
-                  <Col span={5}>Date *</Col>
-                  <Col span={5}>VAT *</Col>
-                  <Col span={5}>Gross *</Col>
+                  <Col span={4}>Title *</Col>
+                  <Col span={4}>Date *</Col>
+                  <Col span={4}>Net *</Col>
+                  <Col span={4}>VAT *</Col>
+                  <Col span={4}>Gross *</Col>
                   <Col span={4}>Actions</Col>
                 </Row>
                 {values.items.map((item, index) => (
                   <Row key={index} gutter={15}>
-                    <Col span={5}>
+                    <Col span={4}>
                       <Field
                         name={`items[${index}].title`}
                         render={({ field }) => (
@@ -122,7 +125,7 @@ const ExpenseForm = ({
                         )}
                       />
                     </Col>
-                    <Col span={5}>
+                    <Col span={4}>
                       <Field
                         render={() => (
                           <Form.Item
@@ -141,7 +144,27 @@ const ExpenseForm = ({
                         )}
                       />
                     </Col>
-                    <Col span={5}>
+                    <Col span={4}>
+                      <Field
+                        name={`items.${index}.price_net`}
+                        render={({ field }) => (
+                          <Form.Item
+                            help={errors.items && errors.items[index] && errors.items[index].price_net && touched.items && touched.items[index] && touched.items[index].price_net ? 'Enter the net price' : ''}
+                            validateStatus={errors.items && errors.items[index] && errors.items[index].price_net && touched.items && touched.items[index] && touched.items[index].price_net ? 'error' : undefined}
+                          >
+                            <Input
+                              {...field}
+                              addonBefore="£"
+                              disabled={values.isPublished}
+                              min={0}
+                              readOnly
+                              type="text"
+                            />
+                          </Form.Item>
+                        )}
+                      />
+                    </Col>
+                    <Col span={4}>
                       <Field
                         name={`items.${index}.price_vat`}
                         render={({ field }) => (
@@ -154,7 +177,11 @@ const ExpenseForm = ({
                               addonBefore="£"
                               disabled={values.isPublished}
                               min={0}
-                              onBlur={() => updateCalculation(values)}
+                              onBlur={() => {
+                                // todo, need to call updateCalculation once setFieldValue has completed: https://github.com/jaredpalmer/formik/issues/529
+                                setFieldValue(`items.${index}.price_net`, updateNetCalculation(values.items[index].price_vat, values.items[index].price_gross));
+                                updateCalculation(values);
+                              }}
                               onChange={handleChange}
                               type="text"
                             />
@@ -162,7 +189,7 @@ const ExpenseForm = ({
                         )}
                       />
                     </Col>
-                    <Col span={5}>
+                    <Col span={4}>
                       <Field
                         name={`items.${index}.price_gross`}
                         render={({ field }) => (
@@ -175,7 +202,11 @@ const ExpenseForm = ({
                               addonBefore="£"
                               disabled={values.isPublished}
                               min={0}
-                              onBlur={() => updateCalculation(values)}
+                              onBlur={() => {
+                                // todo, need to call updateCalculation once setFieldValue has completed: https://github.com/jaredpalmer/formik/issues/529
+                                setFieldValue(`items.${index}.price_net`, updateNetCalculation(values.items[index].price_vat, values.items[index].price_gross));
+                                updateCalculation(values);
+                              }}
                               onChange={handleChange}
                               type="text"
                             />
@@ -204,12 +235,16 @@ const ExpenseForm = ({
                   </Row>
                 ))}
                 <Row gutter={15}>
-                  <Col span={10} />
-                  <Col span={5}>
+                  <Col span={8} />
+                  <Col span={4}>
+                    Net Total:&nbsp;
+                    {currency(report.totalNet)}
+                  </Col>
+                  <Col span={4}>
                     VAT Total:&nbsp;
                     {currency(report.totalVat)}
                   </Col>
-                  <Col span={5}>
+                  <Col span={4}>
                     Gross Total:&nbsp;
                     {currency(report.totalGross)}
                   </Col>

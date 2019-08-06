@@ -78,6 +78,7 @@ export default {
       publishedYes: 'Yes',
       title: 'Title',
       totalGross: 'Total Gross',
+      totalNet: 'Total Net',
       totalVat: 'Total VAT',
     },
     title: 'Expenses | Reports',

@@ -21,6 +21,7 @@ export const transformSheets = reports => (reports).map(report => ({
   isPublished: report.isPublished,
   title: report.title,
   totalGross: currency(report.totalGross),
+  totalNet: currency(report.totalNet),
   totalVat: currency(report.totalVat),
 }));
 
@@ -30,5 +31,6 @@ export const transformSheetsForTable = reports => (reports).map(report => ({
   key: report.id,
   title: report.title,
   totalGross: report.totalGross,
+  totalNet: report.totalNet,
   totalVat: report.totalVat,
 }));

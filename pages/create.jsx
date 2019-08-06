@@ -30,6 +30,7 @@ class Create extends Component {
     createSheet: PropTypes.func.isRequired,
     report: PropTypes.shape().isRequired,
     updateCalculation: PropTypes.func.isRequired,
+    updateNetCalculation: PropTypes.func.isRequired,
   };
 
   static async getInitialProps(ctx) {
@@ -49,7 +50,7 @@ class Create extends Component {
   render() {
     const message = messages.create;
     const {
-      createSheet, updateCalculation, report, cookies: { token },
+      createSheet, updateCalculation, updateNetCalculation, report, cookies: { token },
     } = this.props;
 
     return (
@@ -97,6 +98,7 @@ class Create extends Component {
                 setFieldValue={setFieldValue}
                 touched={touched}
                 updateCalculation={updateCalculation}
+                updateNetCalculation={updateNetCalculation}
                 values={values}
               />
             )}
@@ -115,13 +117,16 @@ const mapDispatchToProps = dispatch => ({
   },
   updateCalculation: (values) => {
     const grossCalculation = values.items.map(item => item.price_gross).reduce(reducer);
+    const netCalculation = values.items.map(item => item.price_net).reduce(reducer);
     const vatCalculation = values.items.map(item => item.price_vat).reduce(reducer);
     dispatch(sheetUpdateCalculation({
       ...values,
       totalGross: grossCalculation,
+      totalNet: netCalculation,
       totalVat: vatCalculation,
     }));
   },
+  updateNetCalculation: (vat, gross) => gross - vat,
 });
 
 const mapStateToProps = state => ({

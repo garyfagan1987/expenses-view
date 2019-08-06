@@ -11,6 +11,7 @@ export default Yup.object().shape({
   items: Yup.array().of(Yup.object().shape({
     date: Yup.date().required(),
     price_gross: Yup.number().required(),
+    price_net: Yup.number().required(),
     price_vat: Yup.number().required(),
     title: Yup.string().required(),
   })),
