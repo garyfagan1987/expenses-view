@@ -10,6 +10,7 @@ export default Yup.object().shape({
   isPublished: Yup.boolean(),
   items: Yup.array().of(Yup.object().shape({
     date: Yup.date().required(),
+    description: Yup.string().required(),
     miles: Yup.number().when('title', {
       is: 'Mileage Allowance',
       then: Yup.number().moreThan(0).required(),

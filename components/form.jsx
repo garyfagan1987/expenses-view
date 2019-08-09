@@ -16,7 +16,10 @@ import {
   Row,
   Select,
   Tooltip,
+  Typography,
 } from 'antd';
+
+const { Text } = Typography;
 
 import itemTypes from '../config/item-types';
 import vehicleTypes from '../config/vehicles';
@@ -26,6 +29,7 @@ const { Option } = Select;
 
 const initialItem = {
   date: moment(),
+  description: '',
   miles: 0,
   price_gross: 0,
   price_net: 0,
@@ -134,18 +138,33 @@ const ExpenseForm = ({
               <React.Fragment>
                 <Card style={{ backgroundColor: '#EEE' }}>
                   <Row gutter={15}>
-                    <Col span={9}>Title *</Col>
-                    <Col span={3}>Date *</Col>
-                    <Col span={3}>Net *</Col>
-                    <Col span={3}>VAT *</Col>
-                    <Col span={3}>Gross *</Col>
-                    <Col span={3}>Actions</Col>
+                    <Col span={5}>
+                      <Text strong>Title</Text>
+                    </Col>
+                    <Col span={3}>
+                      <Text strong>Date</Text>
+                    </Col>
+                    <Col span={4}>
+                      <Text strong>Description</Text>
+                    </Col>
+                    <Col span={3}>
+                      <Text strong>Net</Text>
+                    </Col>
+                    <Col span={3}>
+                      <Text strong>VAT</Text>
+                    </Col>
+                    <Col span={3}>
+                      <Text strong>Gross</Text>
+                    </Col>
+                    <Col span={3}>
+                      <Text strong>Actions</Text>
+                    </Col>
                   </Row>
                 </Card>
                 {values.items.map((item, index) => (
                   <Card>
                     <Row key={index} gutter={15}>
-                      <Col span={9}>
+                      <Col span={5}>
                         <Field
                           name={`items[${index}].title`}
                           render={({ field }) => (
@@ -237,6 +256,23 @@ const ExpenseForm = ({
                                 onBlur={handleBlur}
                                 onChange={(_, dateString) => setFieldValue(`items.${index}.date`, dateString)}
                                 style={{ width: '100%' }}
+                              />
+                            </Form.Item>
+                          )}
+                        />
+                      </Col>
+                      <Col span={4}>
+                        <Field
+                          name={`items.${index}.description`}
+                          render={({ field }) => (
+                            <Form.Item
+                              help={errors.items && errors.items[index] && errors.items[index].description && touched.items && touched.items[index] && touched.items[index].description ? 'Enter the description' : ''}
+                              validateStatus={errors.items && errors.items[index] && errors.items[index].description && touched.items && touched.items[index] && touched.items[index].description ? 'error' : undefined}
+                            >
+                              <Input
+                                {...field}
+                                disabled={values.isPublished}
+                                type="text"
                               />
                             </Form.Item>
                           )}
