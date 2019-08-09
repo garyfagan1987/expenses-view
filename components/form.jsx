@@ -15,6 +15,7 @@ import {
   Input,
   Row,
   Select,
+  Tooltip,
 } from 'antd';
 
 import itemTypes from '../config/item-types';
@@ -37,7 +38,6 @@ const ExpenseForm = ({
   errors,
   handleBlur,
   handleChange,
-  handleRemoveItem,
   handleSubmit,
   setFieldTouched,
   setFieldValue,
@@ -312,21 +312,34 @@ const ExpenseForm = ({
                         />
                       </Col>
                       <Col span={3}>
-                        <Button
-                          disabled={values.isPublished}
-                          icon="minus-circle-o"
-                          onClick={() => handleRemoveItem(arrayHelpers, index, values)}
-                          style={{ fontSize: '24px', position: 'relative', top: '2px' }}
-                          type="link"
-                        />
-                        {values.items.length === (index + 1) && (
+                        <Tooltip title="Copy item">
                           <Button
                             disabled={values.isPublished}
-                            icon="plus-circle-o"
-                            onClick={() => arrayHelpers.push(initialItem)}
+                            icon="copy"
+                            onClick={() => arrayHelpers.insert(index, values.items[index])}
                             style={{ fontSize: '24px', position: 'relative', top: '2px' }}
                             type="link"
                           />
+                        </Tooltip>
+                        <Tooltip title="Remove item">
+                          <Button
+                            disabled={values.isPublished}
+                            icon="minus-circle-o"
+                            onClick={() => arrayHelpers.remove(index)}
+                            style={{ fontSize: '24px', position: 'relative', top: '2px' }}
+                            type="link"
+                          />
+                        </Tooltip>
+                        {values.items.length === (index + 1) && (
+                          <Tooltip title="Add item">
+                            <Button
+                              disabled={values.isPublished}
+                              icon="plus-circle-o"
+                              onClick={() => arrayHelpers.push(initialItem)}
+                              style={{ fontSize: '24px', position: 'relative', top: '2px' }}
+                              type="link"
+                            />
+                          </Tooltip>
                         )}
                       </Col>
                     </Row>

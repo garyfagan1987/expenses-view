@@ -33,15 +33,6 @@ class Report extends Component {
     return { cookies };
   }
 
-  // eslint-disable-next-line no-unused-vars
-  handleRemoveItem = (arrayHelpers, index, values) => {
-    // @todo, add updateCalculation(values) to remove callback
-    // open PR - https://github.com/jaredpalmer/formik/issues/1253
-    // const { updateCalculation } = this.props;
-    arrayHelpers.remove(index);
-    // updateCalculation(values);
-  }
-
   render() {
     const {
       report, cookies: { token }, updateCalculation, updateNetCalculation, updateSheet,
@@ -86,7 +77,6 @@ class Report extends Component {
                 errors={errors}
                 handleBlur={handleBlur}
                 handleChange={handleChange}
-                handleRemoveItem={this.handleRemoveItem}
                 handleSubmit={handleSubmit}
                 report={report}
                 setFieldTouched={setFieldTouched}
