@@ -2,6 +2,7 @@ import { currency } from './parsers';
 
 export const transformCreateSheet = data => ({
   date: data.date,
+  isPaid: !!data.isPaid,
   isPublished: !!data.isPublished,
   items: data.items,
   title: data.title,
@@ -9,6 +10,7 @@ export const transformCreateSheet = data => ({
 
 export const transformUpdateSheet = data => ({
   date: data.date,
+  isPaid: data.isPaid,
   isPublished: data.isPublished,
   items: data.items,
   title: data.title,
@@ -18,6 +20,7 @@ export const transformSheets = reports => (reports).map(report => ({
   date: report.date,
   // eslint-disable-next-line no-underscore-dangle
   id: report._id,
+  isPaid: report.isPaid,
   isPublished: report.isPublished,
   title: report.title,
   totalGross: currency(report.totalGross),
@@ -27,6 +30,7 @@ export const transformSheets = reports => (reports).map(report => ({
 
 export const transformSheetsForTable = reports => (reports).map(report => ({
   date: report.date,
+  isPaid: report.isPaid,
   isPublished: report.isPublished,
   key: report.id,
   title: report.title,

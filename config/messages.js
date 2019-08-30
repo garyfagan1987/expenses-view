@@ -73,6 +73,9 @@ export default {
     table: {
       action: 'Action',
       date: 'Date',
+      paid: 'Payment Status',
+      paidNo: 'Not Paid',
+      paidYes: 'Paid',
       published: 'Published',
       publishedNo: 'No',
       publishedYes: 'Yes',

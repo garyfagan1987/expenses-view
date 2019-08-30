@@ -7,6 +7,7 @@ export const authenticate = Yup.object().shape({
 
 export default Yup.object().shape({
   date: Yup.date().required(),
+  isPaid: Yup.boolean(),
   isPublished: Yup.boolean(),
   items: Yup.array().of(Yup.object().shape({
     date: Yup.date().required(),

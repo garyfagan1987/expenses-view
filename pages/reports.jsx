@@ -12,6 +12,7 @@ import {
   Breadcrumb,
   Spin,
   Table,
+  Tag,
 } from 'antd';
 
 import { sheetsFetch } from '../actions/reports/reports';
@@ -78,6 +79,15 @@ class Reports extends Component {
       dataIndex: 'totalGross',
       key: 'totalGross',
       title: message.table.totalGross,
+    }, {
+      dataIndex: 'isPaid',
+      key: 'isPaid',
+      render: isPaid => (
+        <span>
+          {isPaid ? <Tag color="#87d068">{message.table.paidYes}</Tag> : <Tag color="#f50">{message.table.paidNo}</Tag>}
+        </span>
+      ),
+      title: message.table.paid,
     }, {
       key: 'action',
       render: report => (

@@ -19,6 +19,7 @@ import Form from '../components/form';
 
 const initialValues = {
   date: moment(),
+  isPaid: false,
   isPublished: false,
   items: [],
   title: '',

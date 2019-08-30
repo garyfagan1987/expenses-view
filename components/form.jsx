@@ -19,11 +19,11 @@ import {
   Typography,
 } from 'antd';
 
-const { Text } = Typography;
-
 import itemTypes from '../config/item-types';
 import vehicleTypes from '../config/vehicles';
 import { currency } from '../helpers/parsers';
+
+const { Text } = Typography;
 
 const { Option } = Select;
 
@@ -412,6 +412,16 @@ const ExpenseForm = ({
           value={values.isPublished}
         >
           Publish
+        </Checkbox>
+        <Checkbox
+          checked={values.isPaid}
+          disabled={!values.isPublished}
+          name="isPaid"
+          onBlur={handleBlur}
+          onChange={handleChange}
+          value={values.isPaid}
+        >
+          Paid
         </Checkbox>
       </Form.Item>
       <Button
