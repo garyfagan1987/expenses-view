@@ -424,6 +424,7 @@ const ExpenseForm = ({
       <Form.Item style={{ marginTop: '20px' }}>
         <Checkbox
           checked={values.isPublished}
+          disabled={values.isPaid}
           name="isPublished"
           onBlur={handleBlur}
           onChange={handleChange}
