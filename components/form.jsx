@@ -86,6 +86,24 @@ const ExpenseForm = ({
     }
   };
 
+  const removeItem = (arrayHelpers, index, removeValues) => {
+    const { items } = removeValues;
+    const updatedItems = items.slice(0, index).concat(items.slice(index + 1, items.length));
+    arrayHelpers.remove(index);
+    if (items.length > 1) {
+      updateCalculation({ ...removeValues, items: [...updatedItems] });
+    }
+  };
+
+  const copyItem = (arrayHelpers, index, item, copyValues) => {
+    const { items } = copyValues;
+    const copiedItems = [...items];
+    copiedItems.push(item);
+    updateCalculation({ ...copyValues, items: [...copiedItems] });
+    arrayHelpers.insert(index, item);
+  };
+
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Item
@@ -352,7 +370,7 @@ const ExpenseForm = ({
                           <Button
                             disabled={values.isPublished}
                             icon="copy"
-                            onClick={() => arrayHelpers.insert(index, values.items[index])}
+                            onClick={() => copyItem(arrayHelpers, index, values.items[index], values)}
                             style={{ fontSize: '24px', position: 'relative', top: '2px' }}
                             type="link"
                           />
@@ -361,7 +379,7 @@ const ExpenseForm = ({
                           <Button
                             disabled={values.isPublished}
                             icon="minus-circle-o"
-                            onClick={() => arrayHelpers.remove(index)}
+                            onClick={() => removeItem(arrayHelpers, index, values)}
                             style={{ fontSize: '24px', position: 'relative', top: '2px' }}
                             type="link"
                           />
