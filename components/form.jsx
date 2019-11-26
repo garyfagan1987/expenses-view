@@ -104,6 +104,26 @@ const ExpenseForm = ({
     arrayHelpers.insert(index, item);
   };
 
+  const updateNetTotal = (setFieldValue, updateNetCalculation, index, values) => {
+    setFieldValue(`items.${index}.price_net`, updateNetCalculation(values.items[index].price_vat, values.items[index].price_gross));
+    const { items } = values;
+    const copiedItems = [...items];
+    const updatedNet = {
+      ...copiedItems[index],
+      price_net: copiedItems[index].price_gross - copiedItems[index].price_vat,
+    };
+    copiedItems[index] = updatedNet;
+    updateCalculation({ ...values, items: [...copiedItems] });
+  };
+
+  const renderTotal = total => (
+    parseFloat(total) > 0 ? (
+      <Text>{currency(total)}</Text>
+    ) : (
+      <Text type="danger">{currency(total)}</Text>
+    )
+  );
+
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Item
@@ -327,11 +347,7 @@ const ExpenseForm = ({
                                 {...field}
                                 addonBefore="£"
                                 disabled={values.isPublished}
-                                onBlur={() => {
-                                  // todo, need to call updateCalculation once setFieldValue has completed: https://github.com/jaredpalmer/formik/issues/529
-                                  setFieldValue(`items.${index}.price_net`, updateNetCalculation(values.items[index].price_vat, values.items[index].price_gross));
-                                  updateCalculation(values);
-                                }}
+                                onBlur={() => updateNetTotal(setFieldValue, updateNetCalculation, index, values)}
                                 onChange={handleChange}
                                 readOnly={values.items[index].title === 'Mileage Allowance'}
                                 type="text"
@@ -352,11 +368,7 @@ const ExpenseForm = ({
                                 {...field}
                                 addonBefore="£"
                                 disabled={values.isPublished}
-                                onBlur={() => {
-                                  // todo, need to call updateCalculation once setFieldValue has completed: https://github.com/jaredpalmer/formik/issues/529
-                                  setFieldValue(`items.${index}.price_net`, updateNetCalculation(values.items[index].price_vat, values.items[index].price_gross));
-                                  updateCalculation(values);
-                                }}
+                                onBlur={() => updateNetTotal(setFieldValue, updateNetCalculation, index, values)}
                                 onChange={handleChange}
                                 readOnly={values.items[index].title === 'Mileage Allowance'}
                                 type="text"
@@ -404,15 +416,15 @@ const ExpenseForm = ({
                     <Col span={12} />
                     <Col span={3}>
                       Net Total:&nbsp;
-                      {currency(report.totalNet)}
+                      {renderTotal(report.totalNet)}
                     </Col>
                     <Col span={3}>
                       VAT Total:&nbsp;
-                      {currency(report.totalVat)}
+                      {renderTotal(report.totalVat)}
                     </Col>
                     <Col span={3}>
                       Gross Total:&nbsp;
-                      {currency(report.totalGross)}
+                      {renderTotal(report.totalGross)}
                     </Col>
                   </Row>
                 </Card>
