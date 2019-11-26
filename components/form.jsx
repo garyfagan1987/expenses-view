@@ -22,6 +22,7 @@ import {
 import itemTypes from '../config/item-types';
 import vehicleTypes from '../config/vehicles';
 import { currency } from '../helpers/parsers';
+import downloadReport from '../helpers/downloads';
 
 const { Text } = Typography;
 
@@ -102,7 +103,6 @@ const ExpenseForm = ({
     updateCalculation({ ...copyValues, items: [...copiedItems] });
     arrayHelpers.insert(index, item);
   };
-
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -448,6 +448,12 @@ const ExpenseForm = ({
         type="primary"
       >
         Save
+      </Button>
+      &nbsp;
+      <Button
+        onClick={() => downloadReport(values)}
+      >
+        Download
       </Button>
     </Form>
   );
