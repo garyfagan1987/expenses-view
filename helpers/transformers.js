@@ -38,3 +38,8 @@ export const transformSheetsForTable = reports => (reports).map(report => ({
   totalNet: report.totalNet,
   totalVat: report.totalVat,
 }));
+
+export const transformUpdateUser = data => ({
+  businessName: data.businessName,
+  name: data.name,
+});

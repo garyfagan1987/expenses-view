@@ -8,11 +8,12 @@ import {
 import PropTypes from 'prop-types';
 
 import { userRegister } from '../actions/user/register';
-import { authenticate as validate } from '../helpers/validate';
+import { userSchema } from '../helpers/validate';
 import { getIsLoading } from '../selectors/authenticate';
 import messages from '../config/messages';
 
-const initialRegisterValues = {
+const initialValues = {
+  businessName: '',
   email: '',
   name: '',
   password: '',
@@ -29,11 +30,11 @@ const Register = ({ isLoading, register }) => (
       <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
         <PageHeader title={message.heading}>
           <Formik
-            initialValues={initialRegisterValues}
+            initialValues={initialValues}
             onSubmit={(values) => {
               register(values);
             }}
-            validationSchema={validate}
+            validationSchema={userSchema}
           >
             {({
               errors,

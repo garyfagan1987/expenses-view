@@ -7,8 +7,10 @@ import Cookies from 'universal-cookie';
 
 import { userLogout } from '../actions/user/logout';
 import { getIsAuthenticated } from '../selectors/authenticate';
-import { loginPath, registerPath, sheetsPath } from '../config/paths';
+import { changeDetailsPath, loginPath, registerPath, sheetsPath } from '../config/paths';
 import messages from '../config/messages';
+
+const { SubMenu } = Menu;
 
 const Navigation = ({ isAuthenticated, logout }) => {
   const cookies = new Cookies();
@@ -43,9 +45,16 @@ const Navigation = ({ isAuthenticated, logout }) => {
         </Menu.Item>
       )}
       {isLoggedIn && (
-        <Menu.Item key="4">
-          <a onClick={logout}>{message.items[3]}</a>
-        </Menu.Item>
+        <SubMenu
+          title={<span className="submenu-title-wrapper">Account</span>}
+        >
+          <Menu.Item key="5">
+            <a href={changeDetailsPath}>Change details</a>
+          </Menu.Item>
+          <Menu.Item key="6">
+            <a onClick={logout}>{message.items[3]}</a>
+          </Menu.Item>
+        </SubMenu>
       )}
     </Menu>
   );

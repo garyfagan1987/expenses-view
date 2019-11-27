@@ -1,4 +1,20 @@
 export default {
+  changeDetails: {
+    error: 'User could not be found',
+    form: {
+      button: 'Update',
+      fields: {
+        businessName: {
+          placeholder: 'Business Name',
+        },
+        name: {
+          placeholder: 'Name',
+        },
+      },
+    },
+    success: 'Your details were updated',
+    title: 'Expenses | Change Details',
+  },
   create: {
     breadcrumbs: ['Expense Reports', 'Create'],
     error: 'Report could not be created',
@@ -39,6 +55,9 @@ export default {
     form: {
       button: 'Register',
       fields: {
+        businessName: {
+          placeholder: 'Business Name',
+        },
         email: {
           placeholder: 'Email',
         },

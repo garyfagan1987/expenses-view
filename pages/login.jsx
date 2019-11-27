@@ -8,11 +8,11 @@ import {
 import PropTypes from 'prop-types';
 
 import { userAuthenticate } from '../actions/user/authenticate';
-import { authenticate as validate } from '../helpers/validate';
+import { authenticateSchema } from '../helpers/validate';
 import { getIsLoading } from '../selectors/authenticate';
 import messages from '../config/messages';
 
-const initialLoginValues = {
+const initialValues = {
   email: '',
   password: '',
 };
@@ -28,11 +28,11 @@ const Login = ({ authenticate, isLoading }) => (
       <div style={{ background: '#fff', minHeight: 280, padding: 24 }}>
         <PageHeader title={message.heading}>
           <Formik
-            initialValues={initialLoginValues}
+            initialValues={initialValues}
             onSubmit={(values) => {
               authenticate(values);
             }}
-            validationSchema={validate}
+            validationSchema={authenticateSchema}
           >
             {({
               errors,

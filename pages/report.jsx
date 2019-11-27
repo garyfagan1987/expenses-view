@@ -96,7 +96,6 @@ class Report extends Component {
 
 const reducer = (accumulator, currentValue) => accumulator + currentValue;
 
-
 const mapDispatchToProps = dispatch => ({
   updateCalculation: (values) => {
     const totalGrossCalculation = values.items.map(item => parseFloat(item.price_gross)).reduce(reducer);

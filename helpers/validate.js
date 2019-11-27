@@ -1,8 +1,20 @@
 import * as Yup from 'yup';
 
-export const authenticate = Yup.object().shape({
+export const authenticateSchema = Yup.object().shape({
   email: Yup.string().email().required(),
   password: Yup.string().min(8).required(),
+});
+
+export const userSchema = Yup.object().shape({
+  businessName: Yup.string().required(),
+  email: Yup.string().email().required(),
+  name: Yup.string().required(),
+  password: Yup.string().min(8).required(),
+});
+
+export const changeDetailsSchema = Yup.object().shape({
+  businessName: Yup.string().required(),
+  name: Yup.string().required(),
 });
 
 export default Yup.object().shape({

@@ -2,6 +2,9 @@ import {
   USER_AUTHENTICATE,
   USER_AUTHENTICATE_ERROR,
   USER_AUTHENTICATE_SUCCESS,
+  USER_FETCH_ERROR,
+  USER_FETCH_REQUESTED,
+  USER_FETCH_SUCCESS,
   USER_LOGOUT_ERROR,
   USER_LOGOUT_SUCCESS,
 } from '../actions/user/actions';
@@ -50,6 +53,33 @@ export default (state = initialState, action) => {
         ...state,
         isAuthenticated: true,
         isLoading: false,
+      };
+    case USER_FETCH_REQUESTED:
+      return {
+        ...state,
+        user: {
+          error: false,
+          loading: true,
+          success: {},
+        },
+      };
+    case USER_FETCH_ERROR:
+      return {
+        ...state,
+        user: {
+          error: true,
+          loading: false,
+          success: {},
+        },
+      };
+    case USER_FETCH_SUCCESS:
+      return {
+        ...state,
+        user: {
+          error: false,
+          loading: false,
+          success: action.payload,
+        },
       };
     case USER_LOGOUT_ERROR:
       return {
