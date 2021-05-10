@@ -24,7 +24,7 @@
     "json-loader": "^0.5.7",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.2.11",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "moment": "^2.24.0",
     "next": "latest",
     "next-cookies": "^1.1.2",
